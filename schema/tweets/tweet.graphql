@@ -1,0 +1,10 @@
+type Tweet {
+  id Id!
+  author User!
+  body String!
+
+  likers [User!]
+
+  createdAt Int!
+  updatedAt Int!
+}

@@ -1,0 +1,1 @@
+# CGA example output
