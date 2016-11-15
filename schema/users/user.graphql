@@ -2,14 +2,14 @@ type User {
   id: ID!
   username: String!
 
-  tweets(first: Integer, limit: Integer): [Tweet!]
-  liked(first: Integer, limit: Integer): [Tweet!]
+  tweets(lastCreatedAt: Integer, limit: Integer): [Tweet!]
+  liked(lastCreatedAt: Integer, limit: Integer): [Tweet!]
 
-  following(first: Integer, limit: Integer): [User!]
-  followers(first: Integer, limit: Integer): [User!]
+  following(lastCreatedAt: Integer, limit: Integer): [User!]
+  followers(lastCreatedAt: Integer, limit: Integer): [User!]
 
-  createdAt: Int!
-  updatedAt: Int!
+  createdAt: Integer!
+  updatedAt: Integer!
 }
 
 # We are "re-opening" the root types to add these fields
