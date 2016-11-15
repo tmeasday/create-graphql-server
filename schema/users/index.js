@@ -2,38 +2,37 @@ export schema from 'user.graphql';
 
 export const resolvers = {
   User: {
-    tweets(user, args, ctx) {
-      return ctx.connectors.Tweets.find({ ownerId: user.id });
+    tweets(user, { offset, limit }, { Tweets }) {
+      return Tweets.findByOwner(user.id, { offset, limit });
     },
-    liked(user, args, ctx) {
-      return ctx.connectors.Tweets.find({ id: { $in: user.liked } });
+    liked(user, { offset, limit }, { Tweets }) {
+      return Tweets.liked(liked, { offset, limit });
     },
-    followers(user, args, ctx) {
-      return ctx.connectors.Users.find({ following: user.id });
+    followers(user, { offset, limit }, { Users }) {
+      return Users.following(user, { offset, limit });
     },
-    followers(user, args, ctx) {
-      return ctx.connectors.Users.find({ id: { $in: user.following } });
+    followers(user, { offset, limit }, { Users }) {
+      return Users.followers(user, { offset, limit });
     },
   },
   Query: {
-    user(_, args, ctx) {
-      return ctx.connectors.Users.find({ id: args.id });
+    user(root, { id }, { Users }) {
+      return Users.findOneById(id);
     },
   },
   Mutation: {
-    createUser(_, args, ctx) {
-      const id = ctx.connectors.Users.insert({ username: args.username });
-      return resolvers.Query.user(_, { id }, ctx);
+    createUser(root, { username }, { Users }) {
+      const id = Users.insert({ username });
+      return Users.findOneById(id);
     },
-    updateUser(_, args, ctx) {
-      return ctx.connectors.Users.update({ id: args.id }, {
-        $set: { username: args.username } }
-      })).then(() => {
-        return resolvers.Query.user(_, { id: args.id }, ctx);
-      })
+    updateUser(root, { id, input }, { Users }) {
+      return Users.updateById(id, { $set: input })
+        .then(() => {
+          return Users.findOneById(id);
+        });
     },
-    removeUser(_, args, ctx) {
-      return ctx.connectors.Users.remove({ id: args.id });
+    removeUser(root, { id }, { Users }) {
+      return Users.removeById(id);
     },
   },
   Subscription: {

@@ -1,12 +1,12 @@
 type User {
-  id: Id!
+  id: ID!
   username: String!
 
-  tweets: [Tweet!]
-  liked: [Tweet!]
+  tweets(first: Integer, limit: Integer): [Tweet!]
+  liked(first: Integer, limit: Integer): [Tweet!]
 
-  following: [User!]
-  followers: [User!]
+  following(first: Integer, limit: Integer): [User!]
+  followers(first: Integer, limit: Integer): [User!]
 
   createdAt: Int!
   updatedAt: Int!
@@ -14,29 +14,35 @@ type User {
 
 # We are "re-opening" the root types to add these fields
 type Query {
-  user(id: Id!): User
+  user(id: ID!): User
+}
+
+input UserInput {
+  username: String!
+  bio: String
 }
 
 type Mutation {
-  createUser(username: String!): User
-  updateUser(id: Id!, username: String!): User
-  removeUser(id: Id!): Boolean
+  createUser(input: UserInput!): User
+  updateUser(id: ID!, input: UserInput!): User
+  removeUser(id: ID!): Boolean
 }
 
 type Subscription {
   userCreated: User
   userUpdated: User
-  userRemoved: Id
+  userRemoved: ID
 }
 
 # This may have been generated from input that looks like
-# (I'm not sure of the `has_X` nomenculature for mongo relations)
-# type User @timestamps {
+# (I'm not sure of the `hasX` nomenculature for mongo relations)
+# type User {
 #   username String!
+#   bio String
 #
-#   tweets [Tweet!] @has_many(name: "owner")
-#   liked [Tweet!] @has_and_belongs_to_many(owned: true)
+#   tweets [Tweet!] @hasMany(as: "owner")
+#   liked [Tweet!] @hasAndBelongsToMany(owned: true)
 #
-#   following [User!] @has_and_belongs_to_many(owned: true)
-#   followers [User!] @has_and_belongs_to_many(owned: false, name: "following")
+#   following [User!] @hasAndBelongsToMany(owned: true)
+#   followers [User!] @hasAndBelongsToMany(owned: false, as: "following")
 #}
