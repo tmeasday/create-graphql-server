@@ -1,6 +1,6 @@
 import Model from './Model';
 
-export default class Users extends Model {
+export default class User extends Model {
   constructor({ db, pubsub }) {
     this._collection = db.collection("user");
     this._pubsub = pubsub;

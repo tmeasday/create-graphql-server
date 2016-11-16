@@ -41,7 +41,7 @@ Where `tweet.graphql` looked like:
 
 ```graphql
 type Tweet {
-  author User!
+  author User! @unmodifiable
   body String!
 
   likers [User!] @hasAndBelongsToMany(owned: false, as: "liked")

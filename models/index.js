@@ -1,13 +1,13 @@
 // This file initializes all our model classes on the context in a fairly
 // straightforward way:
 
-import Users from './Users';
+import User from './User';
 
 // etc
-import Tweets from './Tweets';
+import Tweet from './Tweet';
 
 export function updateContext(context) {
   const { db, pubSub } = context;
-  context.Users = new Users({ db, pubSub });
-  context.Tweets = new Tweets({ db, pubSub });
+  context.User = new User({ db, pubSub });
+  context.Tweet = new Tweet({ db, pubSub });
 }

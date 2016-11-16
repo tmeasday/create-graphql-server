@@ -1,12 +1,12 @@
 import { merge } from 'lodash';
 import { makeExecutableSchema } from 'graphql-tools';
 
-import * as tweets from './tweets';
-import * as users from './users';
+import * as tweet from './tweet';
+import * as user from './user';
 
 const executableSchema = makeExecutableSchema({
-  typeDefs: [tweets.schema, users.schema],
-  resolvers: [tweets.resolvers, users.resolvers],
+  typeDefs: [tweet.schema, user.schema],
+  resolvers: [tweet.resolvers, user.resolvers],
 });
 
 export default executableSchema;

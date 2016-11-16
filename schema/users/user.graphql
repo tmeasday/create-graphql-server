@@ -1,0 +1,48 @@
+type User {
+  id: ID!
+  username: String!
+
+  tweets(lastCreatedAt: Integer, limit: Integer): [Tweet!]
+  liked(lastCreatedAt: Integer, limit: Integer): [Tweet!]
+
+  following(lastCreatedAt: Integer, limit: Integer): [User!]
+  followers(lastCreatedAt: Integer, limit: Integer): [User!]
+
+  createdAt: Integer!
+  updatedAt: Integer!
+}
+
+# We are "re-opening" the root types to add these fields
+type Query {
+  user(id: ID!): User
+}
+
+input UserInput {
+  username: String!
+  bio: String
+}
+
+type Mutation {
+  createUser(input: UserInput!): User
+  updateUser(id: ID!, input: UserInput!): User
+  removeUser(id: ID!): Boolean
+}
+
+type Subscription {
+  userCreated: User
+  userUpdated: User
+  userRemoved: ID
+}
+
+# This may have been generated from input that looks like
+# (I'm not sure of the `hasX` nomenculature for mongo relations)
+# type User {
+#   username String!
+#   bio String
+#
+#   tweets [Tweet!] @hasMany(as: "author")
+#   liked [Tweet!] @hasAndBelongsToMany(owned: true)
+#
+#   following [User!] @hasAndBelongsToMany(owned: true)
+#   followers [User!] @hasAndBelongsToMany(owned: false, as: "following")
+# }

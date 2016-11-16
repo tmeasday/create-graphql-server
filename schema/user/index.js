@@ -2,37 +2,35 @@ export schema from 'user.graphql';
 
 export const resolvers = {
   User: {
-    tweets(user, { offset, limit }, { Tweets }) {
-      return Tweets.findByOwner(user.id, { offset, limit });
+    Tweet(user, { offset, limit }, { Tweet }) {
+      return Tweet.findByOwner(user.id, { offset, limit });
     },
-    liked(user, { offset, limit }, { Tweets }) {
-      return Tweets.liked(liked, { offset, limit });
+    liked(user, { offset, limit }, { Tweet }) {
+      return Tweet.liked(liked, { offset, limit });
     },
-    followers(user, { offset, limit }, { Users }) {
-      return Users.following(user, { offset, limit });
+    followers(user, { offset, limit }, { User }) {
+      return User.following(user, { offset, limit });
     },
-    followers(user, { offset, limit }, { Users }) {
-      return Users.followers(user, { offset, limit });
+    followers(user, { offset, limit }, { User }) {
+      return User.followers(user, { offset, limit });
     },
   },
   Query: {
-    user(root, { id }, { Users }) {
-      return Users.findOneById(id);
+    user(root, { id }, { User }) {
+      return User.findOneById(id);
     },
   },
   Mutation: {
-    createUser(root, { username }, { Users }) {
-      const id = Users.insert({ username });
-      return Users.findOneById(id);
+    createUser(root, { username }, { User }) {
+      const id = User.insert({ username });
+      return User.findOneById(id);
     },
-    updateUser(root, { id, input }, { Users }) {
-      return Users.updateById(id, { $set: input })
-        .then(() => {
-          return Users.findOneById(id);
-        });
+    async updateUser(root, { id, input }, { User }) {
+      await User.updateById(id, { $set: input });
+      return await User.findOneById(id);
     },
-    removeUser(root, { id }, { Users }) {
-      return Users.removeById(id);
+    removeUser(root, { id }, { User }) {
+      return User.removeById(id);
     },
   },
   Subscription: {
