@@ -1,3 +1,6 @@
+// This file initializes all our model classes on the context in a fairly
+// straightforward way:
+
 import Users from './Users';
 
 // etc
