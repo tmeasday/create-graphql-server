@@ -1,0 +1,18 @@
+type Tweet {
+  id Id!
+  author User!
+  body String!
+
+  likers [User!]
+
+  createdAt Int!
+  updatedAt Int!
+}
+
+
+# type Tweet {
+#   author User!
+#   body String!
+#
+#  likers [User!] @hasAndBelongsToMany(owned: false, as: "liked")
+# }

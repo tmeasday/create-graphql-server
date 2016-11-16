@@ -40,9 +40,9 @@ type Subscription {
 #   username String!
 #   bio String
 #
-#   tweets [Tweet!] @hasMany(as: "owner")
+#   tweets [Tweet!] @hasMany(as: "author")
 #   liked [Tweet!] @hasAndBelongsToMany(owned: true)
 #
 #   following [User!] @hasAndBelongsToMany(owned: true)
 #   followers [User!] @hasAndBelongsToMany(owned: false, as: "following")
-#}
+# }
