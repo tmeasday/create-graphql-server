@@ -12,14 +12,21 @@ export default class User {
     return this.collection.find({
       id: { $in: user.following },
       createdAt: { $gt: lastCreatedAt },
-    }, { limit });
+    }, { limit }).toArray();
   }
 
   followers(user, { lastCreatedAt, limit = 10 }) {
     return this.collection.find({
       following: user.id,
       createdAt: { $gt: lastCreatedAt },
-    }, { limit });
+    }, { limit }).toArray();
+  }
+
+  liked(tweet, { lastCreatedAt, limit = 10 }) {
+    return this.collection.find({
+      likedIds: tweet.id,
+      createdAt: { $gt: lastCreatedAt },
+    }, { limit }).toArray();
   }
 
   async insert(doc) {

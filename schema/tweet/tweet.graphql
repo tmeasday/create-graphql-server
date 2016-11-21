@@ -8,11 +8,37 @@ export const schema = `type Tweet {
 
   createdAt: Int!
   updatedAt: Int!
+}
+
+# We are "re-opening" the root types to add these fields
+type Query {
+  tweet(id: ID!): Tweet
+}
+
+input CreateTweetInput {
+  authorId: ID!
+  body: String
+}
+
+input UpdateTweetInput {
+  body: String
+}
+
+type Mutation {
+  createTweet(input: CreateTweetInput!): Tweet
+  updateTweet(id: ID!, input: UpdateTweetInput!): Tweet
+  removeTweet(id: ID!): Boolean
+}
+
+type Subscription {
+  tweetCreated: User
+  tweetUpdated: User
+  tweetRemoved: ID
 }`;
 
 /*
 # type Tweet {
-#   author: User!
+#   author: User! @unmodifiable
 #   body: String!
 #
 #   likers: [User!] @hasAndBelongsToMany(owned: false, as: "liked")

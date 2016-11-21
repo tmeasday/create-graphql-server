@@ -2,17 +2,17 @@ export { schema } from './user.graphql';
 
 export const resolvers = {
   User: {
-    tweets(user, { offset, limit }, { Tweet }) {
-      return Tweet.findByOwner(user.id, { offset, limit });
+    tweets(user, { lastCreatedAt, limit }, { Tweet }) {
+      return Tweet.findByAuthorId(user.id, { lastCreatedAt, limit });
     },
-    liked(user, { offset, limit }, { Tweet }) {
-      return Tweet.liked(user, { offset, limit });
+    liked(user, { lastCreatedAt, limit }, { Tweet }) {
+      return Tweet.liked(user, { lastCreatedAt, limit });
     },
-    following(user, { offset, limit }, { User }) {
-      return User.following(user, { offset, limit });
+    following(user, { lastCreatedAt, limit }, { User }) {
+      return User.following(user, { lastCreatedAt, limit });
     },
-    followers(user, { offset, limit }, { User }) {
-      return User.followers(user, { offset, limit });
+    followers(user, { lastCreatedAt, limit }, { User }) {
+      return User.followers(user, { lastCreatedAt, limit });
     },
   },
   Query: {
