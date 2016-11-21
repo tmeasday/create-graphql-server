@@ -1,15 +1,16 @@
-type User {
+// XXX: is there a way to make this work? Do we want it?
+export const schema = `type User {
   id: ID!
   username: String!
 
-  tweets(lastCreatedAt: Integer, limit: Integer): [Tweet!]
-  liked(lastCreatedAt: Integer, limit: Integer): [Tweet!]
+  tweets(lastCreatedAt: Int, limit: Int): [Tweet!]
+  liked(lastCreatedAt: Int, limit: Int): [Tweet!]
 
-  following(lastCreatedAt: Integer, limit: Integer): [User!]
-  followers(lastCreatedAt: Integer, limit: Integer): [User!]
+  following(lastCreatedAt: Int, limit: Int): [User!]
+  followers(lastCreatedAt: Int, limit: Int): [User!]
 
-  createdAt: Integer!
-  updatedAt: Integer!
+  createdAt: Int!
+  updatedAt: Int!
 }
 
 # We are "re-opening" the root types to add these fields
@@ -32,8 +33,9 @@ type Subscription {
   userCreated: User
   userUpdated: User
   userRemoved: ID
-}
+}`;
 
+/*
 # This may have been generated from input that looks like
 # (I'm not sure of the `hasX` nomenculature for mongo relations)
 # type User {
@@ -46,3 +48,4 @@ type Subscription {
 #   following [User!] @hasAndBelongsToMany(owned: true)
 #   followers [User!] @hasAndBelongsToMany(owned: false, as: "following")
 # }
+*/

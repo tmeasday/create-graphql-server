@@ -1,18 +1,20 @@
-type Tweet {
-  id Id!
-  author User!
-  body String!
+// XXX: is there a way to make this work? Do we want it?
+export const schema = `type Tweet {
+  id: ID!
+  author: User!
+  body: String!
 
-  likers [User!]
+  likers: [User!]
 
-  createdAt Int!
-  updatedAt Int!
-}
+  createdAt: Int!
+  updatedAt: Int!
+}`;
 
-
+/*
 # type Tweet {
-#   author User!
-#   body String!
+#   author: User!
+#   body: String!
 #
-#  likers [User!] @hasAndBelongsToMany(owned: false, as: "liked")
+#   likers: [User!] @hasAndBelongsToMany(owned: false, as: "liked")
 # }
+*/

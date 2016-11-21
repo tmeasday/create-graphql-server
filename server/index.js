@@ -1,24 +1,90 @@
-// Let's sketch out what this file would do.
-// You can refer to https://github.com/apollostack/GitHunt-API/blob/master/api/index.js
-// if you are interested in the details.
+import express from 'express';
+import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import bodyParser from 'body-parser';
 
-// 1. Create a schema by calling schema/index.js
+import schema from '../schema';
+import addModelsToContext from '../models';
 
-// 2. Create a pubsub channel + subscriptionManager from server/subscriptions.js
+import { pubsub, subscriptionManager } from './subscriptions';
+import connectToMongo from './mongo';
 
-// 3. Create a db connection using server/mongo.js
+// XXX: TODO
+//  - authentication
 
-// 4. Create a default context object including:
-//   i. The pubsub + db
-//   ii. Call out to models/index.js to setup the models
+const PORT = process.env.PORT || 3000;
+const WS_PORT = process.env.WS_PORT || 3001;
+const MONGO_PORT = process.env.MONGO_PORT || 3002;
 
-// 3. Create an express server
-//   i. Set up routes+middleware for authentication
-//   ii. Set it up w/ graphql-server to serve graphql over http
-//     a. use the schema, obviously
-//     b. attach a copy of the default context
-//   iii. Set up graphiql
+async function startServer() {
+  const db = await connectToMongo(MONGO_PORT);
+  const context = addModelsToContext({ db, pubsub });
 
-// 4. Create a subscriptions-transport-ws server
-//   i. Create a subscriptionManager using server/subscriptionManager.js
-//   ii. Also attach a copy of the default context
+  const app = express();
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+
+  app.use('/graphql', graphqlExpress((req) => {
+    // Get the query, the same way express-graphql does it
+    // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
+    const query = req.query.query || req.body.query;
+    if (query && query.length > 2000) {
+      // None of our app's queries are this long
+      // Probably indicates someone trying to send an overly expensive query
+      throw new Error('Query too large.');
+    }
+
+    return {
+      schema,
+      context: Object.assign({}, context),
+    };
+  }));
+
+  app.use('/graphiql', graphiqlExpress({
+    endpointURL: '/graphql',
+  }));
+
+  app.listen(PORT, () => console.log( // eslint-disable-line no-console
+    `API Server is now running on http://localhost:${PORT}`
+  ));
+
+  // WebSocket server for subscriptions
+  const websocketServer = createServer((request, response) => {
+    response.writeHead(404);
+    response.end();
+  });
+
+  websocketServer.listen(WS_PORT, () => console.log( // eslint-disable-line no-console
+    `Websocket Server is now running on http://localhost:${WS_PORT}`
+  ));
+
+  // eslint-disable-next-line
+  new SubscriptionServer(
+    {
+      subscriptionManager,
+
+      // the obSubscribe function is called for every new subscription
+      // and we use it to set the GraphQL context for this subscription
+      onSubscribe: (msg, params) => {
+        return Object.assign({}, params, {
+          context: Object.assign({}, context),
+        });
+      },
+    },
+    websocketServer
+  );
+}
+
+// eslint-disable no-console
+startServer()
+  .then(() => {
+    console.log('All systems go');
+  })
+  .catch((e) => {
+    console.error('Uncaught error in startup');
+    console.error(e);
+    console.trace(e);
+  });
+
+// setInterval(() => console.log('interval'), 10000);

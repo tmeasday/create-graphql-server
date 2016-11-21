@@ -6,8 +6,10 @@ import User from './User';
 // etc
 import Tweet from './Tweet';
 
-export function updateContext(context) {
+export default function addModelsToContext(context) {
   const { db, pubSub } = context;
-  context.User = new User({ db, pubSub });
-  context.Tweet = new Tweet({ db, pubSub });
+  return Object.assign({}, context, {
+    User: new User({ db, pubSub }),
+    // Tweet: new Tweet({ db, pubSub }),
+  });
 }

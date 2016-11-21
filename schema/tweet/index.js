@@ -1,1 +1,1 @@
-// This file would be pretty similar to schema/user/index.js
+export { schema } from './tweet.graphql';

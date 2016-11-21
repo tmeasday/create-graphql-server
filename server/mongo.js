@@ -1,4 +1,18 @@
-// This file would simply startup + connect to mongo using mongo-prebuilt
+import mongoPrebuilt from 'mongodb-prebuilt';
+import { MongoClient } from 'mongodb';
+import denodeify from 'denodeify';
 
-// In theory it could later manage the mongo process ala
-//   https://github.com/meteor/meteor/blob/devel/tools/runners/run-mongo.js
+export default async function connectToMongo(port) {
+  const mongoUrl = `mongodb://localhost:${port}/database`;
+
+  // This prebuilt guy is pretty jankeriffic, we can't await because it doesn't
+  // call the callback when it succeeds
+  denodeify(mongoPrebuilt.start_server.bind(mongoPrebuilt))({
+    args: {
+      port,
+      dbpath: '/tmp/db',
+    },
+  });
+
+  return await MongoClient.connect(mongoUrl);
+};
