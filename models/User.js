@@ -8,21 +8,21 @@ export default class User {
     return this.collection.findOne({ id });
   }
 
-  following(user, { lastCreatedAt, limit = 10 }) {
+  following(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
-      id: { $in: user.following },
+      id: { $in: user.followingIds || [] },
+      createdAt: { $gt: lastCreatedAt },
+    }).limit(limit).toArray();
+  }
+
+  followers(user, { lastCreatedAt = 0, limit = 10 }) {
+    return this.collection.find({
+      followingIds: user.id,
       createdAt: { $gt: lastCreatedAt },
     }, { limit }).toArray();
   }
 
-  followers(user, { lastCreatedAt, limit = 10 }) {
-    return this.collection.find({
-      following: user.id,
-      createdAt: { $gt: lastCreatedAt },
-    }, { limit }).toArray();
-  }
-
-  liked(tweet, { lastCreatedAt, limit = 10 }) {
+  liked(tweet, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
       likedIds: tweet.id,
       createdAt: { $gt: lastCreatedAt },
@@ -30,13 +30,22 @@ export default class User {
   }
 
   async insert(doc) {
-    const ret = await this.collection.insert(doc);
+    const ret = await this.collection.insert(Object.assign({}, doc, {
+      // XXX: proper id generation strategy
+      id: await this.collection.find().count(),
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    }));
     this.pubsub.publish('userInserted', doc);
     return ret;
   }
 
-  async updateById(id, modifier) {
-    const ret = await this.collection.update({ id }, modifier);
+  async updateById(id, doc) {
+    const ret = await this.collection.update({ id }, {
+      $set: Object.assign({}, doc, {
+        updatedAt: Date.now(),
+      }),
+    });
     this.pubsub.publish('userUpdated', await this.findOneById(id));
     return ret;
   }

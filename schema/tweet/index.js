@@ -3,7 +3,7 @@ export { schema } from './tweet.graphql';
 export const resolvers = {
   Tweet: {
     author(tweet, args, { User }) {
-      return User.findById(tweet.authorId);
+      return User.findOneById(tweet.authorId);
     },
     likers(tweet, { lastCreatedAt, limit }, { User }) {
       return User.likers(tweet, { lastCreatedAt, limit });
@@ -11,20 +11,20 @@ export const resolvers = {
   },
   Query: {
     tweet(root, { id }, { Tweet }) {
-      return Tweet.findOneById(parseInt(id, 10));
+      return Tweet.findOneById(id);
     },
   },
   Mutation: {
-    createTweet(root, { authorId, body }, { Tweet }) {
-      const id = Tweet.insert({ authorId, body });
-      return Tweet.findOneById(parseInt(id, 10));
+    async createTweet(root, { input: { authorId, body } }, { Tweet }) {
+      const id = await Tweet.insert({ authorId, body });
+      return await Tweet.findOneById(id);
     },
     async updateTweet(root, { id, input }, { Tweet }) {
-      await Tweet.updateById(parseInt(id, 10), { $set: input });
+      await Tweet.updateById(id, input);
       return await Tweet.findOneById(id);
     },
     removeTweet(root, { id }, { Tweet }) {
-      return Tweet.removeById(parseInt(id, 10));
+      return Tweet.removeById(id);
     },
   },
   Subscription: {

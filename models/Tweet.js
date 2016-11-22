@@ -8,14 +8,14 @@ export default class Tweet {
     return this.collection.findOne({ id });
   }
 
-  findByAuthorId(authorId, { lastCreatedAt, limit = 10 }) {
+  findByAuthorId(authorId, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
       authorId,
       createdAt: { $gt: lastCreatedAt },
     }, { limit }).toArray();
   }
 
-  liked(user, { lastCreatedAt, limit = 10 }) {
+  liked(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
       id: user.likedIds,
       createdAt: { $gt: lastCreatedAt },
@@ -23,13 +23,23 @@ export default class Tweet {
   }
 
   async insert(doc) {
-    const ret = await this.collection.insert(doc);
+    // XXX: proper id generation strategy
+    const id = (await this.collection.find().count()).toString();
+    await this.collection.insert(Object.assign({}, doc, {
+      id,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    }));
     this.pubsub.publish('tweetInserted', doc);
-    return ret;
+    return id;
   }
 
-  async updateById(id, modifier) {
-    const ret = await this.collection.update({ id }, modifier);
+  async updateById(id, doc) {
+    const ret = await this.collection.update({ id }, {
+      $set: Object.assign({}, doc, {
+        updatedAt: Date.now(),
+      }),
+    });
     this.pubsub.publish('tweetUpdated', await this.findOneById(id));
     return ret;
   }

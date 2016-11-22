@@ -10,7 +10,7 @@ export default async function connectToMongo(port) {
   denodeify(mongoPrebuilt.start_server.bind(mongoPrebuilt))({
     args: {
       port,
-      dbpath: '/tmp/db',
+      dbpath: './db',
     },
   });
 

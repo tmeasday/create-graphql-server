@@ -17,20 +17,20 @@ export const resolvers = {
   },
   Query: {
     user(root, { id }, { User }) {
-      return User.findOneById(parseInt(id, 10));
+      return User.findOneById(id);
     },
   },
   Mutation: {
     createUser(root, { username }, { User }) {
       const id = User.insert({ username });
-      return User.findOneById(parseInt(id, 10));
+      return User.findOneById(id);
     },
     async updateUser(root, { id, input }, { User }) {
-      await User.updateById(parseInt(id, 10), { $set: input });
+      await User.updateById(id, input);
       return await User.findOneById(id);
     },
     removeUser(root, { id }, { User }) {
-      return User.removeById(parseInt(id, 10));
+      return User.removeById(id);
     },
   },
   Subscription: {
