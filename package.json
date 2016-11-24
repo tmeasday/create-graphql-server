@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Example generator output for Apollo",
   "scripts": {
-    "start": "nodemon server/index.js --watch server --watch schema --watch models --exec babel-node"
+    "start": "nodemon server/index.js --watch server --watch schema --watch models --exec babel-node",
+    "test": "mocha --require babel-register"
   },
   "private": true,
   "author": "",
@@ -17,15 +18,16 @@
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-2": "6.17.0",
     "babel-register": "6.16.3",
-    "chai": "3.5.0",
+    "chai": "^3.5.0",
     "eslint": "3.8.1",
     "eslint-config-airbnb": "12.0.0",
     "eslint-plugin-babel": "3.3.0",
     "eslint-plugin-import": "1.16.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.4.1",
-    "mocha": "3.1.2",
+    "mocha": "^3.1.2",
     "mongodb-prebuilt": "^5.0.7",
+    "node-fetch": "^1.6.3",
     "nodemon": "1.11.0"
   },
   "dependencies": {
