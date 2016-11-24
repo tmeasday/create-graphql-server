@@ -4,10 +4,10 @@ export const schema = `type Tweet {
   author: User!
   body: String!
 
-  likers: [User!]
+  likers(lastCreatedAt: Float, limit: Int): [User!]
 
-  createdAt: Int!
-  updatedAt: Int!
+  createdAt: Float!
+  updatedAt: Float!
 }
 
 # We are "re-opening" the root types to add these fields

@@ -3,14 +3,14 @@ export const schema = `type User {
   id: ID!
   username: String!
 
-  tweets(lastCreatedAt: Int, limit: Int): [Tweet!]
-  liked(lastCreatedAt: Int, limit: Int): [Tweet!]
+  tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
+  liked(lastCreatedAt: Float, limit: Int): [Tweet!]
 
-  following(lastCreatedAt: Int, limit: Int): [User!]
-  followers(lastCreatedAt: Int, limit: Int): [User!]
+  following(lastCreatedAt: Float, limit: Int): [User!]
+  followers(lastCreatedAt: Float, limit: Int): [User!]
 
-  createdAt: Int!
-  updatedAt: Int!
+  createdAt: Float!
+  updatedAt: Float!
 }
 
 # We are "re-opening" the root types to add these fields

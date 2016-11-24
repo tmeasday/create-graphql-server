@@ -12,14 +12,14 @@ export default class Tweet {
     return this.collection.find({
       authorId,
       createdAt: { $gt: lastCreatedAt },
-    }, { limit }).toArray();
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   liked(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
       id: { $in: user.likedIds },
       createdAt: { $gt: lastCreatedAt },
-    }, { limit }).toArray();
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   async insert(doc) {

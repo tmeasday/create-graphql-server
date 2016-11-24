@@ -15,6 +15,14 @@ function sendQuery({ query }) {
   });
 }
 
+function sendQueryAndExpect(query, expectedResult) {
+  return sendQuery({ query })
+    .then((result) => {
+      assert.isDefined(result.data);
+      assert.deepEqual(result.data, expectedResult);
+    });
+}
+
 describe('environment', () => {
   it('graphql server should be available', () => {
     const query = `{
@@ -33,11 +41,50 @@ describe('environment', () => {
 describe('queries', () => {
   function itQueries(name, query, expectedResult) {
     it(name, () => {
-      return sendQuery({ query })
+      sendQueryAndExpect(query, expectedResult);
+    });
+  }
+
+  function itPaginates(rootField, rootFieldArg, fieldName, subfield, expectedItems) {
+    it(`paginates ${fieldName}`, () => {
+      function constructQuery(args = '') {
+        return `{
+          ${rootField}${rootFieldArg} {
+            ${fieldName}${args} {
+              ${subfield}
+              createdAt
+            }
+          }
+        }`;
+      }
+      function checkResult(result, offset, length) {
+        assert.isDefined(result.data);
+        const items = result.data[rootField][fieldName];
+        assert.equal(items.length, length);
+        for (let i = 0; i < length; i += 1) {
+          assert.equal(items[i][subfield], expectedItems[i + offset][subfield]);
+        }
+        return items;
+      }
+
+      let lastCreatedAt;
+      return sendQuery({ query: constructQuery() })
         .then((result) => {
-          assert.isDefined(result.data);
-          assert.deepEqual(result.data, expectedResult);
-        });
+          const items = checkResult(result, 0, expectedItems.length);
+          lastCreatedAt = items[0].createdAt;
+        })
+        .then(() => sendQuery({ query: constructQuery('(limit: 1)') }))
+        .then(result => checkResult(result, 0, 1))
+        .then(() => sendQuery({
+          query: constructQuery(`(lastCreatedAt: ${lastCreatedAt})`),
+        }))
+        .then(result => checkResult(result, 1, expectedItems.length - 1))
+        .then(() => sendQuery({
+          query: constructQuery(`(lastCreatedAt: ${lastCreatedAt}, limit: 1)`),
+        }))
+        .then(result =>
+          checkResult(result, 1, Math.min(expectedItems.length - 1, 1))
+        );
     });
   }
 
@@ -47,16 +94,36 @@ describe('queries', () => {
       { user: { id: '1', username: 'tmeasday' } }
     );
 
-    itQueries('relations',
-      '{ user(id: 1) { followers { username } following { username } } }',
-      { user: {
-        followers: [{ username: 'stubailo' }],
-        following: [{ username: 'stubailo' }, { username: 'lacker' }],
-      } }
+    itPaginates('user', '(id: 1)', 'followers', 'username',
+      [{ username: 'stubailo' }]
     );
 
-    // itQueries('user tweets')
-    // itQueries('basic pagination')
-    // itQueries('pagination w/ startDate')
+    itPaginates('user', '(id: 1)', 'following', 'username',
+      [{ username: 'stubailo' }, { username: 'lacker' }]
+    );
+
+    itPaginates('user', '(id: 1)', 'tweets', 'id',
+      [{ id: '0' }, { id: '1' }]
+    );
+
+    itPaginates('user', '(id: 1)', 'liked', 'id',
+      [{ id: '2' }, { id: '3' }, { id: '4' }]
+    );
+  });
+
+  describe('tweets', () => {
+    itQueries('basic data',
+      '{ tweet(id: 1) { id, body } }',
+      { tweet: { id: '1', body: 'Good times bringing Apollo Optics to Rails over the last few months with @tmeasday @chollier @cjoudrey @rmosolgo and others!' } }
+    );
+
+    itQueries('author relation',
+      '{ tweet(id: 1) { author { username } } }',
+      { tweet: { author: { username: 'tmeasday' } } }
+    );
+
+    itPaginates('tweet', '(id: 3)', 'likers', 'username',
+      [{ username: 'tmeasday' }, { username: 'lacker' }]
+    );
   });
 });

@@ -38,6 +38,8 @@ async function startServer() {
     return {
       schema,
       context: Object.assign({}, context),
+      debug: true,
+      formatError(e) { console.log(e) },
     };
   }));
 
