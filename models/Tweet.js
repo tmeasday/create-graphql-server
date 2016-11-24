@@ -17,7 +17,7 @@ export default class Tweet {
 
   liked(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
-      id: user.likedIds,
+      id: { $in: user.likedIds },
       createdAt: { $gt: lastCreatedAt },
     }, { limit }).toArray();
   }

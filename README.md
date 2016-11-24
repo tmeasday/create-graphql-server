@@ -65,3 +65,22 @@ The resolvers (such as `schema/user/index.js` for the fields added are pretty st
 We also generate model classes for each type (such as `models/User.js`).
 
 Ideally we would use an established library to build the relation functions but I'm not sure there's much out there so at this point we're leaning toward just building each relation (such as `user.following()`) by "hand".
+
+
+## Development
+
+### Seeding database for tests
+
+Start the server, then run
+```bash
+mongoimport --host 127.0.0.1:3002 --db database --collection user seeds/user.json
+mongoimport --host 127.0.0.1:3002 --db database --collection tweet seeds/tweet.json
+```
+
+### Creating seed database
+
+Start the server, then run
+```bash
+mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/user.json
+mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/tweet.json
+```
