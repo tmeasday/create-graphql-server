@@ -4,8 +4,7 @@ import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 
-import schema from '../schema';
-import addModelsToContext from '../models';
+import { schema, addModelsToContext } from '../generate';
 
 import { pubsub, subscriptionManager } from './subscriptions';
 import connectToMongo from './mongo';
