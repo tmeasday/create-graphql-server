@@ -69,15 +69,15 @@ Ideally we would use an established library to build the relation functions but 
 
 ## Development
 
-### Seeding database for tests
+### Running tests
 
-Start the server, then run
-```bash
-mongoimport --host 127.0.0.1:3002 --db database --collection user seeds/user.json
-mongoimport --host 127.0.0.1:3002 --db database --collection tweet seeds/tweet.json
-```
+These tests are intended as a rudimentary set of end-to-end tests. If we want to keep them we should figure out a proper testing setup.
+
+You need to start the standard server with `npm start`, then run `npm test`.
 
 ### Creating seed database
+
+If you need to change the fixtures for the test db
 
 Start the server, then run
 ```bash

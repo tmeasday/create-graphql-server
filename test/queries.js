@@ -55,27 +55,27 @@ describe('queries', () => {
 
   describe('users', () => {
     itQueries('basic data',
-      '{ user(id: 1) { id, username, bio } }',
+      '{ user(id: 0) { id, username, bio } }',
       { user: {
-        id: '1',
+        id: '0',
         username: 'tmeasday',
         bio: 'I build things with @percolatestudio. Author of @discovermeteor. Exploring how to improve user experience through technology, design and performance.',
       } }
     );
 
-    itPaginates('user', '(id: 1)', 'followers', 'username',
+    itPaginates('user', '(id: 0)', 'followers', 'username',
       [{ username: 'stubailo' }]
     );
 
-    itPaginates('user', '(id: 1)', 'following', 'username',
+    itPaginates('user', '(id: 0)', 'following', 'username',
       [{ username: 'stubailo' }, { username: 'lacker' }]
     );
 
-    itPaginates('user', '(id: 1)', 'tweets', 'id',
+    itPaginates('user', '(id: 0)', 'tweets', 'id',
       [{ id: '0' }, { id: '1' }]
     );
 
-    itPaginates('user', '(id: 1)', 'liked', 'id',
+    itPaginates('user', '(id: 0)', 'liked', 'id',
       [{ id: '2' }, { id: '3' }, { id: '4' }]
     );
   });

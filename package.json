@@ -4,7 +4,8 @@
   "description": "Example generator output for Apollo",
   "scripts": {
     "start": "nodemon server/index.js --watch server --watch schema --watch models --exec babel-node",
-    "test": "mocha --require babel-register"
+    "testonly": "mocha --require babel-register",
+    "test": "./scripts/run-tests.sh"
   },
   "private": true,
   "author": "",
