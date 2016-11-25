@@ -39,7 +39,6 @@ async function startServer() {
       schema,
       context: Object.assign({}, context),
       debug: true,
-      formatError(e) { console.log(e) },
     };
   }));
 
@@ -78,7 +77,7 @@ async function startServer() {
   );
 }
 
-// eslint-disable no-console
+/* eslint-disable no-console */
 startServer()
   .then(() => {
     console.log('All systems go');
@@ -88,5 +87,3 @@ startServer()
     console.error(e);
     console.trace(e);
   });
-
-// setInterval(() => console.log('interval'), 10000);
