@@ -25,12 +25,13 @@ export default class Tweet {
   async insert(doc) {
     // XXX: proper id generation strategy
     const id = (await this.collection.find().count()).toString();
-    await this.collection.insert(Object.assign({}, doc, {
+    const docToInsert = Object.assign({}, doc, {
       id,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-    }));
-    this.pubsub.publish('tweetInserted', doc);
+    });
+    await this.collection.insert(docToInsert);
+    this.pubsub.publish('tweetInserted', docToInsert);
     return id;
   }
 

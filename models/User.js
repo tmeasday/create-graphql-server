@@ -30,14 +30,16 @@ export default class User {
   }
 
   async insert(doc) {
-    const ret = await this.collection.insert(Object.assign({}, doc, {
-      // XXX: proper id generation strategy
-      id: await this.collection.find().count(),
+    // XXX: proper id generation strategy
+    const id = (await this.collection.find().count()).toString();
+    const docToInsert = Object.assign({}, doc, {
+      id,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-    }));
-    this.pubsub.publish('userInserted', doc);
-    return ret;
+    });
+    await this.collection.insert(docToInsert);
+    this.pubsub.publish('userInserted', docToInsert);
+    return id;
   }
 
   async updateById(id, doc) {

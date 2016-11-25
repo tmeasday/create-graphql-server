@@ -2,6 +2,7 @@
 export const schema = `type User {
   id: ID!
   username: String!
+  bio: String
 
   tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
   liked(lastCreatedAt: Float, limit: Int): [Tweet!]

@@ -21,8 +21,8 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createUser(root, { username }, { User }) {
-      const id = User.insert({ username });
+    async createUser(root, { input }, { User }) {
+      const id = await User.insert(input);
       return User.findOneById(id);
     },
     async updateUser(root, { id, input }, { User }) {
