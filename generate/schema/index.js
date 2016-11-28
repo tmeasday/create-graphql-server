@@ -90,10 +90,15 @@ export default function generateSchema(inputSchema) {
   const type = outputSchema.definitions[0];
   const typeName = type.name.value;
 
-  const inputFields = [];
+  const createInputFields = [];
+  const updateInputFields = [];
   type.fields.forEach((field) => {
+    let unmodifiable = false;
     field.directives.forEach((directive) => {
       const directiveGenerator = directiveGenerators[directive.name.value];
+      if (directive.name.value === 'unmodifiable') {
+        unmodifiable = true;
+      }
       if (directiveGenerator) {
         directiveGenerator(type, field, directive.arguments);
       }
@@ -109,10 +114,16 @@ export default function generateSchema(inputSchema) {
     }
 
     if (possibleInputType.kind === 'NamedType') {
+      let inputField;
       if (SCALAR_TYPE_NAMES.includes(possibleInputType.name.value)) {
-        inputFields.push(field);
+        inputField = field;
       } else {
-        inputFields.push(buildField(`${field.name.value}Id`, [], `ID${inputTypeModifier}`));
+        inputField = buildField(`${field.name.value}Id`, [], `ID${inputTypeModifier}`);
+      }
+
+      createInputFields.push(inputField);
+      if (!unmodifiable) {
+        updateInputFields.push(inputField);
       }
     }
 
@@ -126,21 +137,26 @@ export default function generateSchema(inputSchema) {
   const queryField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
   outputSchema.definitions.push(buildTypeDefinition('Query', [queryField]));
 
-  const inputTypeName = `${typeName}Input`;
+  const createInputTypeName = `Create${typeName}Input`;
   outputSchema.definitions.push(
-    buildTypeDefinition(inputTypeName, inputFields, 'InputObjectTypeDefinition')
+    buildTypeDefinition(createInputTypeName, createInputFields, 'InputObjectTypeDefinition')
+  );
+
+  const updateInputTypeName = `Update${typeName}Input`;
+  outputSchema.definitions.push(
+    buildTypeDefinition(updateInputTypeName, updateInputFields, 'InputObjectTypeDefinition')
   );
 
   // Create update input type if readonly fields
 
   outputSchema.definitions.push(buildTypeDefinition('Mutation', [
     buildField(`create${typeName}`, [
-      buildArgument('input', `${inputTypeName}!`),
+      buildArgument('input', `${createInputTypeName}!`),
     ], typeName),
 
     buildField(`update${typeName}`, [
       idArgument(),
-      buildArgument('input', `${inputTypeName}!`),
+      buildArgument('input', `${updateInputTypeName}!`),
     ], typeName),
 
     buildField(`remove${typeName}`, [idArgument()], 'Boolean'),

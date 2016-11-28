@@ -40,14 +40,19 @@ describe('generateSchema', () => {
           user(id: ID!): User
         }
 
-        input UserInput {
+        input CreateUserInput {
+          username: String!
+          bio: String
+        }
+
+        input UpdateUserInput {
           username: String!
           bio: String
         }
 
         type Mutation {
-          createUser(input: UserInput!): User
-          updateUser(id: ID!, input: UserInput!): User
+          createUser(input: CreateUserInput!): User
+          updateUser(id: ID!, input: UpdateUserInput!): User
           removeUser(id: ID!): Boolean
         }
 
@@ -55,6 +60,57 @@ describe('generateSchema', () => {
           userCreated: User
           userUpdated: User
           userRemoved: ID
+        }
+      `);
+
+      assert.equal(output, expected);
+    });
+  });
+
+  describe('with tweet test file', () => {
+    const input = readInput('./input/tweet.graphql');
+
+    it('generates correct graphql', () => {
+      const schema = generateSchema(input);
+      const output = normalize(print(schema));
+
+      const expected = normalize(`
+        type Tweet {
+          id: ID!
+          author: User!
+          body: String!
+
+          likers(lastCreatedAt: Float, limit: Int): [User!]
+
+          createdAt: Float!
+          updatedAt: Float!
+        }
+
+        # We are "re-opening" the root types to add these fields
+        type Query {
+          tweet(id: ID!): Tweet
+        }
+
+        input CreateTweetInput {
+          authorId: ID!
+          body: String!
+        }
+
+        input UpdateTweetInput {
+          # XXX: should this be required?
+          body: String!
+        }
+
+        type Mutation {
+          createTweet(input: CreateTweetInput!): Tweet
+          updateTweet(id: ID!, input: UpdateTweetInput!): Tweet
+          removeTweet(id: ID!): Boolean
+        }
+
+        type Subscription {
+          tweetCreated: Tweet
+          tweetUpdated: Tweet
+          tweetRemoved: ID
         }
       `);
 
