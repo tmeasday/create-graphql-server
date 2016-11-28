@@ -1,5 +1,16 @@
-export default function generateResolvers(ast) {
-  return function X() {
-    console.log('generating resolvers');
-  };
+export default function generateResolvers(inputSchema, outputSchema) {
+  const resolvers = {};
+
+  outputSchema.definitions.forEach((definition) => {
+    if (definition.kind === 'ObjectTypeDefinition') {
+      resolvers[definition.name.value] = {};
+      definition.fields.forEach((field) => {
+        resolvers[definition.name.value][field.name.value] = () => {
+          return {};
+        };
+      });
+    }
+  });
+
+  return resolvers;
 }
