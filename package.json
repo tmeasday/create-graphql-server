@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Example generator output for Apollo",
   "scripts": {
-    "start": "nodemon server/index.js --watch server --watch schema --watch models --exec babel-node",
+    "start": "nodemon server/index.js --watch generate --exec babel-node",
     "testonly": "mocha --require babel-register",
     "test": "./scripts/run-tests.sh"
   },
@@ -44,6 +44,7 @@
     "graphql-subscriptions": "0.2.0",
     "graphql-tools": "0.7.2",
     "lodash": "4.16.4",
+    "lodash.clonedeep": "^4.5.0",
     "mongodb": "^2.2.11",
     "request-promise": "4.1.1",
     "subscriptions-transport-ws": "0.2.6"

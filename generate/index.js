@@ -4,23 +4,41 @@
 import readInput from './read';
 
 import generateSchema from './schema';
+import generateResolvers from './resolvers';
 import generateModel from './model';
 
-const input = {
-  user: readInput('./input/user.graphql'),
-  tweet: readInput('./input/tweet.graphql'),
-};
+// XXX: read this in obviously
+const TYPES = ['user', 'tweet'];
 
+const schemas = {};
+const resolvers = {};
+const models = {};
 
-export const schema = generateSchema(input);
+TYPES.forEach((type) => {
+  const inputSchema = readInput(`./input/${type}.graphql`);
 
-const User = generateModel(input.user);
-const Tweet = generateModel(input.tweet);
+  schemas[type] = generateSchema(inputSchema);
+  resolvers[type] = generateResolvers(inputSchema);
+  models[type] = generateModel(inputSchema);
+});
 
+// We should generate / eval this code
+import { makeExecutableSchema } from 'graphql-tools';
+import { print } from 'graphql';
+
+Object.values(schemas).map(print).map(console.log.bind(console));
+export const schema = makeExecutableSchema({
+  typeDefs: Object.values(schemas).map(print).concat('type Query { user: User, tweet: Tweet }'),
+  resolvers: {},
+});
+
+// We should generate / eval this code too
 export function addModelsToContext(context) {
   const { db, pubsub } = context;
-  return Object.assign({}, context, {
-    User: new User({ db, pubsub }),
-    Tweet: new Tweet({ db, pubsub }),
+
+  const newContext = Object.assign({}, context);
+  TYPES.forEach((type) => {
+    newContext[type] = new models[type]({ db, pubsub });
   });
+  return newContext;
 }
