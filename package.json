@@ -37,6 +37,7 @@
     "dataloader": "1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",
+    "espree": "^3.3.2",
     "express": "4.14.0",
     "express-session": "1.14.1",
     "graphql": "0.7.2",
@@ -46,6 +47,7 @@
     "lodash": "4.16.4",
     "lodash.clonedeep": "^4.5.0",
     "mongodb": "^2.2.11",
+    "recast": "^0.11.18",
     "request-promise": "4.1.1",
     "subscriptions-transport-ws": "0.2.6"
   }

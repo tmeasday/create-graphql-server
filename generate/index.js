@@ -22,10 +22,17 @@ TYPES.forEach((type) => {
   modelsByType[type] = generateModel(inputSchema);
 });
 
-
-// We would write this out to a file using `print`
 import { print } from 'graphql';
 const schemas = Object.values(schemasByType).map(print);
+
+function stringToObject(str) {
+  // XXX: todo
+  return executeInContext(str);
+}
+const resolvers = Object.values(resolversByType).map(stringToObject);
+
+// Everything above here is what we would generate and write to disk
+// Below here is just code to get it running
 
 // We would also write resolvers/models out
 
@@ -34,10 +41,10 @@ const schemas = Object.values(schemasByType).map(print);
 import { makeExecutableSchema } from 'graphql-tools';
 
 // We should make makeExecutableSchema/graphql-tools do this for us
-const resolvers = {};
-Object.values(resolversByType).forEach((resolverSet) => {
+const rootResolvers = {};
+resolvers.forEach((resolverSet) => {
   Object.keys(resolverSet).forEach((key) => {
-    resolvers[key] = Object.assign(resolvers[key] || {}, resolverSet[key]);
+    rootResolvers[key] = Object.assign(rootResolvers[key] || {}, resolverSet[key]);
   });
 });
 
@@ -59,7 +66,7 @@ export const schema = makeExecutableSchema({
   // XXX: a hack here, the root types in `rootSchema` will override the
   // constitutent parts defined in the sub-schemas
   typeDefs: schemas.concat(rootSchema),
-  resolvers,
+  resolvers: rootResolvers,
 });
 
 // We should generate / eval this code too
