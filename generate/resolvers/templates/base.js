@@ -9,17 +9,17 @@ export const resolvers = {
     },
   },
   Mutation: {
-    // async createTypeName(root, { input }, { TypeName }) {
-    //   const id = await TypeName.insert(input);
-    //   return TypeName.findOneById(id);
-    // },
-    // async updateTypeName(root, { id, input }, { TypeName }) {
-    //   await TypeName.updateById(id, input);
-    //   return TypeName.findOneById(id);
-    // },
-    // removeTypeName(root, { id }, { TypeName }) {
-    //   return TypeName.removeById(id);
-    // },
+    async createTypeName(root, { input }, { TypeName }) {
+      const id = await TypeName.insert(input);
+      return TypeName.findOneById(id);
+    },
+    async updateTypeName(root, { id, input }, { TypeName }) {
+      await TypeName.updateById(id, input);
+      return TypeName.findOneById(id);
+    },
+    removeTypeName(root, { id }, { TypeName }) {
+      return TypeName.removeById(id);
+    },
   },
   Subscription: {
     typeNameCreated: typeName => typeName,

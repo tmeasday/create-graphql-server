@@ -43,17 +43,17 @@ describe('generateResolvers', () => {
             },
           },
           Mutation: {
-            // async createUser(root, { input }, { User }) {
-            //   const id = await User.insert(input);
-            //   return User.findOneById(id);
-            // },
-            // async updateUser(root, { id, input }, { User }) {
-            //   await User.updateById(id, input);
-            //   return User.findOneById(id);
-            // },
-            // removeUser(root, { id }, { User }) {
-            //   return User.removeById(id);
-            // },
+            async createUser(root, { input }, { User }) {
+              const id = await User.insert(input);
+              return User.findOneById(id);
+            },
+            async updateUser(root, { id, input }, { User }) {
+              await User.updateById(id, input);
+              return User.findOneById(id);
+            },
+            removeUser(root, { id }, { User }) {
+              return User.removeById(id);
+            },
           },
           Subscription: {
             userCreated: user => user,
@@ -92,17 +92,17 @@ describe('generateResolvers', () => {
             },
           },
           Mutation: {
-            // async createTweet(root, { input }, { Tweet }) {
-            //   const id = await Tweet.insert(input);
-            //   return Tweet.findOneById(id);
-            // },
-            // async updateTweet(root, { id, input }, { Tweet }) {
-            //   await Tweet.updateById(id, input);
-            //   return Tweet.findOneById(id);
-            // },
-            // removeTweet(root, { id }, { Tweet }) {
-            //   return Tweet.removeById(id);
-            // },
+            async createTweet(root, { input }, { Tweet }) {
+              const id = await Tweet.insert(input);
+              return Tweet.findOneById(id);
+            },
+            async updateTweet(root, { id, input }, { Tweet }) {
+              await Tweet.updateById(id, input);
+              return Tweet.findOneById(id);
+            },
+            removeTweet(root, { id }, { Tweet }) {
+              return Tweet.removeById(id);
+            },
           },
           Subscription: {
             tweetCreated: tweet => tweet,

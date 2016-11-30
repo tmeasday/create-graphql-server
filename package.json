@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "apollo-server": "0.3.2",
+    "babylon": "^6.14.1",
     "body-parser": "1.15.2",
     "dataloader": "1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",
-    "espree": "^3.3.2",
     "express": "4.14.0",
     "express-session": "1.14.1",
     "graphql": "0.7.2",

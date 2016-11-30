@@ -1,6 +1,13 @@
 import fs from 'fs';
 import { parse, print } from 'recast';
-import espree from 'espree';
+import * as babylon from 'babylon';
+
+const babylonParser = {
+  parse(code) {
+    return babylon.parse(code, { sourceType: 'module' });
+  },
+};
+
 
 function read(name) {
   return fs.readFileSync(`${__dirname}/templates/${name}.js`, 'utf8');
@@ -27,7 +34,7 @@ function templateToAst(template, replacements) {
     template
   );
 
-  return parse(source, { parser: espree });
+  return parse(source, { parser: babylonParser });
 }
 
 const generators = {
