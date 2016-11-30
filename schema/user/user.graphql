@@ -44,9 +44,9 @@ type Subscription {
 #   bio String
 #
 #   tweets [Tweet!] @hasMany(as: "author")
-#   liked [Tweet!] @hasAndBelongsToMany(owned: true)
+#   liked [Tweet!] @belongsToMany
 #
-#   following [User!] @hasAndBelongsToMany(owned: true)
-#   followers [User!] @hasAndBelongsToMany(owned: false, as: "following")
+#   following [User!] @belongsToMany
+#   followers [User!] @hasAndBelongsToMany(as: "following")
 # }
 */
