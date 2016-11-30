@@ -78,6 +78,9 @@ const directiveGenerators = {
   hasAndBelongsToMany(type, field) {
     field.arguments = paginationArguments();
   },
+  belongsToMany(type, field) {
+    field.arguments = paginationArguments();
+  },
 };
 
 export default function generateSchema(inputSchema) {

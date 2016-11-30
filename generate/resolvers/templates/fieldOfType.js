@@ -1,5 +1,5 @@
 const fieldOfType = {
-  fieldName(typeName, args, { ModelName }) {
-    return ModelName.modelMethod(modelArgument);
+  fieldName(typeName, args, { TypeName }) {
+    return TypeName.fieldName(typeName);
   },
 };

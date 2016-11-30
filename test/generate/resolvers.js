@@ -24,11 +24,11 @@ describe('generateResolvers', () => {
 
         export const resolvers = {
           User: {
-            tweets(user, { lastCreatedAt, limit }, { Tweet }) {
-              return Tweet.findByAuthorId(user.id, { lastCreatedAt, limit });
+            tweets(user, { lastCreatedAt, limit }, { User }) {
+              return User.tweets(user, { lastCreatedAt, limit });
             },
-            liked(user, { lastCreatedAt, limit }, { Tweet }) {
-              return Tweet.liked(user, { lastCreatedAt, limit });
+            liked(user, { lastCreatedAt, limit }, { User }) {
+              return User.liked(user, { lastCreatedAt, limit });
             },
             following(user, { lastCreatedAt, limit }, { User }) {
               return User.following(user, { lastCreatedAt, limit });
@@ -79,11 +79,11 @@ describe('generateResolvers', () => {
 
         export const resolvers = {
           Tweet: {
-            author(tweet, args, { User }) {
-              return User.findOneById(tweet.authorId);
+            author(tweet, args, { Tweet }) {
+              return Tweet.author(tweet);
             },
-            likers(tweet, { lastCreatedAt, limit }, { User }) {
-              return User.likers(tweet, { lastCreatedAt, limit });
+            likers(tweet, { lastCreatedAt, limit }, { Tweet }) {
+              return Tweet.likers(tweet, { lastCreatedAt, limit });
             },
           },
           Query: {

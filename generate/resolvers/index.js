@@ -37,55 +37,22 @@ function templateToAst(template, replacements) {
   return parse(source, { parser: babylonParser });
 }
 
+function generateResolver(template) {
+  return ({ TypeName, fieldName }) => {
+    const typeName = lcFirst(TypeName);
+    return templateToAst(template, { typeName, TypeName, fieldName });
+  };
+}
+
 const generators = {
   base({ typeName, TypeName }) {
     return templateToAst(templates.base, { typeName, TypeName });
   },
-  belongsTo({ typeName, fieldName, ReturnTypeName }) {
-    return templateToAst(templates.fieldOfType, {
-      typeName,
-      fieldName,
-      ModelName: ReturnTypeName,
-      modelMethod: 'findOneById',
-      modelArgument: `${typeName}.${fieldName}Id`,
-    });
-  },
-  belongsToMany({ typeName, fieldName, ReturnTypeName }) {
-    return templateToAst(templates.fieldOfType, {
-      typeName,
-      fieldName,
-      ModelName: ReturnTypeName,
-      modelMethod: 'findByIds',
-      modelArgument: `${typeName}.${fieldName}Ids`,
-    });
-  },
-  hasOne({ typeName, fieldName, ReturnTypeName }, { as }) {
-    return templateToAst(templates.fieldOfType, {
-      typeName,
-      fieldName,
-      ModelName: ReturnTypeName,
-      modelMethod: `findOneBy${ucFirst(as)}Id`,
-      modelArgument: `${typeName}.id`,
-    });
-  },
-  hasMany({ typeName, fieldName, ReturnTypeName }, { as }) {
-    return templateToAst(templates.paginatedField, {
-      typeName,
-      fieldName,
-      ModelName: ReturnTypeName,
-      modelMethod: `findBy${ucFirst(as)}Id`,
-      modelArgument: `${typeName}.id`,
-    });
-  },
-  hasAndBelongsToMany({ typeName, fieldName, ReturnTypeName }) {
-    return templateToAst(templates.paginatedField, {
-      typeName,
-      fieldName,
-      ModelName: ReturnTypeName,
-      modelMethod: fieldName,
-      modelArgument: typeName,
-    });
-  },
+  belongsTo: generateResolver(templates.fieldOfType),
+  belongsToMany: generateResolver(templates.paginatedField),
+  hasOne: generateResolver(templates.fieldOfType),
+  hasMany: generateResolver(templates.paginatedField),
+  hasAndBelongsToMany: generateResolver(templates.paginatedField),
 };
 
 const SCALAR_TYPE_NAMES = ['Int', 'Float', 'String', 'ID'];
@@ -141,12 +108,12 @@ export default function generateResolvers(inputSchema) {
     if (directive) {
       const generator = generators[directive.name.value];
       const options = argumentsToObject(directive.arguments);
-      addResolverToAst(generator({ typeName, fieldName, ReturnTypeName }, options));
+      addResolverToAst(generator({ typeName, TypeName, fieldName, ReturnTypeName }, options));
     } else {
       // XXX: chances are we'll want to change this but this works for now
       const isArrayField = field.type.kind === 'ListType';
       const generator = isArrayField ? generators.belongsToMany : generators.belongsTo;
-      addResolverToAst(generator({ typeName, fieldName, ReturnTypeName }, { as: fieldName }));
+      addResolverToAst(generator({ typeName, TypeName, fieldName, ReturnTypeName }, { as: fieldName }));
     }
   });
 

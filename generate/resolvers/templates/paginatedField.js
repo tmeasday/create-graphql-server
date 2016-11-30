@@ -1,5 +1,5 @@
 const paginatedField = {
-  fieldName(typeName, { lastCreatedAt, limit }, { ModelName }) {
-    return ModelName.modelMethod(modelArgument, { lastCreatedAt, limit });
+  fieldName(typeName, { lastCreatedAt, limit }, { TypeName }) {
+    return TypeName.fieldName(typeName, { lastCreatedAt, limit });
   },
 };
