@@ -1,23 +1,21 @@
 export default class Tweet {
-  constructor({ db, pubsub }) {
-    this.collection = db.collection('tweet');
-    this.pubsub = pubsub;
+  constructor(context) {
+    this.context = context;
+    this.collection = context.db.collection('tweet');
+    this.pubsub = context.pubsub;
   }
 
   findOneById(id) {
     return this.collection.findOne({ id });
   }
 
-  findByAuthorId(authorId, { lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
-      authorId,
-      createdAt: { $gt: lastCreatedAt },
-    }).sort({ createdAt: 1 }).limit(limit).toArray();
+  author(tweet) {
+    return this.context.User.findOneById(tweet.authorId);
   }
 
-  liked(user, { lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
-      id: { $in: user.likedIds },
+  likers(tweet, { lastCreatedAt = 0, limit = 10 }) {
+    return this.context.User.collection.find({
+      likedIds: tweet.id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }

@@ -2,11 +2,11 @@ export { schema } from './tweet.graphql';
 
 export const resolvers = {
   Tweet: {
-    author(tweet, args, { User }) {
-      return User.findOneById(tweet.authorId);
+    author(tweet, args, { Tweet }) {
+      return Tweet.author(tweet);
     },
-    likers(tweet, { lastCreatedAt, limit }, { User }) {
-      return User.likers(tweet, { lastCreatedAt, limit });
+    likers(tweet, { lastCreatedAt, limit }, { Tweet }) {
+      return Tweet.likers(tweet, { lastCreatedAt, limit });
     },
   },
   Query: {
@@ -17,11 +17,11 @@ export const resolvers = {
   Mutation: {
     async createTweet(root, { input: { authorId, body } }, { Tweet }) {
       const id = await Tweet.insert({ authorId, body });
-      return await Tweet.findOneById(id);
+      return Tweet.findOneById(id);
     },
     async updateTweet(root, { id, input }, { Tweet }) {
       await Tweet.updateById(id, input);
-      return await Tweet.findOneById(id);
+      return Tweet.findOneById(id);
     },
     removeTweet(root, { id }, { Tweet }) {
       return Tweet.removeById(id);

@@ -41,6 +41,6 @@ type Subscription {
 #   author: User! @unmodifiable
 #   body: String!
 #
-#   likers: [User!] @hasAndBelongsToMany(owned: false, as: "liked")
+#   likers: [User!] @hasAndBelongsToMany(as: "liked")
 # }
 */

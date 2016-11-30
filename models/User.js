@@ -1,11 +1,26 @@
 export default class User {
-  constructor({ db, pubsub }) {
-    this.collection = db.collection('user');
-    this.pubsub = pubsub;
+  constructor(context) {
+    this.context = context;
+    this.collection = context.db.collection('user');
+    this.pubsub = context.pubsub;
   }
 
   findOneById(id) {
     return this.collection.findOne({ id });
+  }
+
+  tweets(user, { lastCreatedAt = 0, limit = 10 }) {
+    return this.context.Tweet.collection.find({
+      authorId: user.id,
+      createdAt: { $gt: lastCreatedAt },
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
+  }
+
+  liked(user, { lastCreatedAt = 0, limit = 10 }) {
+    return this.context.Tweet.collection.find({
+      id: { $in: user.likedIds || [] },
+      createdAt: { $gt: lastCreatedAt },
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   following(user, { lastCreatedAt = 0, limit = 10 }) {
@@ -18,13 +33,6 @@ export default class User {
   followers(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
       followingIds: user.id,
-      createdAt: { $gt: lastCreatedAt },
-    }).sort({ createdAt: 1 }).limit(limit).toArray();
-  }
-
-  likers(tweet, { lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
-      likedIds: tweet.id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
