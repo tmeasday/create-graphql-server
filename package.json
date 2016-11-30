@@ -35,6 +35,7 @@
     "apollo-server": "0.3.2",
     "babylon": "^6.14.1",
     "body-parser": "1.15.2",
+    "chai-diff": "^1.0.1",
     "dataloader": "1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",

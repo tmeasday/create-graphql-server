@@ -1,5 +1,4 @@
-// XXX: is there a way to make this work? Do we want it?
-export const schema = `type Tweet {
+type Tweet {
   id: ID!
   author: User!
   body: String!
@@ -10,18 +9,17 @@ export const schema = `type Tweet {
   updatedAt: Float!
 }
 
-# We are "re-opening" the root types to add these fields
 type Query {
   tweet(id: ID!): Tweet
 }
 
 input CreateTweetInput {
   authorId: ID!
-  body: String
+  body: String!
 }
 
 input UpdateTweetInput {
-  body: String
+  body: String!
 }
 
 type Mutation {
@@ -31,16 +29,7 @@ type Mutation {
 }
 
 type Subscription {
-  tweetCreated: User
-  tweetUpdated: User
+  tweetCreated: Tweet
+  tweetUpdated: Tweet
   tweetRemoved: ID
-}`;
-
-/*
-# type Tweet {
-#   author: User! @unmodifiable
-#   body: String!
-#
-#   likers: [User!] @hasAndBelongsToMany(as: "liked")
-# }
-*/
+}

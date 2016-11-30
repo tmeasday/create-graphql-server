@@ -15,8 +15,8 @@ export const resolvers = {
     },
   },
   Mutation: {
-    async createTweet(root, { input: { authorId, body } }, { Tweet }) {
-      const id = await Tweet.insert({ authorId, body });
+    async createTweet(root, { input }, { Tweet }) {
+      const id = await Tweet.insert(input);
       return Tweet.findOneById(id);
     },
     async updateTweet(root, { id, input }, { Tweet }) {

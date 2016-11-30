@@ -24,14 +24,14 @@ export default class User {
   }
 
   following(user, { lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
+    return this.context.User.collection.find({
       id: { $in: user.followingIds || [] },
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   followers(user, { lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
+    return this.context.User.collection.find({
       followingIds: user.id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
