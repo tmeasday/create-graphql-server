@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 
 import { schema, addModelsToContext } from '../generate';
 
-import { pubsub, subscriptionManager } from './subscriptions';
+import { pubsub, createSubscriptionManager } from './subscriptions';
 import connectToMongo from './mongo';
 
 // XXX: TODO
@@ -58,6 +58,8 @@ async function startServer() {
   websocketServer.listen(WS_PORT, () => console.log( // eslint-disable-line no-console
     `Websocket Server is now running on http://localhost:${WS_PORT}`
   ));
+
+  const subscriptionManager = createSubscriptionManager(schema);
 
   // eslint-disable-next-line
   new SubscriptionServer(

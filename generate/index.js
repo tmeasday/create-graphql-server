@@ -6,6 +6,8 @@ import readInput from './read';
 import generateSchema from './schema';
 import generateResolvers from './resolvers';
 import generateModel from './model';
+import { ucFirst } from './util/capitalization';
+
 
 // XXX: read this in obviously
 const TYPES = ['user', 'tweet'];
@@ -25,11 +27,26 @@ TYPES.forEach((type) => {
 import { print } from 'graphql';
 const schemas = Object.values(schemasByType).map(print);
 
-function stringToObject(str) {
-  // XXX: todo
-  return executeInContext(str);
+
+// Code to run code in-memory. This is just a POC
+import fs from 'fs';
+import { runInThisContext } from 'vm';
+import { transform } from 'babel-core';
+import module from 'module';
+
+const babelOptions = JSON.parse(fs.readFileSync(`${__dirname}/../.babelrc`));
+function stringToExports(str) {
+  const exports = {};
+  const require = () => {};
+  runInThisContext(module.wrap(transform(str, babelOptions).code))(exports, require);
+  return exports;
 }
-const resolvers = Object.values(resolversByType).map(stringToObject);
+const resolvers = Object.values(resolversByType).map(stringToExports)
+  .map(e => e.resolvers);
+
+Object.keys(modelsByType).forEach((key) => {
+  modelsByType[key] = stringToExports(modelsByType[key]).default;
+});
 
 // Everything above here is what we would generate and write to disk
 // Below here is just code to get it running
@@ -71,11 +88,9 @@ export const schema = makeExecutableSchema({
 
 // We should generate / eval this code too
 export function addModelsToContext(context) {
-  const { db, pubsub } = context;
-
   const newContext = Object.assign({}, context);
   TYPES.forEach((type) => {
-    newContext[type] = new modelsByType[type]({ db, pubsub });
+    newContext[ucFirst(type)] = new modelsByType[type](newContext);
   });
   return newContext;
 }
