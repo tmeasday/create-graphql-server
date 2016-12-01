@@ -1,6 +1,8 @@
 // We are in an intermediate step where we aren't actually generating files
 // but we are generating code.
 
+import fs from 'fs';
+
 import readInput from './read';
 
 import generateSchema from './schema';
@@ -9,15 +11,17 @@ import generateModel from './model';
 import { ucFirst } from './util/capitalization';
 
 
+const inputDir = `${__dirname}/../input`;
+
 // XXX: read this in obviously
-const TYPES = ['user', 'tweet'];
+const TYPES = fs.readdirSync(inputDir).map(f => f.split('.')[0]);
 
 const schemasByType = {};
 const resolversByType = {};
 const modelsByType = {};
 
 TYPES.forEach((type) => {
-  const inputSchema = readInput(`./input/${type}.graphql`);
+  const inputSchema = readInput(`${inputDir}/${type}.graphql`);
 
   schemasByType[type] = generateSchema(inputSchema);
   resolversByType[type] = generateResolvers(inputSchema, schemasByType[type]);
@@ -27,9 +31,7 @@ TYPES.forEach((type) => {
 import { print } from 'graphql';
 const schemas = Object.values(schemasByType).map(print);
 
-
 // Code to run code in-memory. This is just a POC
-import fs from 'fs';
 import { runInThisContext } from 'vm';
 import { transform } from 'babel-core';
 import module from 'module';
