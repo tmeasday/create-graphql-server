@@ -37,15 +37,15 @@ If types reference each other, you should use an association directive to explai
 If the field references a single (nullable or otherwise) instance of another type, it will be either:
 
 - `@belongsTo` - the foreign key is stored on this type as `${fieldName}Id` [this is the default]
-- `@hasOne` - the foreign key is stored on the referenced type as `{typeName}Id`. Provide the `"as": X` argument if the name is different. [NOTE: this is not yet fully implemented].
+- `@hasOne` - the foreign key is stored on the referenced type as `${typeName}Id`. Provide the `"as": X` argument if the name is different. [NOTE: this is not yet fully implemented].
 
 #### Paginated fields
 
 If the field references an array (again w/ or w/o nullability) of another type, it will be either:
 
 - `@belongsToMany` - there is a list of foreign keys stored on this type as `${fieldName}Ids` [this is the default]
-- `@hasMany` - the foreign key is on the referenced type as `{typeName}Id`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsTo` in a 1-many situation).
-- `@hasAndBelongsToMany` - the foreign key on the referenced type as `{typeName}Ids`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsToMany` in a many-many situation).
+- `@hasMany` - the foreign key is on the referenced type as `${typeName}Id`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsTo` in a 1-many situation).
+- `@hasAndBelongsToMany` - the foreign key on the referenced type as `${typeName}Ids`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsToMany` in a many-many situation).
 
 ## Development
 
@@ -68,3 +68,15 @@ Start the server, then run
 mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/user.json
 mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/tweet.json
 ```
+
+## Notes
+
+ - The files in `server/` would be created more or less as is by `cgs init`
+
+ - `generate/index.js` has three parts:
+
+   1. The first part reads the input and runs code generation.
+
+   2. The second part evals it. If we keep the "in memory" mode, we'd probably want to do this bit properly.
+
+   3. The third part is more or less code that would otherwise be generated when you run `cgs eject`.
