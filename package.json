@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon server/index.js --watch generate --exec babel-node",
     "testonly": "mocha --require babel-register",
-    "test": "./scripts/run-tests.sh"
+    "test": "npm run testonly test/generate",
+    "end-to-end-test": "./scripts/run-end-to-end-tests.sh"
   },
   "private": true,
   "author": "",
