@@ -8,10 +8,11 @@ import readInput from './read';
 import generateSchema from './schema';
 import generateResolvers from './resolvers';
 import generateModel from './model';
+import { print } from 'graphql';
 import { ucFirst } from './util/capitalization';
 
-
 const inputDir = `${__dirname}/../input`;
+const outputDir = `${__dirname}/../output`;
 
 // XXX: read this in obviously
 const TYPES = fs.readdirSync(inputDir).map(f => f.split('.')[0]);
@@ -23,13 +24,29 @@ const modelsByType = {};
 TYPES.forEach((type) => {
   const inputSchema = readInput(`${inputDir}/${type}.graphql`);
 
-  schemasByType[type] = generateSchema(inputSchema);
-  resolversByType[type] = generateResolvers(inputSchema, schemasByType[type]);
+  const outputSchema = generateSchema(inputSchema);
+  schemasByType[type] = print(outputSchema);
+  resolversByType[type] = generateResolvers(inputSchema);
   modelsByType[type] = generateModel(inputSchema);
 });
 
-import { print } from 'graphql';
-const schemas = Object.values(schemasByType).map(print);
+// Write files out to disk, just to demonstrate what the output looks like
+import rimraf from 'rimraf';
+import mkdirp from 'mkdirp';
+import path from 'path';
+
+rimraf.sync(path.join(outputDir, '*'));
+
+function writeOutput(map, dirName, ext = 'js') {
+  mkdirp.sync(dirName);
+  TYPES.forEach((type) => {
+    fs.writeFileSync(path.join(dirName, `${type}.${ext}`), map[type]);
+  });
+}
+
+writeOutput(schemasByType, `${outputDir}/schema`, 'graphql');
+writeOutput(resolversByType, `${outputDir}/resolvers`);
+writeOutput(modelsByType, `${outputDir}/model`);
 
 // Code to run code in-memory. This is just a POC
 import { runInThisContext } from 'vm';
@@ -72,7 +89,7 @@ let rootSchema = '';
 ['Query', 'Mutation', 'Subscription'].forEach((rootField) => {
   const parts = [];
   const re = new RegExp(`type ${rootField}[\\s\\n]*{([^}]*)}`);
-  schemas.forEach((subschema) => {
+  Object.values(schemasByType).forEach((subschema) => {
     const match = re.exec(subschema);
     if (match) {
       parts.push(match[1].trim());
@@ -84,7 +101,7 @@ let rootSchema = '';
 export const schema = makeExecutableSchema({
   // XXX: a hack here, the root types in `rootSchema` will override the
   // constitutent parts defined in the sub-schemas
-  typeDefs: schemas.concat(rootSchema),
+  typeDefs: Object.values(schemasByType).concat(rootSchema),
   resolvers: rootResolvers,
 });
 

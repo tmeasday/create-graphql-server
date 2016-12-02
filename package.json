@@ -48,9 +48,11 @@
     "graphql-tools": "0.7.2",
     "lodash": "4.16.4",
     "lodash.clonedeep": "^4.5.0",
+    "mkdirp": "^0.5.1",
     "mongodb": "^2.2.11",
     "recast": "^0.11.18",
     "request-promise": "4.1.1",
+    "rimraf": "^2.5.4",
     "subscriptions-transport-ws": "0.2.6"
   }
 }

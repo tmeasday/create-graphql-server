@@ -4,3 +4,4 @@ dev.sqlite3
 .env
 .idea/
 db
+output
