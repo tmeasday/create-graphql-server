@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Example generator output for Apollo",
   "scripts": {
-    "start": "nodemon server/index.js --watch generate --watch input --watch server --exec babel-node",
+    "start": "nodemon server/index.js --watch input --watch server --watch generate --ext js,graphql --exec babel-node",
     "testonly": "mocha --require babel-register",
     "test": "npm run testonly test/generate",
     "end-to-end-test": "./scripts/run-end-to-end-tests.sh"
