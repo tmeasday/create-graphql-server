@@ -61,9 +61,9 @@ describe('queries', () => {
 
   describe('users', () => {
     itQueries('basic data',
-      '{ user(id: 0) { id, username, bio } }',
+      '{ user(id: "583291a1638566b3c5a92ca0") { id, username, bio } }',
       { user: {
-        id: '0',
+        id: '583291a1638566b3c5a92ca0',
         username: 'tmeasday',
         bio: 'I build things with @percolatestudio. Author of @discovermeteor. Exploring how to improve user experience through technology, design and performance.',
       } }
@@ -76,52 +76,63 @@ describe('queries', () => {
 
     itPaginates({
       rootField: 'user',
-      rootFieldArg: '(id: 0)',
+      rootFieldArg: '(id: "583291a1638566b3c5a92ca0")',
       field: 'followers',
       subfield: 'username',
     }, [{ username: 'stubailo' }]);
 
     itPaginates({
       rootField: 'user',
-      rootFieldArg: '(id: 0)',
+      rootFieldArg: '(id: "583291a1638566b3c5a92ca0")',
       field: 'following',
       subfield: 'username',
     }, [{ username: 'stubailo' }, { username: 'lacker' }]);
 
     itPaginates({
       rootField: 'user',
-      rootFieldArg: '(id: 0)',
+      rootFieldArg: '(id: "583291a1638566b3c5a92ca0")',
       field: 'tweets',
       subfield: 'id',
-    }, [{ id: '0' }, { id: '1' }]);
+    }, [{ id: '583676d3618530145474e350' }, { id: '583676d3618530145474e351' }]);
 
     itPaginates({
       rootField: 'user',
-      rootFieldArg: '(id: 0)',
+      rootFieldArg: '(id: "583291a1638566b3c5a92ca0")',
       field: 'liked',
       subfield: 'id',
-    }, [{ id: '2' }, { id: '3' }, { id: '4' }]);
+    }, [
+      { id: '583676d3618530145474e352' },
+      { id: '583676d3618530145474e353' },
+      { id: '583676d3618530145474e354' },
+    ]);
   });
 
   describe('tweets', () => {
     itQueries('basic data',
-      '{ tweet(id: 1) { id, body } }',
-      { tweet: { id: '1', body: 'Good times bringing Apollo Optics to Rails over the last few months with @tmeasday @chollier @cjoudrey @rmosolgo and others!' } }
+      '{ tweet(id: "583676d3618530145474e351") { id, body } }',
+      { tweet: { id: '583676d3618530145474e351', body: 'Good times bringing Apollo Optics to Rails over the last few months with @tmeasday @chollier @cjoudrey @rmosolgo and others!' } }
     );
 
     itQueries('author relation',
-      '{ tweet(id: 1) { author { username } } }',
+      '{ tweet(id: "583676d3618530145474e351") { author { username } } }',
       { tweet: { author: { username: 'tmeasday' } } }
     );
 
     itPaginates({
       field: 'tweets',
       subfield: 'id',
-    }, [{ id: '0' }, { id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }]);
+    }, [
+      { id: '583676d3618530145474e350' },
+      { id: '583676d3618530145474e351' },
+      { id: '583676d3618530145474e352' },
+      { id: '583676d3618530145474e353' },
+      { id: '583676d3618530145474e354' },
+      { id: '583676d3618530145474e355' },
+    ]);
 
     itPaginates({
       rootField: 'tweet',
-      rootFieldArg: '(id: 3)',
+      rootFieldArg: '(id: "583676d3618530145474e353")',
       field: 'likers',
       subfield: 'username',
     }, [{ username: 'tmeasday' }, { username: 'lacker' }]);

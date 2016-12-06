@@ -7,7 +7,7 @@ export default class Tweet {
     this.pubsub = context.pubsub;
     this.loader = new DataLoader(ids =>
       // XXX: intersperse with nulls for missing values
-      this.collection.find({ id: { $in: ids } }).toArray()
+      this.collection.find({ _id: { $in: ids } }).toArray()
     );
   }
 
@@ -27,26 +27,23 @@ export default class Tweet {
 
   likers(tweet, { lastCreatedAt = 0, limit = 10 }) {
     return this.context.User.collection.find({
-      likedIds: tweet.id,
+      likedIds: tweet._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   async insert(doc) {
-    // XXX: proper id generation strategy
-    const id = (await this.collection.find().count()).toString();
     const docToInsert = Object.assign({}, doc, {
-      id,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    await this.collection.insert(docToInsert);
-    this.pubsub.publish('tweetInserted', docToInsert);
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    this.pubsub.publish('tweetInserted', await this.findOneById(id));
     return id;
   }
 
   async updateById(id, doc) {
-    const ret = await this.collection.update({ id }, {
+    const ret = await this.collection.update({ _id: id }, {
       $set: Object.assign({}, doc, {
         updatedAt: Date.now(),
       }),
@@ -57,7 +54,7 @@ export default class Tweet {
   }
 
   async removeById(id) {
-    const ret = this.collection.remove({ id });
+    const ret = this.collection.remove({ _id: id });
     this.loader.clear(id);
     this.pubsub.publish('tweetRemoved', id);
     return ret;

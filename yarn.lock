@@ -2092,14 +2092,15 @@ graphql-subscriptions@0.2.0:
     es6-promise "^3.2.1"
     graphql "^0.7.0"
 
-graphql-tools@0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-0.7.2.tgz#bbd8ea2ac9cef292b89913bd0994e85d26571a2e"
+graphql-tools@^0.8.2:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-0.8.3.tgz#7766ec1d1cc716dde331bd7813267bda44aefa08"
   dependencies:
     deprecated-decorator "^0.1.6"
     lodash "^4.3.0"
     node-uuid "^1.4.7"
-    typed-graphql "git://github.com/DxCx/typed-graphql.git#resolve-funcs-fix"
+  optionalDependencies:
+    typed-graphql "^1.0.2"
 
 graphql@^0.7.0, graphql@0.7.2:
   version "0.7.2"
@@ -3961,10 +3962,6 @@ type-is@~1.6.13:
 typed-graphql@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/typed-graphql/-/typed-graphql-1.0.2.tgz#4c0f788775d552df4d4ec3d73f25469252f40fb8"
-
-"typed-graphql@git://github.com/DxCx/typed-graphql.git#resolve-funcs-fix":
-  version "1.0.1"
-  resolved "git://github.com/DxCx/typed-graphql.git#f01469278aee81cecc4750510ccbd0a7547e6c94"
 
 typedarray-to-buffer@^3.1.2:
   version "3.1.2"

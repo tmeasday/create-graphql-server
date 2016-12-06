@@ -11,6 +11,7 @@
     "class-methods-use-this": 0,
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
-    "import/imports-first": 0
+    "import/imports-first": 0,
+    "no-underscore-dangle": 0,
   }
 }

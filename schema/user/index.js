@@ -2,6 +2,9 @@ export { schema } from './user.graphql';
 
 export const resolvers = {
   User: {
+    id(user) {
+      return user._id;
+    },
     tweets(user, { lastCreatedAt, limit }, { User }) {
       return User.tweets(user, { lastCreatedAt, limit });
     },
