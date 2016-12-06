@@ -1,12 +1,18 @@
+import DataLoader from 'dataloader';
+
 export default class User {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
+    this.loader = new DataLoader(ids =>
+      // XXX: intersperse with nulls for missing values
+      this.collection.find({ id: { $in: ids } }).toArray()
+    );
   }
 
   findOneById(id) {
-    return this.collection.findOne({ id });
+    return this.loader.load(id);
   }
 
   tweets(user, { lastCreatedAt = 0, limit = 10 }) {
@@ -56,12 +62,14 @@ export default class User {
         updatedAt: Date.now(),
       }),
     });
+    this.loader.clear(id);
     this.pubsub.publish('userUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id) {
     const ret = this.collection.remove({ id });
+    this.loader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return ret;
   }
