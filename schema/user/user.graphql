@@ -16,6 +16,7 @@ export const schema = `type User {
 
 # We are "re-opening" the root types to add these fields
 type Query {
+  users(lastCreatedAt: Float, limit: Int): [User!]
   user(id: ID!): User
 }
 

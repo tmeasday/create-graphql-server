@@ -12,6 +12,7 @@ export const schema = `type Tweet {
 
 # We are "re-opening" the root types to add these fields
 type Query {
+  tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
   tweet(id: ID!): Tweet
 }
 

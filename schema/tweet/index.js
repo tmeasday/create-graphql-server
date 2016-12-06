@@ -10,6 +10,9 @@ export const resolvers = {
     },
   },
   Query: {
+    tweets(root, { lastCreatedAt, limit }, { Tweet }) {
+      return Tweet.all({ lastCreatedAt, limit });
+    },
     tweet(root, { id }, { Tweet }) {
       return Tweet.findOneById(id);
     },

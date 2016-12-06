@@ -10,21 +10,27 @@ describe('queries', () => {
     });
   }
 
-  function itPaginates(rootField, rootFieldArg, fieldName, subfield, expectedItems) {
-    it(`paginates ${fieldName}`, () => {
+  function itPaginates({ rootField, rootFieldArg, field, subfield }, expectedItems) {
+    it(`paginates ${field}`, () => {
       function constructQuery(args = '') {
+        const subQuery = `
+          ${field}${args} {
+            ${subfield}
+            createdAt
+          }
+        `;
+        if (!rootField) {
+          return `{ ${subQuery} }`;
+        }
         return `{
           ${rootField}${rootFieldArg} {
-            ${fieldName}${args} {
-              ${subfield}
-              createdAt
-            }
+            ${subQuery}
           }
         }`;
       }
       function checkResult(result, offset, length) {
         assert.isDefined(result.data);
-        const items = result.data[rootField][fieldName];
+        const items = rootField ? result.data[rootField][field] : result.data[field];
         assert.equal(items.length, length);
         for (let i = 0; i < length; i += 1) {
           assert.equal(items[i][subfield], expectedItems[i + offset][subfield]);
@@ -63,21 +69,38 @@ describe('queries', () => {
       } }
     );
 
-    itPaginates('user', '(id: 0)', 'followers', 'username',
-      [{ username: 'stubailo' }]
-    );
+    itPaginates({
+      field: 'users',
+      subfield: 'username',
+    }, [{ username: 'tmeasday' }, { username: 'stubailo' }, { username: 'lacker' }]);
 
-    itPaginates('user', '(id: 0)', 'following', 'username',
-      [{ username: 'stubailo' }, { username: 'lacker' }]
-    );
+    itPaginates({
+      rootField: 'user',
+      rootFieldArg: '(id: 0)',
+      field: 'followers',
+      subfield: 'username',
+    }, [{ username: 'stubailo' }]);
 
-    itPaginates('user', '(id: 0)', 'tweets', 'id',
-      [{ id: '0' }, { id: '1' }]
-    );
+    itPaginates({
+      rootField: 'user',
+      rootFieldArg: '(id: 0)',
+      field: 'following',
+      subfield: 'username',
+    }, [{ username: 'stubailo' }, { username: 'lacker' }]);
 
-    itPaginates('user', '(id: 0)', 'liked', 'id',
-      [{ id: '2' }, { id: '3' }, { id: '4' }]
-    );
+    itPaginates({
+      rootField: 'user',
+      rootFieldArg: '(id: 0)',
+      field: 'tweets',
+      subfield: 'id',
+    }, [{ id: '0' }, { id: '1' }]);
+
+    itPaginates({
+      rootField: 'user',
+      rootFieldArg: '(id: 0)',
+      field: 'liked',
+      subfield: 'id',
+    }, [{ id: '2' }, { id: '3' }, { id: '4' }]);
   });
 
   describe('tweets', () => {
@@ -91,8 +114,16 @@ describe('queries', () => {
       { tweet: { author: { username: 'tmeasday' } } }
     );
 
-    itPaginates('tweet', '(id: 3)', 'likers', 'username',
-      [{ username: 'tmeasday' }, { username: 'lacker' }]
-    );
+    itPaginates({
+      field: 'tweets',
+      subfield: 'id',
+    }, [{ id: '0' }, { id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }]);
+
+    itPaginates({
+      rootField: 'tweet',
+      rootFieldArg: '(id: 3)',
+      field: 'likers',
+      subfield: 'username',
+    }, [{ username: 'tmeasday' }, { username: 'lacker' }]);
   });
 });

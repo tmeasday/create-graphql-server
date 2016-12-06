@@ -15,6 +15,12 @@ export default class Tweet {
     return this.loader.load(id);
   }
 
+  all({ lastCreatedAt = 0, limit = 10 }) {
+    return this.collection.find({
+      createdAt: { $gt: lastCreatedAt },
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
+  }
+
   author(tweet) {
     return this.context.User.findOneById(tweet.authorId);
   }
