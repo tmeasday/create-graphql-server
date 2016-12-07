@@ -1,6 +1,0 @@
-type Tweet {
-  author: User! @unmodifiable
-  body: String!
-
-  likers: [User!] @hasAndBelongsToMany(as: "liked")
-}
