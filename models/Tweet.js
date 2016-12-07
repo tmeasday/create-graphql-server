@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import findByIds from './mongo-findByIds';
+import findByIds from 'mongo-find-by-ids';
 
 export default class Tweet {
   constructor(context) {

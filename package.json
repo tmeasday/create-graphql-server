@@ -44,6 +44,7 @@
     "graphql-subscriptions": "0.2.0",
     "graphql-tools": "^0.8.2",
     "lodash": "4.16.4",
+    "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
     "request-promise": "4.1.1",
     "subscriptions-transport-ws": "0.2.6"

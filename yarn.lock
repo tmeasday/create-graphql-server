@@ -2868,6 +2868,10 @@ mocha:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
+mongo-find-by-ids:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mongo-find-by-ids/-/mongo-find-by-ids-1.0.0.tgz#c4e7a108e2b9fb98f59eb8be5d3801b2bfb52222"
+
 mongodb:
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.11.tgz#a828b036fe6a437a35e723af5f81781c4976306c"
