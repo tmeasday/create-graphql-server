@@ -1,14 +1,12 @@
 import DataLoader from 'dataloader';
+import findByIds from './mongo-findByIds';
 
 export default class User {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
-    this.loader = new DataLoader(ids => {
-      // XXX: intersperse with nulls for missing values
-      return this.collection.find({ _id: { $in: ids } }).toArray() }
-    );
+    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
   }
 
   findOneById(id) {
