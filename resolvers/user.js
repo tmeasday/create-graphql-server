@@ -1,6 +1,4 @@
-export { schema } from '../schema/user.graphql';
-
-export const resolvers = {
+const resolvers = {
   User: {
     id(user) {
       return user._id;
@@ -45,3 +43,5 @@ export const resolvers = {
     userRemoved: id => id,
   },
 };
+
+export default resolvers;

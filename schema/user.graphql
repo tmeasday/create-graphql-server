@@ -1,5 +1,4 @@
-// XXX: is there a way to make this work? Do we want it?
-export const schema = `type User {
+type User {
   id: ObjID!
   username: String!
   bio: String
@@ -35,19 +34,4 @@ type Subscription {
   userCreated: User
   userUpdated: User
   userRemoved: ObjID
-}`;
-
-/*
-# This may have been generated from input that looks like
-# (I'm not sure of the `hasX` nomenculature for mongo relations)
-# type User {
-#   username String!
-#   bio String
-#
-#   tweets [Tweet!] @hasMany(as: "author")
-#   liked [Tweet!] @belongsToMany
-#
-#   following [User!] @belongsToMany
-#   followers [User!] @hasAndBelongsToMany(as: "following")
-# }
-*/
+}

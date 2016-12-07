@@ -1,5 +1,4 @@
-// XXX: is there a way to make this work? Do we want it?
-export const schema = `type Tweet {
+type Tweet {
   id: ObjID!
   author: User!
   body: String!
@@ -35,13 +34,4 @@ type Subscription {
   tweetCreated: User
   tweetUpdated: User
   tweetRemoved: ObjID
-}`;
-
-/*
-# type Tweet {
-#   author: User! @unmodifiable
-#   body: String!
-#
-#   likers: [User!] @hasAndBelongsToMany(as: "liked")
-# }
-*/
+}

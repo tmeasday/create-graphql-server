@@ -1,0 +1,10 @@
+type User {
+  username String!
+  bio String
+
+  tweets [Tweet!] @hasMany(as: "author")
+  liked [Tweet!] @belongsToMany
+
+  following [User!] @belongsToMany
+  followers [User!] @hasAndBelongsToMany(as: "following")
+}

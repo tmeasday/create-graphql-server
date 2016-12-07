@@ -1,6 +1,4 @@
-export { schema } from '../schema/tweet.graphql';
-
-export const resolvers = {
+const resolvers = {
   Tweet: {
     id(tweet) {
       return tweet._id;
@@ -39,3 +37,5 @@ export const resolvers = {
     tweetRemoved: id => id,
   },
 };
+
+export default resolvers;
