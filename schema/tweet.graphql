@@ -10,7 +10,7 @@ type Tweet {
 }
 
 # We are "re-opening" the root types to add these fields
-type Query {
+extend type Query {
   tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
   tweet(id: ObjID!): Tweet
 }
@@ -24,13 +24,13 @@ input UpdateTweetInput {
   body: String
 }
 
-type Mutation {
+extend type Mutation {
   createTweet(input: CreateTweetInput!): Tweet
   updateTweet(id: ObjID!, input: UpdateTweetInput!): Tweet
   removeTweet(id: ObjID!): Boolean
 }
 
-type Subscription {
+extend type Subscription {
   tweetCreated: User
   tweetUpdated: User
   tweetRemoved: ObjID

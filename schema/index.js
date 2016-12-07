@@ -5,9 +5,12 @@ function requireGraphQL(name) {
   return fs.readFileSync(filename, 'utf8');
 }
 
-const typeDefs = [
-  'scalar ObjID'
-];
+const typeDefs = [`
+  scalar ObjID
+  type Query { __placeholder: Int }
+  type Mutation { __placeholder: Int }
+  type Subscription { __placeholder: Int }
+`];
 
 export default typeDefs;
 

@@ -14,7 +14,7 @@ type User {
 }
 
 # We are "re-opening" the root types to add these fields
-type Query {
+extend type Query {
   users(lastCreatedAt: Float, limit: Int): [User!]
   user(id: ObjID!): User
 }
@@ -24,13 +24,13 @@ input UserInput {
   bio: String
 }
 
-type Mutation {
+extend type Mutation {
   createUser(input: UserInput!): User
   updateUser(id: ObjID!, input: UserInput!): User
   removeUser(id: ObjID!): Boolean
 }
 
-type Subscription {
+extend type Subscription {
   userCreated: User
   userUpdated: User
   userRemoved: ObjID

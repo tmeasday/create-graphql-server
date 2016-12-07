@@ -12,19 +12,6 @@ import addModelsToContext from '../models';
 import { pubsub, subscriptionManager } from './subscriptions';
 import connectToMongo from './mongo';
 
-// XXX: this is a total hack, better to use graphql-tools for this bit
-['Query', 'Mutation', 'Subscription'].forEach((rootField) => {
-  const parts = [];
-  const re = new RegExp(`type ${rootField}[\\s\\n]*{([^}]*)}`);
-  typeDefs.forEach((subschema) => {
-    const match = re.exec(subschema);
-    if (match) {
-      parts.push(match[1].trim());
-    }
-  });
-  typeDefs.push(`type ${rootField} { ${parts.join('\n')} }\n\n`);
-});
-
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // XXX: TODO
