@@ -1,4 +1,4 @@
-export { schema } from './user.graphql';
+export { schema } from '../schema/user.graphql';
 
 export const resolvers = {
   User: {

@@ -3,8 +3,8 @@ import { ObjectId } from 'mongodb';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 
-import * as tweet from './tweet';
-import * as user from './user';
+import * as tweet from '../resolvers/tweet';
+import * as user from '../resolvers/user';
 
 // We should make makeExecutableSchema/graphql-tools do this for us
 const resolvers = {};
