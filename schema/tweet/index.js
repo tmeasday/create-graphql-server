@@ -2,6 +2,9 @@ export { schema } from './tweet.graphql';
 
 export const resolvers = {
   Tweet: {
+    id(tweet) {
+      return tweet._id;
+    },
     author(tweet, args, { Tweet }) {
       return Tweet.author(tweet);
     },
@@ -10,6 +13,9 @@ export const resolvers = {
     },
   },
   Query: {
+    tweets(root, { lastCreatedAt, limit }, { Tweet }) {
+      return Tweet.all({ lastCreatedAt, limit });
+    },
     tweet(root, { id }, { Tweet }) {
       return Tweet.findOneById(id);
     },

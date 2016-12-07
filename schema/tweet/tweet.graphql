@@ -1,6 +1,6 @@
 // XXX: is there a way to make this work? Do we want it?
 export const schema = `type Tweet {
-  id: ID!
+  id: ObjID!
   author: User!
   body: String!
 
@@ -12,11 +12,12 @@ export const schema = `type Tweet {
 
 # We are "re-opening" the root types to add these fields
 type Query {
-  tweet(id: ID!): Tweet
+  tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
+  tweet(id: ObjID!): Tweet
 }
 
 input CreateTweetInput {
-  authorId: ID!
+  authorId: ObjID!
   body: String
 }
 
@@ -26,14 +27,14 @@ input UpdateTweetInput {
 
 type Mutation {
   createTweet(input: CreateTweetInput!): Tweet
-  updateTweet(id: ID!, input: UpdateTweetInput!): Tweet
-  removeTweet(id: ID!): Boolean
+  updateTweet(id: ObjID!, input: UpdateTweetInput!): Tweet
+  removeTweet(id: ObjID!): Boolean
 }
 
 type Subscription {
   tweetCreated: User
   tweetUpdated: User
-  tweetRemoved: ID
+  tweetRemoved: ObjID
 }`;
 
 /*

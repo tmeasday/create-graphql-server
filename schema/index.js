@@ -1,4 +1,7 @@
 import { makeExecutableSchema } from 'graphql-tools';
+import { ObjectId } from 'mongodb';
+import { GraphQLScalarType } from 'graphql';
+import { Kind } from 'graphql/language';
 
 import * as tweet from './tweet';
 import * as user from './user';
@@ -11,7 +14,26 @@ const resolvers = {};
   });
 });
 
-let rootSchema = '';
+resolvers.ObjID = new GraphQLScalarType({
+  name: 'ObjID',
+  description: 'Id representation, based on Mongo Object Ids',
+  parseValue(value) {
+    return ObjectId(value);
+  },
+  serialize(value) {
+    return value.toString();
+  },
+  parseLiteral(ast) {
+    if (ast.kind === Kind.STRING) {
+      return ObjectId(ast.value);
+    }
+    return null;
+  },
+});
+
+let rootSchema = `
+  scalar ObjID
+`;
 // XXX: this is a total hack, better to use graphql-tools for this bit
 ['Query', 'Mutation', 'Subscription'].forEach((rootField) => {
   const parts = [];

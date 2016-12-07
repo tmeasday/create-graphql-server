@@ -1,12 +1,22 @@
+import DataLoader from 'dataloader';
+import findByIds from 'mongo-find-by-ids';
+
 export default class Tweet {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
+    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
   }
 
   findOneById(id) {
-    return this.collection.findOne({ id });
+    return this.loader.load(id);
+  }
+
+  all({ lastCreatedAt = 0, limit = 10 }) {
+    return this.collection.find({
+      createdAt: { $gt: lastCreatedAt },
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   author(tweet) {
@@ -15,36 +25,35 @@ export default class Tweet {
 
   likers(tweet, { lastCreatedAt = 0, limit = 10 }) {
     return this.context.User.collection.find({
-      likedIds: tweet.id,
+      likedIds: tweet._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   async insert(doc) {
-    // XXX: proper id generation strategy
-    const id = (await this.collection.find().count()).toString();
     const docToInsert = Object.assign({}, doc, {
-      id,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    await this.collection.insert(docToInsert);
-    this.pubsub.publish('tweetInserted', docToInsert);
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    this.pubsub.publish('tweetInserted', await this.findOneById(id));
     return id;
   }
 
   async updateById(id, doc) {
-    const ret = await this.collection.update({ id }, {
+    const ret = await this.collection.update({ _id: id }, {
       $set: Object.assign({}, doc, {
         updatedAt: Date.now(),
       }),
     });
+    this.loader.clear(id);
     this.pubsub.publish('tweetUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id) {
-    const ret = this.collection.remove({ id });
+    const ret = this.collection.remove({ _id: id });
+    this.loader.clear(id);
     this.pubsub.publish('tweetRemoved', id);
     return ret;
   }

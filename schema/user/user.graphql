@@ -1,6 +1,6 @@
 // XXX: is there a way to make this work? Do we want it?
 export const schema = `type User {
-  id: ID!
+  id: ObjID!
   username: String!
   bio: String
 
@@ -16,7 +16,8 @@ export const schema = `type User {
 
 # We are "re-opening" the root types to add these fields
 type Query {
-  user(id: ID!): User
+  users(lastCreatedAt: Float, limit: Int): [User!]
+  user(id: ObjID!): User
 }
 
 input UserInput {
@@ -26,14 +27,14 @@ input UserInput {
 
 type Mutation {
   createUser(input: UserInput!): User
-  updateUser(id: ID!, input: UserInput!): User
-  removeUser(id: ID!): Boolean
+  updateUser(id: ObjID!, input: UserInput!): User
+  removeUser(id: ObjID!): Boolean
 }
 
 type Subscription {
   userCreated: User
   userUpdated: User
-  userRemoved: ID
+  userRemoved: ObjID
 }`;
 
 /*

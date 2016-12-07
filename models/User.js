@@ -1,67 +1,76 @@
+import DataLoader from 'dataloader';
+import findByIds from 'mongo-find-by-ids';
+
 export default class User {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
+    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
   }
 
   findOneById(id) {
-    return this.collection.findOne({ id });
+    return this.loader.load(id);
+  }
+
+  all({ lastCreatedAt = 0, limit = 10 }) {
+    return this.collection.find({
+      createdAt: { $gt: lastCreatedAt },
+    }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   tweets(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.context.Tweet.collection.find({
-      authorId: user.id,
+      authorId: user._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   liked(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.context.Tweet.collection.find({
-      id: { $in: user.likedIds || [] },
+      _id: { $in: user.likedIds || [] },
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   following(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
-      id: { $in: user.followingIds || [] },
+      _id: { $in: user.followingIds || [] },
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   followers(user, { lastCreatedAt = 0, limit = 10 }) {
     return this.collection.find({
-      followingIds: user.id,
+      followingIds: user._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
   async insert(doc) {
-    // XXX: proper id generation strategy
-    const id = (await this.collection.find().count()).toString();
     const docToInsert = Object.assign({}, doc, {
-      id,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    await this.collection.insert(docToInsert);
-    this.pubsub.publish('userInserted', docToInsert);
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    this.pubsub.publish('userInserted', await this.findOneById(id));
     return id;
   }
 
   async updateById(id, doc) {
-    const ret = await this.collection.update({ id }, {
+    const ret = await this.collection.update({ _id: id }, {
       $set: Object.assign({}, doc, {
         updatedAt: Date.now(),
       }),
     });
+    this.loader.clear(id);
     this.pubsub.publish('userUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id) {
-    const ret = this.collection.remove({ id });
+    const ret = this.collection.remove({ _id: id });
+    this.loader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return ret;
   }
