@@ -47,7 +47,7 @@ async function startServer() {
     endpointURL: '/graphql',
   }));
 
-  app.listen(PORT, () => console.log( // eslint-disable-line no-console
+  app.listen(PORT, () => console.log(
     `API Server is now running on http://localhost:${PORT}`
   ));
 
@@ -57,11 +57,10 @@ async function startServer() {
     response.end();
   });
 
-  websocketServer.listen(WS_PORT, () => console.log( // eslint-disable-line no-console
+  websocketServer.listen(WS_PORT, () => console.log(
     `Websocket Server is now running on http://localhost:${WS_PORT}`
   ));
 
-  // eslint-disable-next-line
   new SubscriptionServer(
     {
       subscriptionManager,
@@ -78,7 +77,6 @@ async function startServer() {
   );
 }
 
-// eslint-disable no-console
 startServer()
   .then(() => {
     console.log('All systems go');

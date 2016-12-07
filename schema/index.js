@@ -18,14 +18,14 @@ resolvers.ObjID = new GraphQLScalarType({
   name: 'ObjID',
   description: 'Id representation, based on Mongo Object Ids',
   parseValue(value) {
-    return ObjectId(value); // eslint-disable-line new-cap
+    return ObjectId(value);
   },
   serialize(value) {
     return value.toString();
   },
   parseLiteral(ast) {
     if (ast.kind === Kind.STRING) {
-      return ObjectId(ast.value); // eslint-disable-line new-cap
+      return ObjectId(ast.value);
     }
     return null;
   },
