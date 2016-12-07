@@ -1,4 +1,4 @@
-export { schema } from './tweet.graphql';
+export { schema } from '../schema/tweet.graphql';
 
 export const resolvers = {
   Tweet: {
