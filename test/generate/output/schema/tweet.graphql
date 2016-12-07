@@ -1,5 +1,5 @@
 type Tweet {
-  id: ID!
+  id: ObjID!
   author: User!
   body: String!
 
@@ -9,12 +9,13 @@ type Tweet {
   updatedAt: Float!
 }
 
-type Query {
-  tweet(id: ID!): Tweet
+extend type Query {
+  tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
+  tweet(id: ObjID!): Tweet
 }
 
 input CreateTweetInput {
-  authorId: ID!
+  authorId: ObjID!
   body: String!
 }
 
@@ -22,14 +23,14 @@ input UpdateTweetInput {
   body: String!
 }
 
-type Mutation {
+extend type Mutation {
   createTweet(input: CreateTweetInput!): Tweet
-  updateTweet(id: ID!, input: UpdateTweetInput!): Tweet
-  removeTweet(id: ID!): Boolean
+  updateTweet(id: ObjID!, input: UpdateTweetInput!): Tweet
+  removeTweet(id: ObjID!): Boolean
 }
 
-type Subscription {
+extend type Subscription {
   tweetCreated: Tweet
   tweetUpdated: Tweet
-  tweetRemoved: ID
+  tweetRemoved: ObjID
 }

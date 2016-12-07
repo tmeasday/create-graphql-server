@@ -1,5 +1,6 @@
 import assert from 'assert';
 import cloneDeep from 'lodash.clonedeep';
+import { Kind } from 'graphql';
 
 /* eslint-disable no-param-reassign */
 
@@ -16,6 +17,13 @@ function buildTypeDefinition(name, fields, kind = 'ObjectTypeDefinition') {
     interfaces: [],
     directives: [],
     fields,
+  };
+}
+
+function buildTypeExtension(type) {
+  return {
+    kind: Kind.TYPE_EXTENSION_DEFINITION,
+    definition: type,
   };
 }
 
@@ -67,7 +75,7 @@ function paginationArguments() {
 }
 
 function idArgument() {
-  return buildArgument('id', 'ID!');
+  return buildArgument('id', 'ObjID!');
 }
 
 const directiveGenerators = {
@@ -121,7 +129,7 @@ export default function generateSchema(inputSchema) {
       if (SCALAR_TYPE_NAMES.includes(possibleInputType.name.value)) {
         inputField = field;
       } else {
-        inputField = buildField(`${field.name.value}Id`, [], `ID${inputTypeModifier}`);
+        inputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
       }
 
       createInputFields.push(inputField);
@@ -133,12 +141,15 @@ export default function generateSchema(inputSchema) {
     field.directives = [];
   });
 
-  type.fields.unshift(buildField('id', [], 'ID!'));
+  type.fields.unshift(buildField('id', [], 'ObjID!'));
   type.fields.push(buildField('createdAt', [], 'Float!'));
   type.fields.push(buildField('updatedAt', [], 'Float!'));
 
-  const queryField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
-  outputSchema.definitions.push(buildTypeDefinition('Query', [queryField]));
+  const queryOneField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
+  const queryAllField = buildField(`${typeName.toLowerCase()}s`, paginationArguments(), `[${typeName}!]`);
+  outputSchema.definitions.push(
+    buildTypeExtension(buildTypeDefinition('Query', [queryAllField, queryOneField]))
+  );
 
   const createInputTypeName = `Create${typeName}Input`;
   outputSchema.definitions.push(
@@ -152,24 +163,28 @@ export default function generateSchema(inputSchema) {
 
   // Create update input type if readonly fields
 
-  outputSchema.definitions.push(buildTypeDefinition('Mutation', [
-    buildField(`create${typeName}`, [
-      buildArgument('input', `${createInputTypeName}!`),
-    ], typeName),
+  outputSchema.definitions.push(buildTypeExtension(
+    buildTypeDefinition('Mutation', [
+      buildField(`create${typeName}`, [
+        buildArgument('input', `${createInputTypeName}!`),
+      ], typeName),
 
-    buildField(`update${typeName}`, [
-      idArgument(),
-      buildArgument('input', `${updateInputTypeName}!`),
-    ], typeName),
+      buildField(`update${typeName}`, [
+        idArgument(),
+        buildArgument('input', `${updateInputTypeName}!`),
+      ], typeName),
 
-    buildField(`remove${typeName}`, [idArgument()], 'Boolean'),
-  ]));
+      buildField(`remove${typeName}`, [idArgument()], 'Boolean'),
+    ])
+  ));
 
-  outputSchema.definitions.push(buildTypeDefinition('Subscription', [
-    buildField(`${typeName.toLowerCase()}Created`, [], typeName),
-    buildField(`${typeName.toLowerCase()}Updated`, [], typeName),
-    buildField(`${typeName.toLowerCase()}Removed`, [], 'ID'),
-  ]));
+  outputSchema.definitions.push(buildTypeExtension(
+    buildTypeDefinition('Subscription', [
+      buildField(`${typeName.toLowerCase()}Created`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Updated`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Removed`, [], 'ObjID'),
+    ])
+  ));
 
   return outputSchema;
 }

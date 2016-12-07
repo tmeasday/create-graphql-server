@@ -41,8 +41,7 @@ export default function generateResolvers(inputSchema) {
 
   // XXX: rather than hardcoding in array indices it would be less brittle to
   // walk the tree using https://github.com/benjamn/ast-types
-  const typeResolversAst = ast.program.body[1] // export
-    .declaration // variable declaration
+  const typeResolversAst = ast.program.body[0] // const
     .declarations[0].init // object expression
     .properties[0].value; // object value
 

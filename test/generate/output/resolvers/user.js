@@ -1,7 +1,8 @@
-export { schema } from './user.graphql';
-
-export const resolvers = {
+const resolvers = {
   User: {
+    id(user) {
+      return user._id;
+    },
     tweets(user, { lastCreatedAt, limit }, { User }) {
       return User.tweets(user, { lastCreatedAt, limit });
     },
@@ -16,6 +17,9 @@ export const resolvers = {
     },
   },
   Query: {
+    users(root, { lastCreatedAt, limit }, { User }) {
+      return User.all({ lastCreatedAt, limit });
+    },
     user(root, { id }, { User }) {
       return User.findOneById(id);
     },
@@ -39,3 +43,5 @@ export const resolvers = {
     userRemoved: id => id,
   },
 };
+
+export default resolvers;

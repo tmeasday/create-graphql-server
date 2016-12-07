@@ -1,9 +1,13 @@
-export { schema } from './typeName.graphql';
-
-export const resolvers = {
+const resolvers = {
   TypeName: {
+    id(typeName) {
+      return typeName._id;
+    },
   },
   Query: {
+    typeNames(root, { lastCreatedAt, limit }, { TypeName }) {
+      return TypeName.all({ lastCreatedAt, limit });
+    },
     typeName(root, { id }, { TypeName }) {
       return TypeName.findOneById(id);
     },
@@ -27,3 +31,5 @@ export const resolvers = {
     typeNameRemoved: id => id,
   },
 };
+
+export default resolvers;

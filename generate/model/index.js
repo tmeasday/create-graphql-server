@@ -2,7 +2,7 @@ import fs from 'fs';
 import { print } from 'recast';
 
 import { templateToAst } from '../read';
-import { lcFirst, ucFirst } from '../util/capitalization';
+import { lcFirst } from '../util/capitalization';
 import generatePerField from '../util/generatePerField';
 
 function read(name) {
@@ -31,7 +31,7 @@ const generators = {
       typeName,
       fieldName,
       ReturnTypeName,
-      query: `id: { $in: ${typeName}.${fieldName}Ids || [] }`,
+      query: `_id: { $in: ${typeName}.${fieldName}Ids || [] }`,
     });
   },
   // TODO: write test and implement
@@ -47,7 +47,7 @@ const generators = {
       typeName,
       fieldName,
       ReturnTypeName,
-      query: `${as}Id: ${typeName}.id`,
+      query: `${as}Id: ${typeName}._id`,
     });
   },
   hasAndBelongsToMany({ typeName, fieldName, ReturnTypeName }, { as = typeName }) {
@@ -55,7 +55,7 @@ const generators = {
       typeName,
       fieldName,
       ReturnTypeName,
-      query: `${as}Ids: ${typeName}.id`,
+      query: `${as}Ids: ${typeName}._id`,
     });
   },
 };
@@ -70,11 +70,11 @@ export default function generateModel(inputSchema) {
 
   // XXX: rather than hardcoding in array indices it would be less brittle to
   // walk the tree using https://github.com/benjamn/ast-types
-  const classMethodsAst = ast.program.body[0] // export
+  const classMethodsAst = ast.program.body[2] // export
     .declaration // class declaration
     .body.body;
 
-  const findOneMethod = classMethodsAst.find(m => m.key.name === 'findOneById');
+  const findOneMethod = classMethodsAst.find(m => m.key.name === 'all');
   let nextIndex = classMethodsAst.indexOf(findOneMethod) + 1;
 
 

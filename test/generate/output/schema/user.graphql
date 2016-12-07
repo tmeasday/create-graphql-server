@@ -1,5 +1,5 @@
 type User {
-  id: ID!
+  id: ObjID!
   username: String!
   bio: String
 
@@ -13,8 +13,9 @@ type User {
   updatedAt: Float!
 }
 
-type Query {
-  user(id: ID!): User
+extend type Query {
+  users(lastCreatedAt: Float, limit: Int): [User!]
+  user(id: ObjID!): User
 }
 
 input CreateUserInput {
@@ -27,14 +28,14 @@ input UpdateUserInput {
   bio: String
 }
 
-type Mutation {
+extend type Mutation {
   createUser(input: CreateUserInput!): User
-  updateUser(id: ID!, input: UpdateUserInput!): User
-  removeUser(id: ID!): Boolean
+  updateUser(id: ObjID!, input: UpdateUserInput!): User
+  removeUser(id: ObjID!): Boolean
 }
 
-type Subscription {
+extend type Subscription {
   userCreated: User
   userUpdated: User
-  userRemoved: ID
+  userRemoved: ObjID
 }
