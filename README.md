@@ -4,7 +4,7 @@ This is a in-memory version of the `create-graphql-server` tool.
 
 In this version, you create a set of input schemas in the `input/` directory, then start the server with `npm start`. It will then generate all the code it would write out, and eval it and start serving.
 
-To see what the generated code would actually look like, see the `output` branch.
+To see what the generated code would actually look like, the `test/output-app` folder.
 
 
 ## Creating types

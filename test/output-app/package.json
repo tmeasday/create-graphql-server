@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "Example generator output for Apollo",
   "scripts": {
-    "start": "nodemon server/index.js --watch input --watch server --watch generate --ext js,graphql --exec babel-node",
-    "testonly": "mocha --require babel-register",
-    "test": "npm run testonly test/generate",
-    "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh"
+    "start": "nodemon server/index.js --watch server --watch schema --watch model --watch resolvers --ext js,graphql --exec babel-node"
   },
   "private": true,
   "author": "",
@@ -22,9 +19,10 @@
     "babel-register": "6.16.3",
     "chai": "^3.5.0",
     "eslint": "3.8.1",
-    "eslint-config-airbnb": "12.0.0",
+    "eslint-config-react-app": "^0.4.0",
     "eslint-plugin-babel": "3.3.0",
-    "eslint-plugin-import": "1.16.0",
+    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.4.1",
     "mocha": "^3.1.2",
@@ -34,10 +32,8 @@
   },
   "dependencies": {
     "apollo-server": "0.3.2",
-    "babylon": "^6.14.1",
     "body-parser": "1.15.2",
-    "chai-diff": "^1.0.1",
-    "dataloader": "1.2.0",
+    "dataloader": "^1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",
     "express": "4.14.0",
@@ -45,14 +41,11 @@
     "graphql": "0.7.2",
     "graphql-server-express": "^0.4.3",
     "graphql-subscriptions": "0.2.0",
-    "graphql-tools": "0.7.2",
+    "graphql-tools": "^0.8.2",
     "lodash": "4.16.4",
-    "lodash.clonedeep": "^4.5.0",
-    "mkdirp": "^0.5.1",
+    "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
-    "recast": "^0.11.18",
     "request-promise": "4.1.1",
-    "rimraf": "^2.5.4",
     "subscriptions-transport-ws": "0.2.6"
   }
 }

@@ -39,13 +39,13 @@ describe('mutations', () => {
       })
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: ${userId}) { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio } }`,
           { user: expectedUser })
       )
       .then(() =>
         sendQueryAndExpect(`
           mutation {
-            updateUser(id: ${userId}, input: ${makeInput(modifiedUser)}) {
+            updateUser(id: "${userId}", input: ${makeInput(modifiedUser)}) {
               username
               bio
             }
@@ -54,17 +54,17 @@ describe('mutations', () => {
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: ${userId}) { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio } }`,
           { user: modifiedUser })
       )
       .then(() =>
         sendQueryAndExpect(
-          `mutation { removeUser(id: ${userId}) }`,
+          `mutation { removeUser(id: "${userId}") }`,
           { removeUser: true })
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: ${userId}) { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio } }`,
           { user: null })
       );
     });
@@ -85,7 +85,7 @@ describe('mutations', () => {
       }
 
       const expectedTweet = {
-        author: { id: '1' },
+        author: { id: '583291a1638566b3c5a92ca1' },
         body: 'This is a test tweet',
       };
 
@@ -109,13 +109,13 @@ describe('mutations', () => {
       })
       .then(() =>
         sendQueryAndExpect(
-          `{ tweet(id: ${tweetId}) { author { id } body } }`,
+          `{ tweet(id: "${tweetId}") { author { id } body } }`,
           { tweet: expectedTweet })
       )
       .then(() =>
         sendQueryAndExpect(`
           mutation {
-            updateTweet(id: ${tweetId}, input: ${makeInput(modifiedTweet)}) {
+            updateTweet(id: "${tweetId}", input: ${makeInput(modifiedTweet)}) {
               body
             }
           }
@@ -123,17 +123,17 @@ describe('mutations', () => {
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ tweet(id: ${tweetId}) { body } }`,
+          `{ tweet(id: "${tweetId}") { body } }`,
           { tweet: modifiedTweet })
       )
       .then(() =>
         sendQueryAndExpect(
-          `mutation { removeTweet(id: ${tweetId}) }`,
+          `mutation { removeTweet(id: "${tweetId}") }`,
           { removeTweet: true })
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ tweet(id: ${tweetId}) { body } }`,
+          `{ tweet(id: "${tweetId}") { body } }`,
           { tweet: null })
       );
     });
