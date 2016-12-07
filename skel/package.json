@@ -1,0 +1,51 @@
+{
+  "name": "cga-example-output",
+  "version": "1.0.0",
+  "description": "Example generator output for Apollo",
+  "scripts": {
+    "start": "nodemon server/index.js --watch server --watch schema --watch model --watch resolvers --ext js,graphql --exec babel-node"
+  },
+  "private": true,
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.16.0",
+    "babel-core": "6.17.0",
+    "babel-eslint": "7.0.0",
+    "babel-loader": "6.2.5",
+    "babel-preset-es2015": "6.16.0",
+    "babel-preset-react": "6.16.0",
+    "babel-preset-stage-2": "6.17.0",
+    "babel-register": "6.16.3",
+    "chai": "^3.5.0",
+    "eslint": "3.8.1",
+    "eslint-config-react-app": "^0.4.0",
+    "eslint-plugin-babel": "3.3.0",
+    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-react": "6.4.1",
+    "mocha": "^3.1.2",
+    "mongodb-prebuilt": "^5.0.7",
+    "node-fetch": "^1.6.3",
+    "nodemon": "1.11.0"
+  },
+  "dependencies": {
+    "apollo-server": "0.3.2",
+    "body-parser": "1.15.2",
+    "dataloader": "^1.2.0",
+    "denodeify": "^1.2.1",
+    "dotenv": "2.0.0",
+    "express": "4.14.0",
+    "express-session": "1.14.1",
+    "graphql": "0.7.2",
+    "graphql-server-express": "^0.4.3",
+    "graphql-subscriptions": "0.2.0",
+    "graphql-tools": "^0.8.2",
+    "lodash": "4.16.4",
+    "mongo-find-by-ids": "^1.0.0",
+    "mongodb": "^2.2.11",
+    "request-promise": "4.1.1",
+    "subscriptions-transport-ws": "0.2.6"
+  }
+}

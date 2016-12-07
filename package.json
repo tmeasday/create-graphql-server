@@ -1,7 +1,10 @@
 {
-  "name": "cga-example-output",
+  "name": "create-graphql-server",
   "version": "1.0.0",
-  "description": "Example generator output for Apollo",
+  "description": "Scaffolding tool for GraphQL apps",
+  "bin": {
+    "create-graphql-server": "./bin/create-graphql-server.js"
+  },
   "scripts": {
     "start": "nodemon server/index.js --watch input --watch server --watch generate --ext js,graphql --exec babel-node",
     "testonly": "mocha --require babel-register",
