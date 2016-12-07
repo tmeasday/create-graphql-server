@@ -1,10 +1,26 @@
-# CGA output
+# Create GraphQL Server
 
-This is a in-memory version of the `create-graphql-server` tool.
+This is a simple scaffolding tool for GraphQL apps, built on MongoDB.
 
-In this version, you create a set of input schemas in the `input/` directory, then start the server with `npm start`. It will then generate all the code it would write out, and eval it and start serving.
+It consists of two commands:
 
-To see what the generated code would actually look like, the `test/output-app` folder.
+```bash
+create-graphql-server init project-dir
+```
+
+Create the basic skeleton of a GraphQL server project. If you `yarn install` inside `project-dir`, you should be able to `npm start` it, and then browse to http://localhost:3010/graphiql to start running queries.
+
+There isn't anything to query yet however!
+
+To add some types, simply run:
+
+```bash
+create-graphql-server add-type path/to/input.graphql
+```
+
+Where `path/to/input.graphql` is an input GraphQL schema (see below).
+
+To see what a complete generated server looks like, see the `test/output-app` folder. It has been generated from the `test/input` schema inputs.
 
 
 ## Creating types
@@ -68,15 +84,3 @@ Start the server, then run
 mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/user.json
 mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/tweet.json
 ```
-
-## Notes
-
- - The files in `server/` would be created more or less as is by `cgs init`
-
- - `generate/index.js` has three parts:
-
-   1. The first part reads the input and runs code generation.
-
-   2. The second part evals it. If we keep the "in memory" mode, we'd probably want to do this bit properly.
-
-   3. The third part is more or less code that would otherwise be generated when you run `cgs eject`.
