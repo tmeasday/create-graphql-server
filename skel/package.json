@@ -33,6 +33,7 @@
   "dependencies": {
     "apollo-server": "0.3.2",
     "body-parser": "1.15.2",
+    "cors": "^2.8.1",
     "dataloader": "^1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",

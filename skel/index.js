@@ -8,7 +8,7 @@ const dbpath = `${__dirname}/db`;
 
 const {
   PORT = 3000,
-  MONGO_PORT = PORT + 1,
+  MONGO_PORT = parseInt(PORT, 10) + 2,
   MONGO_URL,
 } = process.env;
 
