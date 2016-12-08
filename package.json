@@ -9,7 +9,8 @@
     "start": "nodemon server/index.js --watch input --watch server --watch generate --ext js,graphql --exec babel-node",
     "testonly": "mocha --require babel-register",
     "test": "npm run testonly test/generate",
-    "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh"
+    "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
+    "output-app-generation-test": "./test/output-app-generation-test.sh"
   },
   "private": true,
   "author": "",
