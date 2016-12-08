@@ -4,25 +4,29 @@ import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
+import { MongoClient } from 'mongodb';
 
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
 
 import { pubsub, subscriptionManager } from './subscriptions';
-import connectToMongo from './mongo';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // XXX: TODO
 //  - authentication
 
-const PORT = process.env.PORT || 3000;
-const WS_PORT = process.env.WS_PORT || 3001;
-const MONGO_PORT = process.env.MONGO_PORT || 3002;
+const {
+  PORT = 3000,
+  WS_PORT = PORT + 1,
+  MONGO_PORT = PORT + 2,
+  MONGO_URL = `mongodb://localhost:${MONGO_PORT}/database`,
+} = process.env;
+
 
 async function startServer() {
-  const db = await connectToMongo(MONGO_PORT);
+  const db = await MongoClient.connect(MONGO_URL);
   const context = addModelsToContext({ db, pubsub });
 
   const app = express();
