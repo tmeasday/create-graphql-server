@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Example generator output for Apollo",
   "scripts": {
-    "start": "nodemon server/index.js --watch server --watch schema --watch model --watch resolvers --ext js,graphql --exec babel-node"
+    "start": "babel-node index.js"
   },
   "private": true,
   "author": "",
