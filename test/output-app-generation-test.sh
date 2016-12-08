@@ -12,10 +12,8 @@ set -e
 
 TMPDIR=`mktemp -d 2>/dev/null || mktemp -d -t 'cgs-test'`
 function finish {
-  # rm -rf $TMPDIR
+  rm -rf $TMPDIR
   echo
-  echo
-  echo $TMPDIR
   echo
   echo "Test failed"
 }
@@ -30,3 +28,6 @@ $CGS add-type "$INPUT_DIR/user.graphql"
 set +e
 
 diff -rb . "$EXPECTED_OUTPUT_DIR"
+
+trap - EXIT
+echo "Test Passed"

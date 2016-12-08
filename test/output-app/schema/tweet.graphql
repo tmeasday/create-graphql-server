@@ -2,9 +2,7 @@ type Tweet {
   id: ObjID!
   author: User!
   body: String!
-
   likers(lastCreatedAt: Float, limit: Int): [User!]
-
   createdAt: Float!
   updatedAt: Float!
 }

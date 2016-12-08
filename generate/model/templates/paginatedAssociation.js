@@ -5,4 +5,5 @@ class PaginatedAssociation {
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
+
 }

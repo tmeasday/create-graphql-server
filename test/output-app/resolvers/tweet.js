@@ -3,9 +3,11 @@ const resolvers = {
     id(tweet) {
       return tweet._id;
     },
+
     author(tweet, args, { Tweet }) {
       return Tweet.author(tweet);
     },
+
     likers(tweet, { lastCreatedAt, limit }, { Tweet }) {
       return Tweet.likers(tweet, { lastCreatedAt, limit });
     },
@@ -14,6 +16,7 @@ const resolvers = {
     tweets(root, { lastCreatedAt, limit }, { Tweet }) {
       return Tweet.all({ lastCreatedAt, limit });
     },
+
     tweet(root, { id }, { Tweet }) {
       return Tweet.findOneById(id);
     },
@@ -23,10 +26,12 @@ const resolvers = {
       const id = await Tweet.insert(input);
       return Tweet.findOneById(id);
     },
+
     async updateTweet(root, { id, input }, { Tweet }) {
       await Tweet.updateById(id, input);
       return Tweet.findOneById(id);
     },
+
     removeTweet(root, { id }, { Tweet }) {
       return Tweet.removeById(id);
     },
