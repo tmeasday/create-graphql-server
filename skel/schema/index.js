@@ -7,9 +7,18 @@ function requireGraphQL(name) {
 
 const typeDefs = [`
   scalar ObjID
-  type Query { __placeholder: Int }
-  type Mutation { __placeholder: Int }
-  type Subscription { __placeholder: Int }
+  type Query {
+    # A placeholder, please ignore
+    __placeholder: Int
+  }
+  type Mutation {
+    # A placeholder, please ignore
+    __placeholder: Int
+  }
+  type Subscription {
+    # A placeholder, please ignore
+    __placeholder: Int
+  }
 `];
 
 export default typeDefs;

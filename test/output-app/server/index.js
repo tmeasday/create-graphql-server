@@ -14,9 +14,6 @@ import { pubsub, subscriptionManager } from './subscriptions';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-// XXX: TODO
-//  - authentication
-
 const {
   PORT = 3000,
   WS_PORT = PORT + 1,

@@ -6,7 +6,6 @@ const subscriptionManager = new SubscriptionManager({
   schema,
   pubsub,
   setupFunctions: {
-    // XXX: do we need these?
   },
 });
 
