@@ -74,7 +74,10 @@ const MONGO_CODES = {
         },
 };
 
-if (!MONGO_URL) {
+if (MONGO_URL) {
+  console.log(`Connecting to existing MongoDB on ${MONGO_URL}`);
+} else {
+  console.log(`Creating development MongoDB on mongodb://localhost:${MONGO_PORT}`);
   if (!fs.existsSync(dbpath)){
       fs.mkdirSync(dbpath);
   }
