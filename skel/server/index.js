@@ -67,7 +67,7 @@ async function startServer() {
     `Websocket Server is now running on http://localhost:${WS_PORT}`
   ));
 
-  new SubscriptionServer(
+  return new SubscriptionServer(
     {
       subscriptionManager,
 
@@ -92,5 +92,3 @@ startServer()
     console.error(e);
     console.trace(e);
   });
-
-// setInterval(() => console.log('interval'), 10000);
