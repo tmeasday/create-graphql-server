@@ -65,15 +65,22 @@ If the field references an array (again w/ or w/o nullability) of another type, 
 
 ## Development
 
-### Running end-to-end tests
-
-You can run a set of end-to-end tests of the user/tweet app with `npm run end-to-end-test`. This will seed the database, and run against a running server.
-
-You need to start the standard server with `npm start`, then run `npm run end-to-end-test`.
-
 ### Running code generation tests
 
 You can run some basic code generation tests with `npm test`.
+
+### Testing full app code generation
+
+A simple test to check that using the `test/input` input files with the CGS scripts generates `test/output-app` can be run with `npm run output-app-generation-test`.
+
+### Running end-to-end tests
+
+You can run a set of end-to-end tests of the user/tweet app (which lives in `test/output-app`) with `npm run end-to-end-test`. This will seed the database, and run against a running server.
+
+The test files are in `test/output-app-end-to-end`.
+
+You need to start the standard server with `cd test/output-app; npm start`, then run `npm run end-to-end-test`.
+
 
 ### Creating seed database
 
