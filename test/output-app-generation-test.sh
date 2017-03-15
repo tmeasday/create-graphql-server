@@ -22,8 +22,8 @@ trap finish EXIT
 cd $TMPDIR
 $CGS init output-app
 cd output-app
-$CGS add-type "$INPUT_DIR/tweet.graphql"
-$CGS add-type "$INPUT_DIR/user.graphql"
+$CGS add-type "$INPUT_DIR/Tweet.graphql"
+$CGS add-type "$INPUT_DIR/User.graphql"
 
 set +e
 

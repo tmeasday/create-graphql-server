@@ -48,24 +48,27 @@ if (commands[0] === 'init') {
     modelStr,
   } = generate(inputSchemaStr);
 
-  fs.writeFileSync(path.join('schema', `${typeName}.graphql`), outputSchemaStr);
-  fs.writeFileSync(path.join('resolvers', `${typeName}.js`), resolversStr);
+  fs.writeFileSync(path.join('schema', `${TypeName}.graphql`), outputSchemaStr);
+  fs.writeFileSync(path.join('resolvers', `${TypeName}.js`), resolversStr);
   fs.writeFileSync(path.join('model', `${TypeName}.js`), modelStr);
 
   // We also need to add the relevant code to the end of each index.js file
   // XXX: this is fairly hacky for now, we should at least check it's not there already
-  fs.appendFileSync(path.join('schema', 'index.js'),
-    `\ntypeDefs.push(requireGraphQL('./${typeName}.graphql'));\n`
+  fs.appendFileSync(
+    path.join('schema', 'index.js'),
+    `\ntypeDefs.push(requireGraphQL('./${TypeName}.graphql'));\n`,
   );
 
-  fs.appendFileSync(path.join('resolvers', 'index.js'),
-    `\nimport ${typeName}Resolvers from './${typeName}';\n` +
-    `merge(resolvers, ${typeName}Resolvers);\n`
+  fs.appendFileSync(
+    path.join('resolvers', 'index.js'),
+    `\nimport ${typeName}Resolvers from './${TypeName}';\n` +
+      `merge(resolvers, ${typeName}Resolvers);\n`,
   );
 
-  fs.appendFileSync(path.join('model', 'index.js'),
+  fs.appendFileSync(
+    path.join('model', 'index.js'),
     `\nimport ${TypeName} from './${TypeName}';\n` +
-    `models.${TypeName} = ${TypeName};\n`
+      `models.${TypeName} = ${TypeName};\n`,
   );
 
   process.exit(0);
