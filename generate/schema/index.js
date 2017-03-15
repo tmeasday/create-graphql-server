@@ -9,11 +9,10 @@ import {
   addPaginationArguments,
   applyCustomDirectives,
   idArgument,
+  SCALAR_TYPE_NAMES,
 } from '../util/graphql';
 
 /* eslint-disable no-param-reassign */
-
-const SCALAR_TYPE_NAMES = ['Int', 'Float', 'String', 'ID'];
 
 export default function generateSchema(inputSchema) {
   // Check that the input looks like we expect -- a single ObjectType definition
