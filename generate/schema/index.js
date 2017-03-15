@@ -1,95 +1,19 @@
 import assert from 'assert';
 import cloneDeep from 'lodash.clonedeep';
-import { Kind } from 'graphql';
+
+import {
+  buildField,
+  buildTypeExtension,
+  buildTypeDefinition,
+  buildArgument,
+  addPaginationArguments,
+  applyCustomDirectives,
+  idArgument,
+} from '../util/graphql';
 
 /* eslint-disable no-param-reassign */
 
 const SCALAR_TYPE_NAMES = ['Int', 'Float', 'String', 'ID'];
-
-function buildName(name) {
-  return { kind: 'Name', value: name };
-}
-
-function buildTypeDefinition(name, fields, kind = 'ObjectTypeDefinition') {
-  return {
-    kind,
-    name: buildName(name),
-    interfaces: [],
-    directives: [],
-    fields,
-  };
-}
-
-function buildTypeExtension(type) {
-  return {
-    kind: Kind.TYPE_EXTENSION_DEFINITION,
-    definition: type,
-  };
-}
-
-function buildTypeReference(name) {
-  if (name[name.length - 1] === '!') {
-    return {
-      kind: 'NonNullType',
-      type: buildTypeReference(name.substring(0, name.length - 1)),
-    };
-  }
-
-  if (name[0] === '[' && name[name.length - 1] === ']') {
-    return {
-      kind: 'ListType',
-      type: buildTypeReference(name.substring(1, name.length - 1)),
-    };
-  }
-
-  return {
-    kind: 'NamedType',
-    name: buildName(name),
-  };
-}
-
-function buildField(name, args, typeName) {
-  return {
-    kind: 'FieldDefinition',
-    name: buildName(name),
-    arguments: args,
-    type: buildTypeReference(typeName),
-  };
-}
-
-function buildArgument(name, type) {
-  return {
-    kind: 'InputValueDefinition',
-    name: buildName(name),
-    type: buildTypeReference(type),
-    defaultValue: null,
-    directives: [],
-  };
-}
-
-function paginationArguments() {
-  return [
-    buildArgument('lastCreatedAt', 'Float'),
-    buildArgument('limit', 'Int'),
-  ];
-}
-
-function idArgument() {
-  return buildArgument('id', 'ObjID!');
-}
-
-const directiveGenerators = {
-  // XXX: check that field.type is an array type?
-  hasMany(type, field) {
-    field.arguments = paginationArguments();
-  },
-  hasAndBelongsToMany(type, field) {
-    field.arguments = paginationArguments();
-  },
-  belongsToMany(type, field) {
-    field.arguments = paginationArguments();
-  },
-};
 
 export default function generateSchema(inputSchema) {
   // Check that the input looks like we expect -- a single ObjectType definition
@@ -106,13 +30,10 @@ export default function generateSchema(inputSchema) {
   type.fields.forEach((field) => {
     let unmodifiable = false;
     field.directives.forEach((directive) => {
-      const directiveGenerator = directiveGenerators[directive.name.value];
       if (directive.name.value === 'unmodifiable') {
         unmodifiable = true;
       }
-      if (directiveGenerator) {
-        directiveGenerator(type, field, directive.arguments);
-      }
+      applyCustomDirectives(field);
     });
 
     // XXX: Not sure if this the correct logic but it makes my tests pass
@@ -146,7 +67,8 @@ export default function generateSchema(inputSchema) {
   type.fields.push(buildField('updatedAt', [], 'Float!'));
 
   const queryOneField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
-  const queryAllField = buildField(`${typeName.toLowerCase()}s`, paginationArguments(), `[${typeName}!]`);
+  const queryAllField = buildField(`${typeName.toLowerCase()}s`, [], `[${typeName}!]`);
+  addPaginationArguments(queryAllField);
   outputSchema.definitions.push(
     buildTypeExtension(buildTypeDefinition('Query', [queryAllField, queryOneField]))
   );

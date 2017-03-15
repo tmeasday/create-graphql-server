@@ -19,7 +19,7 @@ export default class User {
     }).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
-  tweets(user, { lastCreatedAt = 0, limit = 10 }) {
+  tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }) {
     return this.context.Tweet.collection.find({
       authorId: user._id,
       createdAt: { $gt: lastCreatedAt },

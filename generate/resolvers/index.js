@@ -16,8 +16,8 @@ const templates = {
 };
 
 function generateResolver(template) {
-  return ({ TypeName, typeName, fieldName }) => {
-    return templateToAst(template, { typeName, TypeName, fieldName });
+  return ({ TypeName, typeName, fieldName, argsStr }) => {
+    return templateToAst(template, { typeName, TypeName, fieldName, argsStr });
   };
 }
 

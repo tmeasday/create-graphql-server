@@ -1,5 +1,5 @@
 class PaginatedAssociation {
-  fieldName(typeName, { lastCreatedAt = 0, limit = 10 }) {
+  fieldName(typeName, argsStr) {
     return this.context.ReturnTypeName.collection.find({
       query,
       createdAt: { $gt: lastCreatedAt },
