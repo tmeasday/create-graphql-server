@@ -1,0 +1,8 @@
+test:
+  override:
+    - npm test
+    - npm run output-app-generation-test
+    - cd test/output-app && yarn && npm start:
+      background: true
+    - sleep 60
+    - npm run end-to-end-test
