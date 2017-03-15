@@ -27,11 +27,9 @@ export default function generateSchema(inputSchema) {
   const createInputFields = [];
   const updateInputFields = [];
   type.fields.forEach((field) => {
-    let unmodifiable = false;
+    const directivesByName = {};
     field.directives.forEach((directive) => {
-      if (directive.name.value === 'unmodifiable') {
-        unmodifiable = true;
-      }
+      directivesByName[directive.name.value] = directive;
       applyCustomDirectives(field);
     });
 
@@ -45,15 +43,16 @@ export default function generateSchema(inputSchema) {
     }
 
     if (possibleInputType.kind === 'NamedType') {
+      const isScalarField = SCALAR_TYPE_NAMES.includes(possibleInputType.name.value);
       let inputField;
-      if (SCALAR_TYPE_NAMES.includes(possibleInputType.name.value)) {
+      if (isScalarField || !!directivesByName.enum) {
         inputField = field;
       } else {
         inputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
       }
 
       createInputFields.push(inputField);
-      if (!unmodifiable) {
+      if (!directivesByName.unmodifiable) {
         updateInputFields.push(inputField);
       }
     }

@@ -44,6 +44,11 @@ type User {
 
 The directives used control the code generation (see below).
 
+### Directives
+
+- `@unmodifiable` - the field will not appear in the update mutation
+- `@enum` - the field's type is an enum, and can be set directly (not just by `Id`).
+
 ### Relations
 
 If types reference each other, you should use an association directive to explain to the generator how the reference should be stored in mongo:
