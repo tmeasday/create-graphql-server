@@ -25,7 +25,7 @@ cd output-app
 $CGS add-type "$INPUT_DIR/Tweet.graphql"
 $CGS add-type "$INPUT_DIR/User.graphql"
 
-diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules"
+diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules" -x "nohup.out"
 set +e
 
 trap - EXIT
