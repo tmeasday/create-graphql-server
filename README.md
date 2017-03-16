@@ -68,6 +68,96 @@ If the field references an array (again w/ or w/o nullability) of another type, 
 - `@hasMany` - the foreign key is on the referenced type as `${typeName}Id`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsTo` in a 1-many situation).
 - `@hasAndBelongsToMany` - the foreign key on the referenced type as `${typeName}Ids`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsToMany` in a many-many situation).
 
+## Authentication
+
+CGS sets up a basic passport-based JWT authentication system for your app.
+
+To use it, ensure you have a GraphQL type called `User` in your schema, with a field `username`, by which users will be looked up. When creating users, ensure that a bcrypted `hash` database field is set. For instance, if you created your users in this way:
+
+```graphql
+type User {
+  username: String!
+  bio: String
+}
+```
+
+You could update the generated `CreateUserInput` input object to take a `password` field:
+
+```graphql
+input CreateUserInput {
+  username: String!
+  password: String! # <- you need to add this line to the generated output
+  bio: String
+}
+```
+
+And then update the generated `User` model to hash that password and store it:
+
+```js
+import bcrypt from 'bcrypt';
+// Set this as appropriate
+const SALT_ROUNDS = 10;
+
+class User {
+  async insert(doc) {
+    // We don't want to store passwords plaintext!
+    const { password, ...rest } = doc;
+    const hash = await bcrypt.hash(password, SALT_ROUNDS);
+    const docToInsert = Object.assign({}, rest, {
+      hash,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+
+    // This code is unchanged.
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    this.pubsub.publish('userInserted', await this.findOneById(id));
+    return id;
+  }
+}
+```
+
+### Client side code
+
+To create users, simply call your generated `createUser` mutation (you may want to add authorization to the resolver, feel free to modify it).
+
+To login on the client, you make a RESTful request to `/login` on the server, passing `username` and `password` in JSON. You'll get a JWT token back, which you should attach to the `Authorization` header of all GraphQL requests.
+
+Here's some code to do just that:
+
+```js
+const KEY = 'authToken';
+let token = localStorage.getItem(KEY);
+
+const networkInterface = createNetworkInterface(/* as usual */);
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      req.options.headers = {
+        authorization: token ? `JWT ${token}` : null,
+        ...req.options.headers,
+      };
+      next();
+    },
+  },
+]);
+
+// Create your client as usual and pass to a provider
+const client = /*...*/
+
+// Call this function from your login form, or wherever.
+const login = async function(serverUrl, username, password) {
+  const response = await fetch(`${serverUrl}/login`, {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const data = await response.json();
+  token = data.token;
+  localStorage.setItem(KEY, window.token);
+}
+```
+
 ## Development
 
 ### Running code generation tests

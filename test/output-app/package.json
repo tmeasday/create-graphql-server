@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "apollo-server": "0.3.2",
+    "bcrypt": "^1.0.2",
     "body-parser": "1.15.2",
     "cors": "^2.8.1",
     "dataloader": "^1.2.0",
@@ -43,9 +44,13 @@
     "graphql-server-express": "^0.4.3",
     "graphql-subscriptions": "0.2.0",
     "graphql-tools": "^0.8.2",
+    "jwt-simple": "^0.5.1",
     "lodash": "4.16.4",
     "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
+    "nodeify": "^1.0.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
     "request-promise": "4.1.1",
     "subscriptions-transport-ws": "0.2.6"
   }
