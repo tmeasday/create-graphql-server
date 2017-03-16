@@ -1,5 +1,5 @@
 import { Kind } from 'graphql';
-import { includes } from 'lodash';
+import includes from 'lodash.includes';
 
 export const SCALAR_TYPE_NAMES = ['Int', 'Float', 'String', 'Boolean', 'ID'];
 

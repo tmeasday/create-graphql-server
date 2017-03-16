@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
-import { merge } from 'lodash';
+import merge from 'lodash.merge';
 
 const resolvers = {};
 
