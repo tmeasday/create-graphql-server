@@ -1,10 +1,14 @@
+dependencies:
+  override:
+    - yarn
+
 test:
   pre:
     - cd test/output-app
     - yarn
     - npm start:
         background: true
-    - sleep 60
+    - sleep 10
   override:
     - npm test
     - npm run output-app-generation-test
