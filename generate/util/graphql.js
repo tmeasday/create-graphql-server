@@ -19,7 +19,7 @@ export function argumentsToObject(argumentsAst) {
 }
 
 export function isScalarField(field) {
-  return SCALAR_TYPE_NAMES.includes(getBaseType(field.type).name.value);
+  return includes(SCALAR_TYPE_NAMES, getBaseType(field.type).name.value);
 }
 
 export function buildName(name) {

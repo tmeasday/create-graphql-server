@@ -1,5 +1,6 @@
 import assert from 'assert';
 import cloneDeep from 'lodash.clonedeep';
+import includes from 'lodash.includes';
 
 import {
   buildField,
@@ -43,7 +44,7 @@ export default function generateSchema(inputSchema) {
     }
 
     if (possibleInputType.kind === 'NamedType') {
-      const isScalarField = SCALAR_TYPE_NAMES.includes(possibleInputType.name.value);
+      const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
       let inputField;
       if (isScalarField || !!directivesByName.enum) {
         inputField = field;
