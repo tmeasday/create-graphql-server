@@ -45,6 +45,8 @@
     "denodeify": "^1.2.1",
     "graphql": "0.7.2",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.includes": "^4.3.0",
+    "lodash.merge": "^4.6.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "recast": "^0.11.18",

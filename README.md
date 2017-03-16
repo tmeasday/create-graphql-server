@@ -27,7 +27,7 @@ To see what a complete generated server looks like, see the `test/output-app` fo
 
 This example is a super simple Twitter clone, with users and tweets, but if you want to experiment, you can add and remove types and fields as you wish.
 
-For example, in `user.graphql`:
+For example, in `User.graphql`:
 
 ```graphql
 type User {
@@ -183,6 +183,6 @@ If you need to change the fixtures for the test db
 
 Start the server, then run
 ```bash
-mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/user.json
-mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/tweet.json
+mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/User.json
+mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/Tweet.json
 ```

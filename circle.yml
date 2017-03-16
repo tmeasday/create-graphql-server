@@ -1,8 +1,17 @@
+dependencies:
+  override:
+    - yarn
+    - yarn:
+        pwd: test/output-app
+
+
 test:
+  pre:
+    - npm start </dev/null &>/tmp/app-output:
+        pwd: test/output-app
+        background: true
+    - sleep 10
   override:
     - npm test
     - npm run output-app-generation-test
-    - cd test/output-app && yarn && npm start:
-      background: true
-    - sleep 60
     - npm run end-to-end-test
