@@ -7,7 +7,7 @@ dependencies:
 
 test:
   pre:
-    - npm start > /tmp/app-output 2>&1:
+    - npm start </dev/null &>/tmp/app-output:
         pwd: test/output-app
         background: true
     - sleep 10
