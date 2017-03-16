@@ -1,12 +1,14 @@
 dependencies:
   override:
     - yarn
+    - yarn:
+        pwd: test/output-app
+
 
 test:
   pre:
-    - cd test/output-app
-    - yarn
     - npm start:
+        pwd: test/output-app
         background: true
     - sleep 10
   override:
