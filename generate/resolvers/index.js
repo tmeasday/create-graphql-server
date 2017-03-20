@@ -32,7 +32,7 @@ const generators = {
   hasAndBelongsToMany: generateResolver(templates.paginatedField),
 };
 
-export default function generateResolvers(inputSchema) {
+export function generateResolversAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
@@ -53,5 +53,10 @@ export default function generateResolvers(inputSchema) {
     typeResolversAst.properties.push(resolverProperty);
   });
 
+  return ast;
+}
+
+export default function generateResolvers(inputSchema) {
+  const ast = generateResolversAst(inputSchema);
   return print(ast, { trailingComma: true }).code;
 }

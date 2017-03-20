@@ -73,8 +73,7 @@ const generators = {
   },
 };
 
-
-export default function generateModel(inputSchema) {
+export function generateModelAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
@@ -99,5 +98,10 @@ export default function generateModel(inputSchema) {
     nextIndex += 1;
   });
 
+  return ast;
+}
+
+export default function generateModel(inputSchema) {
+  const ast = generateModelAst(inputSchema);
   return print(ast, { trailingComma: true }).code;
 }

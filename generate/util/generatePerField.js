@@ -12,7 +12,15 @@ export default function generatePerField(type, generators) {
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
 
-  return type.fields.filter(f => !isScalarField(f)).map((originalField) => {
+  // XXX: this logic is shared in the schema generation code.
+  // We should probably find a way to use generatePerField for the schema too.
+  const ignoreField = (field) => {
+    const directivesByName = {};
+    field.directives.forEach((d) => { directivesByName[d.name.value] = d; });
+    return !isScalarField(field) && !directivesByName.enum;
+  };
+
+  return type.fields.filter(ignoreField).map((originalField) => {
     const field = cloneDeep(originalField);
     applyCustomDirectives(field);
 
