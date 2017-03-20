@@ -28,13 +28,13 @@ export default function addPassport(app) {
 
   app.post('/login', async (req, res, next) => {
     try {
-      const { username, password } = req.body;
+      const { email, password } = req.body;
 
-      if (!username || !password) {
+      if (!email || !password) {
         throw new Error('Username or password not set on request');
       }
 
-      const user = await req.context.User.collection.findOne({ username });
+      const user = await req.context.User.collection.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.hash))) {
         throw new Error('User not found matching email/password combination');
       }

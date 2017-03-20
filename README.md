@@ -31,7 +31,7 @@ For example, in `User.graphql`:
 
 ```graphql
 type User {
-  username: String!
+  email: String!
   bio: String
 
   tweets: [Tweet!] @hasMany(as: "author")
@@ -72,11 +72,11 @@ If the field references an array (again w/ or w/o nullability) of another type, 
 
 CGS sets up a basic passport-based JWT authentication system for your app.
 
-To use it, ensure you have a GraphQL type called `User` in your schema, with a field `username`, by which users will be looked up. When creating users, ensure that a bcrypted `hash` database field is set. For instance, if you created your users in this way:
+To use it, ensure you have a GraphQL type called `User` in your schema, with a field `email`, by which users will be looked up. When creating users, ensure that a bcrypted `hash` database field is set. For instance, if you created your users in this way:
 
 ```graphql
 type User {
-  username: String!
+  email: String!
   bio: String
 }
 ```
@@ -85,7 +85,7 @@ You could update the generated `CreateUserInput` input object to take a `passwor
 
 ```graphql
 input CreateUserInput {
-  username: String!
+  email: String!
   password: String! # <- you need to add this line to the generated output
   bio: String
 }
@@ -121,7 +121,7 @@ class User {
 
 To create users, simply call your generated `createUser` mutation (you may want to add authorization to the resolver, feel free to modify it).
 
-To login on the client, you make a RESTful request to `/login` on the server, passing `username` and `password` in JSON. You'll get a JWT token back, which you should attach to the `Authorization` header of all GraphQL requests.
+To login on the client, you make a RESTful request to `/login` on the server, passing `email` and `password` in JSON. You'll get a JWT token back, which you should attach to the `Authorization` header of all GraphQL requests.
 
 Here's some code to do just that:
 
@@ -146,15 +146,15 @@ networkInterface.use([
 const client = /*...*/
 
 // Call this function from your login form, or wherever.
-const login = async function(serverUrl, username, password) {
+const login = async function(serverUrl, email, password) {
   const response = await fetch(`${serverUrl}/login`, {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
     headers: { 'Content-Type': 'application/json' },
   });
   const data = await response.json();
   token = data.token;
-  localStorage.setItem(KEY, window.token);
+  localStorage.setItem(KEY, token);
 }
 ```
 
