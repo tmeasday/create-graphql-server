@@ -72,6 +72,8 @@ If the field references an array (again w/ or w/o nullability) of another type, 
 
 CGS sets up a basic passport-based JWT authentication system for your app.
 
+**NOTE**: you should ensure users connect to your server through SSL.
+
 To use it, ensure you have a GraphQL type called `User` in your schema, with a field `email`, by which users will be looked up. When creating users, ensure that a bcrypted `hash` database field is set. For instance, if you created your users in this way:
 
 ```graphql
