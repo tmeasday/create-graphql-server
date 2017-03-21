@@ -1,7 +1,7 @@
 {
-  "name": "cga-example-output",
+  "name": "~name~",
   "version": "1.0.0",
-  "description": "Example generator output for Apollo",
+  "description": "~name~ GraphQL Server",
   "scripts": {
     "start": "babel-node index.js"
   },

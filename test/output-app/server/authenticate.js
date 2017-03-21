@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
 
-const KEY = 'supersecretkey';
+const KEY = 'test-key';
 
 async function userFromPayload(request, jwtPayload) {
   if (!jwtPayload.userId) {

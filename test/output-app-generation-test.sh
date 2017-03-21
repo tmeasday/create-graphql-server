@@ -20,7 +20,7 @@ function finish {
 trap finish EXIT
 
 cd $TMPDIR
-$CGS init output-app
+JWT_KEY='test-key' $CGS init output-app
 cd output-app
 $CGS add-type "$INPUT_DIR/Tweet.graphql"
 $CGS add-type "$INPUT_DIR/User.graphql"

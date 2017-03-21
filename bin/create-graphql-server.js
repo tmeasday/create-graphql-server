@@ -7,6 +7,7 @@ import path from 'path';
 import cpr from 'cpr';
 import minimist from 'minimist';
 import generate from '../generate';
+import child_process from 'child_process';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -27,11 +28,16 @@ if (commands[0] === 'init') {
     usage();
   }
 
-  // TODO - nice things like checking the directory doesn't exist
+  // JWT key for encrypting tokens
+  const key = process.env.JWT_KEY || Math.random().toString();
 
+  // TODO - nice things like checking the directory doesn't exist
   cpr(SKEL_DIR, projectDir, { confirm: true, overwrite: true }, () => {
-    console.log(`Created project in ${projectDir}`);
-    process.exit(0);
+    const command = `find  * -type f  -exec sed -i '' -e 's/~name~/${projectDir}/' -e 's/~key~/${key}/' {} \\;`;
+    child_process.exec(command, { cwd: `./${projectDir}` }, () => {
+      console.log(`Created project in ${projectDir}`);
+      process.exit(0);
+    });
   });
 } else if (commands[0] === 'add-type') {
   const inputSchemaFile = commands[1];
