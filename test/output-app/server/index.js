@@ -27,16 +27,16 @@ const {
 
 async function startServer() {
   const db = await MongoClient.connect(MONGO_URL);
-  const context = addModelsToContext({ db, pubsub });
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
   app.use((req, res, next) => {
-    req.context = context;
+    req.context = addModelsToContext({ db, pubsub });
     next();
   });
+
   authenticate(app);
 
   app.use('/graphql', (req, res, next) => {
@@ -53,7 +53,7 @@ async function startServer() {
 
         return {
           schema,
-          context: Object.assign({ user }, context),
+          context: Object.assign({ user }, req.context),
           debug: true,
           formatError(e) { console.log(e) },
         };
