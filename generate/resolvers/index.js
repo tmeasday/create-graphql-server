@@ -6,7 +6,7 @@ import generatePerField from '../util/generatePerField';
 import { lcFirst } from '../util/capitalization';
 
 function read(name) {
-  return fs.readFileSync(`${__dirname}/templates/${name}.js`, 'utf8');
+  return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
 }
 
 const templates = {

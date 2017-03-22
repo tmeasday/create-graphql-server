@@ -5,3 +5,4 @@ dev.sqlite3
 .idea/
 db
 ./output
+dist
