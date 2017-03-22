@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server",
-  "version": "1.0.0",
+  "version": "0.5.0-beta.0",
   "description": "Scaffolding tool for GraphQL apps",
   "bin": {
     "create-graphql-server": "./bin/create-graphql-server.js"
@@ -17,8 +17,7 @@
     "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
     "output-app-generation-test": "./test/output-app-generation-test.sh"
   },
-  "private": true,
-  "author": "",
+  "author": "Tom Coleman",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.16.0",
