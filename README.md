@@ -25,7 +25,7 @@ To see what a complete generated server looks like, see the `test/output-app` fo
 
 ## Creating types
 
-This example is a super simple Twitter clone, with users and tweets, but if you want to experiment, you can add and remove types and fields as you wish.
+You create a GraphQL type for your schema by specifying the type as input, with some special code-generation controlling directives.
 
 For example, in `User.graphql`:
 
@@ -41,6 +41,8 @@ type User {
   followers: [User!] @hasAndBelongsToMany(as: "following")
 }
 ```
+
+The above will generate a User type which is linked to other users and a tweet type via foriegn keys and which will have mutations to add, update and remove users, as well as some root queries to find a single user or all users.
 
 The directives used control the code generation (see below).
 
@@ -188,3 +190,11 @@ Start the server, then run
 mongoexport --host 127.0.0.1:3002 --db database --collection user > seeds/User.json
 mongoexport --host 127.0.0.1:3002 --db database --collection tweet > seeds/Tweet.json
 ```
+
+## Maintenance
+
+As this is a code generator, and not a library, once you run the code, you are on your own :)
+
+By which I mean, you should feel free to read the generated code, understand it, and modify it as you see fit. Any updates to CGS will just affect future apps that you generate.
+
+If you'd like to see improvements, or find any bugs, by all means report them via the issues, and send PRs. But workarounds should be always be possible simply by patching the generated code.
