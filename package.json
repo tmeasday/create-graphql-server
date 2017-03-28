@@ -1,6 +1,6 @@
 {
   "name": "create-graphql-server",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Scaffolding tool for GraphQL apps",
   "bin": {
     "create-graphql-server": "./dist/bin/create-graphql-server.js"
@@ -16,7 +16,8 @@
     "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
     "output-app-generation-test": "./test/output-app-generation-test.sh",
     "clean": "rm -rf dist/*",
-    "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist"
+    "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist",
+    "prepublish": "npm run build"
   },
   "author": "Tom Coleman",
   "license": "MIT",
