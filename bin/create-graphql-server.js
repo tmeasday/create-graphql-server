@@ -1,5 +1,3 @@
-#!/usr/bin/env babel-node
-
 /* eslint-disable no-console */
 
 import fs from 'fs';
