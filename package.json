@@ -14,6 +14,7 @@
     "testonly": "mocha --require babel-register",
     "test": "npm run testonly test/generate",
     "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
+    "preoutput-app-generation-test": "npm run build",
     "output-app-generation-test": "./test/output-app-generation-test.sh",
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist",

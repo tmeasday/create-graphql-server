@@ -4,7 +4,7 @@ pushd "$(dirname $0)/.." > /dev/null
 PACKAGE_DIR=`pwd`
 popd > /dev/null
 
-CGS="$PACKAGE_DIR/bin/create-graphql-server.js"
+CGS="$PACKAGE_DIR/dist/bin/create-graphql-server.js"
 INPUT_DIR="$PACKAGE_DIR/test/input"
 EXPECTED_OUTPUT_DIR="$PACKAGE_DIR/test/output-app"
 
