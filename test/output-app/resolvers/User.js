@@ -4,8 +4,8 @@ const resolvers = {
       return user._id;
     },
 
-    tweets(user, { lastCreatedAt, limit }, { User }) {
-      return User.tweets(user, { lastCreatedAt, limit });
+    tweets(user, { minLikes, lastCreatedAt, limit }, { User }) {
+      return User.tweets(user, { minLikes, lastCreatedAt, limit });
     },
 
     liked(user, { lastCreatedAt, limit }, { User }) {

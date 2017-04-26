@@ -23,6 +23,6 @@ const typeDefs = [`
 
 export default typeDefs;
 
-typeDefs.push(requireGraphQL('./tweet.graphql'));
+typeDefs.push(requireGraphQL('./Tweet.graphql'));
 
-typeDefs.push(requireGraphQL('./user.graphql'));
+typeDefs.push(requireGraphQL('./User.graphql'));

@@ -15,14 +15,14 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo "seeding database"
-mongoimport --drop --host 127.0.0.1:3002 --db database --collection user "$SEED_DIR/user.json"
+mongoimport --drop --host 127.0.0.1:3002 --db database --collection user "$SEED_DIR/User.json"
 
 if [[ $? -ne 0 ]]; then
   echo "FAILED: Ensure that mongo is also running on 3002"
   exit 1
 fi
 
-mongoimport --drop --host 127.0.0.1:3002 --db database --collection tweet "$SEED_DIR/tweet.json"
+mongoimport --drop --host 127.0.0.1:3002 --db database --collection tweet "$SEED_DIR/Tweet.json"
 
 echo "running tests"
 

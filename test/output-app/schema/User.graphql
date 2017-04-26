@@ -2,7 +2,8 @@ type User {
   id: ObjID!
   username: String!
   bio: String
-  tweets(lastCreatedAt: Float, limit: Int): [Tweet!]
+  notify: Boolean
+  tweets(minLikes: Int, lastCreatedAt: Float, limit: Int): [Tweet!]
   liked(lastCreatedAt: Float, limit: Int): [Tweet!]
   following(lastCreatedAt: Float, limit: Int): [User!]
   followers(lastCreatedAt: Float, limit: Int): [User!]
@@ -18,11 +19,13 @@ extend type Query {
 input CreateUserInput {
   username: String!
   bio: String
+  notify: Boolean
 }
 
 input UpdateUserInput {
   username: String!
   bio: String
+  notify: Boolean
 }
 
 extend type Mutation {

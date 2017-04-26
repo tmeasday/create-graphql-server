@@ -1,8 +1,9 @@
 type User {
   username: String!
   bio: String
+  notify: Boolean
 
-  tweets: [Tweet!] @hasMany(as: "author")
+  tweets(minLikes: Int): [Tweet!] @hasMany(as: "author")
   liked: [Tweet!] @belongsToMany
 
   following: [User!] @belongsToMany

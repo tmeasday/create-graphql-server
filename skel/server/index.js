@@ -6,10 +6,12 @@ import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
+import passport from 'passport';
 
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
+import authenticate from './authenticate';
 
 import { pubsub, subscriptionManager } from './subscriptions';
 
@@ -25,29 +27,39 @@ const {
 
 async function startServer() {
   const db = await MongoClient.connect(MONGO_URL);
-  const context = addModelsToContext({ db, pubsub });
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
-  app.use('/graphql', graphqlExpress((req) => {
-    // Get the query, the same way express-graphql does it
-    // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
-    const query = req.query.query || req.body.query;
-    if (query && query.length > 2000) {
-      // None of our app's queries are this long
-      // Probably indicates someone trying to send an overly expensive query
-      throw new Error('Query too large.');
-    }
+  app.use((req, res, next) => {
+    req.context = addModelsToContext({ db, pubsub });
+    next();
+  });
 
-    return {
-      schema,
-      context: Object.assign({}, context),
-      debug: true,
-      formatError(e) { console.log(e) },
-    };
-  }));
+  authenticate(app);
+
+  app.use('/graphql', (req, res, next) => {
+    passport.authenticate('jwt', { session: false }, (err, user) => {
+      graphqlExpress(() => {
+        // Get the query, the same way express-graphql does it
+        // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
+        const query = req.query.query || req.body.query;
+        if (query && query.length > 2000) {
+          // None of our app's queries are this long
+          // Probably indicates someone trying to send an overly expensive query
+          throw new Error('Query too large.');
+        }
+
+        return {
+          schema,
+          context: Object.assign({ user }, req.context),
+          debug: true,
+          formatError(e) { console.log(e) },
+        };
+      })(req, res, next);
+    })(req, res, next);
+  });
 
   app.use('/graphiql', graphiqlExpress({
     endpointURL: '/graphql',

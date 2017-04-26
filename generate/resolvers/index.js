@@ -6,7 +6,7 @@ import generatePerField from '../util/generatePerField';
 import { lcFirst } from '../util/capitalization';
 
 function read(name) {
-  return fs.readFileSync(`${__dirname}/templates/${name}.js`, 'utf8');
+  return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
 }
 
 const templates = {
@@ -16,8 +16,8 @@ const templates = {
 };
 
 function generateResolver(template) {
-  return ({ TypeName, typeName, fieldName }) => {
-    return templateToAst(template, { typeName, TypeName, fieldName });
+  return ({ TypeName, typeName, fieldName, argsStr }) => {
+    return templateToAst(template, { typeName, TypeName, fieldName, argsStr });
   };
 }
 
@@ -32,7 +32,7 @@ const generators = {
   hasAndBelongsToMany: generateResolver(templates.paginatedField),
 };
 
-export default function generateResolvers(inputSchema) {
+export function generateResolversAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
@@ -53,5 +53,10 @@ export default function generateResolvers(inputSchema) {
     typeResolversAst.properties.push(resolverProperty);
   });
 
+  return ast;
+}
+
+export default function generateResolvers(inputSchema) {
+  const ast = generateResolversAst(inputSchema);
   return print(ast, { trailingComma: true }).code;
 }

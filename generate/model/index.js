@@ -6,7 +6,7 @@ import { lcFirst } from '../util/capitalization';
 import generatePerField from '../util/generatePerField';
 
 function read(name) {
-  return fs.readFileSync(`${__dirname}/templates/${name}.js`, 'utf8');
+  return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
 }
 
 const templates = {
@@ -15,22 +15,37 @@ const templates = {
   paginatedAssociation: read('paginatedAssociation'),
 };
 
+function buildAst(template, {
+  typeName,
+  fieldName,
+  argsStr,
+  ReturnTypeName,
+  query,
+}) {
+  const argsWithDefaultsStr = argsStr
+    .replace('lastCreatedAt', 'lastCreatedAt = 0')
+    .replace('limit', 'limit = 10');
+  return templateToAst(template, {
+    typeName,
+    fieldName,
+    argsStr: argsWithDefaultsStr,
+    ReturnTypeName,
+    query,
+  });
+}
+
+
 const generators = {
   base({ typeName, TypeName }) {
     return templateToAst(templates.base, { typeName, TypeName });
   },
-  belongsTo({ typeName, fieldName, ReturnTypeName }) {
-    return templateToAst(templates.singularAssociation, {
-      typeName,
-      fieldName,
-      ReturnTypeName,
-    });
+  belongsTo(replacements) {
+    return buildAst(templates.singularAssociation, replacements);
   },
-  belongsToMany({ typeName, fieldName, ReturnTypeName }) {
-    return templateToAst(templates.paginatedAssociation, {
-      typeName,
-      fieldName,
-      ReturnTypeName,
+  belongsToMany(replacements) {
+    const { typeName, fieldName } = replacements;
+    return buildAst(templates.paginatedAssociation, {
+      ...replacements,
       query: `_id: { $in: ${typeName}.${fieldName}Ids || [] }`,
     });
   },
@@ -42,26 +57,23 @@ const generators = {
   //     ReturnTypeName,
   //   });
   // },
-  hasMany({ typeName, fieldName, ReturnTypeName }, { as = typeName }) {
-    return templateToAst(templates.paginatedAssociation, {
-      typeName,
-      fieldName,
-      ReturnTypeName,
-      query: `${as}Id: ${typeName}._id`,
+  hasMany(replacements, { as }) {
+    const { typeName } = replacements;
+    return buildAst(templates.paginatedAssociation, {
+      ...replacements,
+      query: `${as || typeName}Id: ${typeName}._id`,
     });
   },
-  hasAndBelongsToMany({ typeName, fieldName, ReturnTypeName }, { as = typeName }) {
-    return templateToAst(templates.paginatedAssociation, {
-      typeName,
-      fieldName,
-      ReturnTypeName,
-      query: `${as}Ids: ${typeName}._id`,
+  hasAndBelongsToMany(replacements, { as }) {
+    const { typeName } = replacements;
+    return buildAst(templates.paginatedAssociation, {
+      ...replacements,
+      query: `${as || typeName}Ids: ${typeName}._id`,
     });
   },
 };
 
-
-export default function generateModel(inputSchema) {
+export function generateModelAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
@@ -86,5 +98,10 @@ export default function generateModel(inputSchema) {
     nextIndex += 1;
   });
 
+  return ast;
+}
+
+export default function generateModel(inputSchema) {
+  const ast = generateModelAst(inputSchema);
   return print(ast, { trailingComma: true }).code;
 }

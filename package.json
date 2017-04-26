@@ -1,24 +1,26 @@
 {
   "name": "create-graphql-server",
-  "version": "1.0.0",
+  "version": "0.5.3",
   "description": "Scaffolding tool for GraphQL apps",
   "bin": {
-    "create-graphql-server": "./bin/create-graphql-server.js"
+    "create-graphql-server": "./dist/bin/create-graphql-server.js"
   },
   "files": [
-    "bin",
-    "generate",
-    "skel",
-    ".babelrc"
+    "dist/bin",
+    "dist/generate",
+    "dist/skel"
   ],
   "scripts": {
     "testonly": "mocha --require babel-register",
     "test": "npm run testonly test/generate",
     "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
-    "output-app-generation-test": "./test/output-app-generation-test.sh"
+    "preoutput-app-generation-test": "npm run build",
+    "output-app-generation-test": "./test/output-app-generation-test.sh",
+    "clean": "rm -rf dist/*",
+    "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist",
+    "prepublish": "npm run build"
   },
-  "private": true,
-  "author": "",
+  "author": "Tom Coleman",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.16.0",
@@ -45,6 +47,8 @@
     "denodeify": "^1.2.1",
     "graphql": "0.7.2",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.includes": "^4.3.0",
+    "lodash.merge": "^4.6.0",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "recast": "^0.11.18",

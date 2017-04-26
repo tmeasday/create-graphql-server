@@ -11,7 +11,7 @@ describe('generateModel', () => {
   chai.use(chaiDiff);
 
   describe('with user test file', () => {
-    const input = readInput(`${__dirname}/../input/user.graphql`);
+    const input = readInput(`${__dirname}/../input/User.graphql`);
 
     it('generates correct JavaScript', () => {
       const schema = generateSchema(input);
@@ -24,7 +24,7 @@ describe('generateModel', () => {
   });
 
   describe('with tweet test file', () => {
-    const input = readInput(`${__dirname}/../input/tweet.graphql`);
+    const input = readInput(`${__dirname}/../input/Tweet.graphql`);
 
     it('generates correct JavaScript', () => {
       const schema = generateSchema(input);
