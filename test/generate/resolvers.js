@@ -11,26 +11,26 @@ describe('generateResolvers', () => {
   chai.use(chaiDiff);
 
   describe('with user test file', () => {
-    const input = readInput(`${__dirname}/../input/user.graphql`);
+    const input = readInput(`${__dirname}/../input/User.graphql`);
 
     it('generates correct JavaScript', () => {
       const schema = generateSchema(input);
       const output = generateResolvers(input, schema);
 
-      const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/user.js`, 'utf8');
+      const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/User.js`, 'utf8');
 
       expect(output).not.to.be.differentFrom(expected, { relaxedSpace: true });
     });
   });
 
   describe('with tweet test file', () => {
-    const input = readInput(`${__dirname}/../input/tweet.graphql`);
+    const input = readInput(`${__dirname}/../input/Tweet.graphql`);
 
     it('generates correct JavaScript', () => {
       const schema = generateSchema(input);
       const output = generateResolvers(input, schema);
 
-      const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/tweet.js`, 'utf8');
+      const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/Tweet.js`, 'utf8');
 
       expect(output).not.to.be.differentFrom(expected, { relaxedSpace: true });
     });

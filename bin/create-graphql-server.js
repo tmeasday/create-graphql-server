@@ -1,4 +1,4 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env node
 
 /* eslint-disable no-console */
 
@@ -7,6 +7,7 @@ import path from 'path';
 import cpr from 'cpr';
 import minimist from 'minimist';
 import generate from '../generate';
+import child_process from 'child_process';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -27,11 +28,16 @@ if (commands[0] === 'init') {
     usage();
   }
 
-  // TODO - nice things like checking the directory doesn't exist
+  // JWT key for encrypting tokens
+  const key = process.env.JWT_KEY || Math.random().toString();
 
+  // TODO - nice things like checking the directory doesn't exist
   cpr(SKEL_DIR, projectDir, { confirm: true, overwrite: true }, () => {
-    console.log(`Created project in ${projectDir}`);
-    process.exit(0);
+    const command = `find  * -type f  -exec sed -i '' -e 's/~name~/${projectDir}/' -e 's/~key~/${key}/' {} \\;`;
+    child_process.exec(command, { cwd: `./${projectDir}` }, () => {
+      console.log(`Created project in ${projectDir}`);
+      process.exit(0);
+    });
   });
 } else if (commands[0] === 'add-type') {
   const inputSchemaFile = commands[1];
@@ -48,24 +54,27 @@ if (commands[0] === 'init') {
     modelStr,
   } = generate(inputSchemaStr);
 
-  fs.writeFileSync(path.join('schema', `${typeName}.graphql`), outputSchemaStr);
-  fs.writeFileSync(path.join('resolvers', `${typeName}.js`), resolversStr);
+  fs.writeFileSync(path.join('schema', `${TypeName}.graphql`), outputSchemaStr);
+  fs.writeFileSync(path.join('resolvers', `${TypeName}.js`), resolversStr);
   fs.writeFileSync(path.join('model', `${TypeName}.js`), modelStr);
 
   // We also need to add the relevant code to the end of each index.js file
   // XXX: this is fairly hacky for now, we should at least check it's not there already
-  fs.appendFileSync(path.join('schema', 'index.js'),
-    `\ntypeDefs.push(requireGraphQL('./${typeName}.graphql'));\n`
+  fs.appendFileSync(
+    path.join('schema', 'index.js'),
+    `\ntypeDefs.push(requireGraphQL('./${TypeName}.graphql'));\n`,
   );
 
-  fs.appendFileSync(path.join('resolvers', 'index.js'),
-    `\nimport ${typeName}Resolvers from './${typeName}';\n` +
-    `merge(resolvers, ${typeName}Resolvers);\n`
+  fs.appendFileSync(
+    path.join('resolvers', 'index.js'),
+    `\nimport ${typeName}Resolvers from './${TypeName}';\n` +
+      `merge(resolvers, ${typeName}Resolvers);\n`,
   );
 
-  fs.appendFileSync(path.join('model', 'index.js'),
+  fs.appendFileSync(
+    path.join('model', 'index.js'),
     `\nimport ${TypeName} from './${TypeName}';\n` +
-    `models.${TypeName} = ${TypeName};\n`
+      `models.${TypeName} = ${TypeName};\n`,
   );
 
   process.exit(0);

@@ -1,5 +1,5 @@
 const fieldOfType = {
-  fieldName(typeName, args, { TypeName }) {
+  fieldName(typeName, argsStr, { TypeName }) {
     return TypeName.fieldName(typeName);
   },
 };
