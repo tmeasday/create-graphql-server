@@ -78,7 +78,7 @@ if (!MONGO_URL) {
   console.log(`Creating development MongoDB on mongodb://localhost:${MONGO_PORT}`);
 
   if (!fs.existsSync(dbpath)){
-      fs.mkdirSync(dbpath);
+    fs.mkdirSync(dbpath);
   }
 
   // Weirdly, this promise never resolves if Mongo starts.
