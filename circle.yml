@@ -15,3 +15,4 @@ test:
     - npm test
     - npm run output-app-generation-test
     - npm run end-to-end-test
+    - npm run test-add-update-remove

@@ -7,10 +7,11 @@ popd > /dev/null
 CGS="$PACKAGE_DIR/dist/bin/create-graphql-server.js"
 INPUT_DIR="$PACKAGE_DIR/test/input"
 EXPECTED_OUTPUT_DIR="$PACKAGE_DIR/test/output-app"
-
+chmod +x $CGS
 set -e
 
 TMPDIR=`mktemp -d 2>/dev/null || mktemp -d -t 'cgs-test'`
+chmod -R 777 $TMPDIR
 function finish {
   rm -rf $TMPDIR
   echo
@@ -25,7 +26,7 @@ cd output-app
 $CGS add-type "$INPUT_DIR/Tweet.graphql"
 $CGS add-type "$INPUT_DIR/User.graphql"
 
-diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules" -x "nohup.out"
+diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules" -x "nohup.out" -x ".create-graphql-server.checksums"
 set +e
 
 trap - EXIT

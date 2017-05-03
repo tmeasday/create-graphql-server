@@ -1,0 +1,4 @@
+type Order {
+  customer: String!
+  value: String
+}
