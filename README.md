@@ -2,26 +2,28 @@
 
 This is a simple scaffolding tool for GraphQL apps, built on MongoDB.
 
-It consists of two commands:
+It consists of different commands:
 
 ```bash
-create-graphql-server init project-dir
+create-graphql-server init project-dir 
 ```
 
 Create the basic skeleton of a GraphQL server project. If you `yarn install` inside `project-dir`, you should be able to `npm start` it, and then browse to http://localhost:3010/graphiql to start running queries.
 
 There isn't anything to query yet however!
 
-To add some types, simply run:
+To add some types, simply run one of the following alternatives:
 
 ```bash
 create-graphql-server add-type path/to/input.graphql
+OR:
+create-grapqhl-server add-type path
 ```
 
-Where `path/to/input.graphql` is an input GraphQL schema (see below).
+Where `path/to/input.graphql` is an input GraphQL schema (see below). Or:
+Where `path` will add all `type.graphql` files in the given directory path recursively.
 
 To see what a complete generated server looks like, see the `test/output-app` folder. It has been generated from the `test/input` schema inputs.
-
 
 ## Creating types
 
@@ -69,6 +71,34 @@ If the field references an array (again w/ or w/o nullability) of another type, 
 - `@belongsToMany` - there is a list of foreign keys stored on this type as `${fieldName}Ids` [this is the default]
 - `@hasMany` - the foreign key is on the referenced type as `${typeName}Id`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsTo` in a 1-many situation).
 - `@hasAndBelongsToMany` - the foreign key on the referenced type as `${typeName}Ids`. Provide the `"as": X` argument if the name is different. (this is the reverse of `@belongsToMany` in a many-many situation).
+
+## Updating types
+
+To update types, just re-run add-type again:
+
+```bash
+create-graphql-server add-type path/to/input.graphql [--force-update]
+```
+
+This overwrites your old *type* specific files from the directories: schema, model, resolvers.
+
+It recognizes, if you've changed any code file, which will be overwritten by the generator and stops and warns. If you are sure, you want to overwrite your changes, then just use the *--force-update* option.
+
+## Removing types
+
+To remove types, use the following command with the path to the GraphQL file, or as alternative, just enter the type name without path.
+
+```bash
+create-graphql-server remove-type path/to/input.graphql
+
+create-graphql-server remove-type typename
+
+create-graphql-server remove-type path
+```
+
+This command deletes your old *type* specific files from the directories: schema, model, resolvers. It also removes the code references out of the corresponding index files.
+
+It recognizes, if you've changed any code file, which will be overwritten by the generator and stops and warns. If you are sure, you want to overwrite your changes, then just use the *force-update* option.
 
 ## Authentication
 

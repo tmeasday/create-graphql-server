@@ -16,6 +16,8 @@
     "end-to-end-test": "./test/output-app-end-to-end/scripts/run-end-to-end-tests.sh",
     "preoutput-app-generation-test": "npm run build",
     "output-app-generation-test": "./test/output-app-generation-test.sh",
+    "pretest-add-update-remove": "npm run build",
+    "test-add-update-remove": "./test/test-add-update-remove.sh",
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist",
     "prepublish": "npm run build"
@@ -25,7 +27,7 @@
   "devDependencies": {
     "babel-cli": "6.16.0",
     "babel-core": "6.17.0",
-    "babel-eslint": "7.0.0",
+    "babel-eslint": "^7.0.0",
     "babel-preset-es2015": "6.16.0",
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-2": "6.17.0",
@@ -43,12 +45,15 @@
   },
   "dependencies": {
     "babylon": "^6.14.1",
+    "chalk": "^1.1.3",
     "cpr": "^2.0.0",
     "denodeify": "^1.2.1",
+    "escape-string-regexp": "^1.0.5",
     "graphql": "0.7.2",
     "lodash.clonedeep": "^4.5.0",
     "lodash.includes": "^4.3.0",
     "lodash.merge": "^4.6.0",
+    "md5": "^2.2.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "recast": "^0.11.18",
