@@ -1,4 +1,9 @@
 
+0.5.5
+
+- Added an authorization generator
+- Added a command add-user to generate user resolvers automatically
+
 0.5.4
 
  - Added the possibility to run "add-type" several times, which overwrites existing types

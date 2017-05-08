@@ -1,3 +1,4 @@
+import authorize from '../authorization';
 const resolvers = {
   TypeName: {
     id(typeName) {
@@ -5,27 +6,58 @@ const resolvers = {
     },
   },
   Query: {
-    typeNames(root, { lastCreatedAt, limit }, { TypeName }) {
-      return TypeName.all({ lastCreatedAt, limit });
+    typeNames(root, { lastCreatedAt, limit }, { TypeName, user }) {
+      return TypeName.all({ lastCreatedAt, limit })
+        .then(data => {
+          if (data.length > 0){
+            async () => {
+              return await authorize('TypeName', TypeName, 'read', user, data);
+            }
+          }
+          return data;
+        });
     },
 
-    typeName(root, { id }, { TypeName }) {
-      return TypeName.findOneById(id);
+    typeName(root, { id }, { TypeName, user }) {
+      return TypeName.findOneById(id)
+        .then(data => {
+          if (data.length > 0){
+            async () => {
+              return await authorize('TypeName', TypeName, 'read', user, data);
+            }
+          }
+          return data;
+        });
     },
   },
   Mutation: {
-    async createTypeName(root, { input }, { TypeName }) {
-      const id = await TypeName.insert(input);
-      return TypeName.findOneById(id);
+    async createTypeName(root, { input }, { TypeName, user }) {
+      const authorized = await authorize('TypeName', TypeName, 'create', user, input);
+      if (authorized){
+        const id = await TypeName.insert(authorized);
+        return TypeName.findOneById(id);
+      }
+      throw new Error('Not authorized to create TypeName');
     },
 
-    async updateTypeName(root, { id, input }, { TypeName }) {
-      await TypeName.updateById(id, input);
-      return TypeName.findOneById(id);
+    async updateTypeName(root, { id, input }, { TypeName, user }) {
+      const data = await TypeName.findOneById(id);
+      const authorized = await authorize('TypeName', TypeName, 'update', user, data);
+      if (authorized){
+        console.log('authorized in resolver', JSON.stringify(authorized, null, 2));
+        await TypeName.updateById(id, input);
+        return TypeName.findOneById(id);
+      }
+      throw new Error('Not authorized to update TypeName');
     },
 
-    removeTypeName(root, { id }, { TypeName }) {
-      return TypeName.removeById(id);
+    async removeTypeName(root, { id }, { TypeName, user }) {
+      const data = await TypeName.findOneById(id);
+      const authorized = await authorize('TypeName', TypeName, 'delete', user, data);
+      if (authorized){
+        return TypeName.removeById(authorized.id);
+      }
+      throw new Error('Not authorized to delete TypeName');
     },
   },
   Subscription: {
