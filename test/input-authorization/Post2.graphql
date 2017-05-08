@@ -1,0 +1,14 @@
+type Post2
+@authorize(
+  create: ["owner"]
+  read: ["world"]
+  update: ["owner", "admin"]
+  delete: ["owner", "admin"]
+  ownerField: "ownerId"
+  roleField: "role"
+)
+{
+  post: String!
+  comment: String
+  owner: User1 @belongsTo
+}

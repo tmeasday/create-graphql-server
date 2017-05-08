@@ -1,3 +1,152 @@
+*** WORK IN PROGRESS -- NOT YET FINISHED ***
+development is not yet finalized, and not yet tested
+This is to discuss the current approach to introduce a generator for authorizations also.
+
+# Command **add-user**
+To add a new User type, use the following command:
+```bash
+   create-graphql-server add-user path/to/user-input-type.graphql
+```
+
+This generates a new user with the input type file. A new command was necessary, as the user type has a different resolver to handle password and hash.
+
+If important fields with dependent logics are missing, they are added automatically by the generator, such as the fields: **email**, **password**, **role**.
+
+# Authorization for types
+Use the new directive @authorize in the type definition to control the authorization settings:
+```javascript
+	type User
+	@authorize(
+	  create: ["owner"]
+	  read: ["world"]
+	  update: ["owner", "admin"]
+	  delete: ["owner", "admin"]
+	  ownerField: "id"
+	  roleField: "role"
+	  defaultUserRole: 'user',
+	  firstUserRole: 'admin',
+	  adminUserRole: 'admin',
+	)
+	{
+	  email: String!
+	  name: String
+	  role: String!
+	}
+```
+or:
+```javascript
+	type Post
+	@authorize(
+	  create: ["owner"]
+	  read: ["world"]
+	  update: ["owner", "admin"]
+	  delete: ["owner", "admin"]
+	  ownerField: "ownerId"
+	  roleField: "role"
+	)
+	{
+	  post: String!
+	  comment: String
+	  owner: User1 @belongsTo
+	}
+```
+
+Meaning of the directive's arguments:
+* create = Authorization for a create mutation
+* read   = Authorization for a read query
+* update = Authorization for a update mutation
+* delete = Authorization for a delete mutation
+* 
+Add the authorized users in the array with...
+* "owner" = the user, who created the document
+* "world" = everyone is authorized
+* "admin" = the administrator, of the system
+* role    = add any role, in the role field
+
+The generator will create a new folder named authorization. In that folder, a new index.js file is copied into, which hosts the authorization logic. This authorization logic exposes only one central function **authorize()**, which will be called for each resolver's data handler. This authorize function should be only used in the resolver. It can send and receive whether an array or a document. It has the following signature:
+
+```javascript
+const authorized_data = await authorize('TypeName', TypeName, 'mode', user, data);
+```
+whereas: 'TypeName' is a string with the current type name of the resolver, the passed TypeName contains the context of the resolver (Model,...), 'mode' contains a string with any of the available modes of the data access: 'create', 'read', 'update', 'delete', to inform the authorization module, what kind of data operation it shall authorize, user is the context object of the authenticated user, and input is the data which should be checked. The authorize function returns checked and authorized data. If for example one document of the data array is not accessible by the authenticated user, then it is filtered out and not included in the returned array/object.
+
+Also, for each generated type, it creates an additional file in the authorization folder named by its type.js. In that file, all rules for a successfull authorization check is stored. You can adjust this file directly also afterwards as it keeps only data, with the following rules: 
+
+```javascript
+let defaultAuthorization = {
+  name: ObjectTypeDefinition.name.value || 'nameNotFound',
+  field: {
+    ownerField: 'ownerId',
+    roleField: 'role',
+  },
+  rules: [
+    {
+      mode: 'create',
+      roles: ['owner'],
+      removeFields: [],
+    },
+    {
+      mode: 'read',
+      roles: ['owner'],
+      removeFields: [],
+    },
+    {
+      mode: 'update',
+      roles: ['owner', 'admin'],
+      removeFields: [],
+    },
+    {
+      mode: 'delete',
+      roles: ['owner', 'admin'],
+      removeFields: [],
+    },
+  ]
+};
+```
+
+```javascript
+let defaultUserAuthorization = {
+  name: ObjectTypeDefinition.name.value || 'nameNotFound',
+  isUser: true,
+  defaultUserRole: 'user',
+  firstUserRole: 'admin',
+  adminUserRole: 'admin',
+  field: {
+    ownerField: 'id',
+    roleField: 'role',
+  },
+  rules: [
+    {
+      mode: 'create',
+      roles: ['world'],
+      removeFields: ['role'],
+    },
+    {
+      mode: 'read',
+      roles: ['world'],
+      removeFields: [],
+    },
+    {
+      mode: 'update',
+      roles: ['owner'],
+      removeFields: ['role'],
+    },
+    {
+      mode: 'update',
+      roles: ['admin'],
+      removeFields: [],
+    },
+    {
+      mode: 'delete',
+      roles: ['owner', 'admin'],
+      removeFields: [],
+    },
+  ]
+};
+```
+
+If you don't enter any @authorize directive in your input file. It will generate the above rules for you automatically.
+
 # Create GraphQL Server
 
 This is a simple scaffolding tool for GraphQL apps, built on MongoDB.
