@@ -9,18 +9,21 @@ describe('mutations', () => {
       function makeInput(user) {
         return `{
           username: "${user.username}",
-          bio: "${user.bio}"
+          bio: "${user.bio}",
+          role: "${user.role}"
         }`;
       }
 
       const expectedUser = {
         username: 'zol',
         bio: 'Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead',
+        role: 'admin'
       };
 
       const modifiedUser = {
         username: 'zoltan',
         bio: 'Maker of things, I guess',
+        role: 'admin'
       };
 
       let userId;
@@ -39,7 +42,7 @@ describe('mutations', () => {
       })
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: "${userId}") { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio, role } }`,
           { user: expectedUser })
       )
       .then(() =>
@@ -48,13 +51,14 @@ describe('mutations', () => {
             updateUser(id: "${userId}", input: ${makeInput(modifiedUser)}) {
               username
               bio
+              role
             }
           }
         `, { updateUser: modifiedUser })
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: "${userId}") { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio, role } }`,
           { user: modifiedUser })
       )
       .then(() =>
@@ -64,7 +68,7 @@ describe('mutations', () => {
       )
       .then(() =>
         sendQueryAndExpect(
-          `{ user(id: "${userId}") { username, bio } }`,
+          `{ user(id: "${userId}") { username, bio, role } }`,
           { user: null })
       );
     });
@@ -106,6 +110,7 @@ describe('mutations', () => {
         assert.isNotNull(result.data.createTweet);
         assert.isNotNull(result.data.createTweet.id);
         tweetId = result.data.createTweet.id;
+        console.log('tweetId', tweetId);
       })
       .then(() =>
         sendQueryAndExpect(

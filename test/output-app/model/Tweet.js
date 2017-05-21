@@ -13,46 +13,40 @@ export default class Tweet {
 
   // returns the owner of the current document @authorize(ownerField)
   owner(doc){
-    return doc[this.ownerField] || null;
+    return (doc && doc[this.ownerField]) ? doc[this.ownerField] : null;
   }
 
   // returns true, if the current user is authorized for the current mode and document
-  isAuthorized({doc, mode, user}){
+  isAuthorized({doc, mode, user, debug = true}){
+    let authResult = false;
     const owner = this.owner(doc);
     const role = this.context.User.role(user);
 
     switch (mode) {
-
-      case: 'create':
+      case 'create':
         // @authorize(create: ["owner"])
-        return (!!role && user._id === owner);
+        authResult = (!!role && !!user._id);
         break;
-
-      case: 'readOne':
-        // @authorize(readOne: [])
-        return false;
+      case 'readOne':
+        // @authorize(readOne: ["world"])
+        authResult = true;
         break;
-
-      case: 'readMany':
+      case 'readMany':
         // @authorize(readMany: ["world"])
-        return true;
+        authResult = true;
         break;
-
-      case: 'update':
+      case 'update':
         // @authorize(update: ["owner", editor"])
-        return (!!role && (user._id === owner || role === 'editor'));
+        authResult = (!!role && (user._id === owner || role === 'admin'));
         break;
-
-      case: 'delete':
+      case 'delete':
         // @authorize(delete: ["owner", "admin"])
-        return (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (user._id === owner || role === 'admin'));
         break;
-
-      default:
-        return false;
-        break;
-
     }
+
+    (debug) ? console.log('Tweet', mode, owner, role, "===>", authResult) : null;
+    return authResult;
   }
 
   // returns only authorized documents
@@ -66,14 +60,16 @@ export default class Tweet {
     }
   }
 
-  findOneById(id) {
-    return this.loader.load(id);
+  async findOneById(id) {
+    const doc = await this.loader.load(id);
+    return doc;
   }
 
-  all({ lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
+  async all({ lastCreatedAt = 0, limit = 10 }) {
+    const docs = await this.collection.find({
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
+    return docs;
   }
 
   author(tweet) {

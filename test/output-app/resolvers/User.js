@@ -21,52 +21,37 @@ const resolvers = {
     },
   },
   Query: {
-    users(root, { lastCreatedAt, limit }, { User, user }) {
-      return User.authorized({
-        doc: User.all({ lastCreatedAt, limit }), 
-        mode: 'readMany', 
-        user
-      });
+    async users(root, { lastCreatedAt, limit }, { User, user }) {
+      const doc = await User.all({ lastCreatedAt, limit });
+      return User.authorized({doc, mode: 'readMany', user});
     },
 
-    user(root, { id }, { User, user }) {
-      return User.authorized({
-        doc: User.findOneById(id), 
-        mode: 'readOne', 
-        user
-      });
+    async user(root, { id }, { User, user }) {
+      const doc = await User.findOneById(id); 
+      return User.authorized({doc, mode: 'readOne', user});
     },
   },
   Mutation: {
     async createUser(root, { input }, { User, user }) {
-      const authorized = User.isAuthorized({
-        doc: input,
-        mode: 'create',
-        user
-      });
-      if (!authorized) throw new Error('Not authorized');
+      const doc = input;
+      const authorized = User.isAuthorized({doc, mode: 'create', user});
+      if (!authorized) throw new Error('User: mode: create not authorized');
       const id = await User.insert(input);
       return User.findOneById(id);
     },
 
     async updateUser(root, { id, input }, { User, user }) {
-      const authorized = User.isAuthorized({
-        doc: User.findOneById(id),
-        mode: 'update',
-        user
-      });
-      if (!authorized) throw new Error('Not authorized');
+      const doc = await User.findOneById(id);
+      const authorized = User.isAuthorized({doc, mode: 'update', user});
+      if (!authorized) throw new Error('User: mode: update not authorized');
       await User.updateById(id, input);
       return User.findOneById(id);
     },
 
-    removeUser(root, { id }, { User, user }) {
-      const authorized = User.isAuthorized({
-        doc: User.findOneById(id),
-        mode: 'delete',
-        user
-      });
-      if (!authorized) throw new Error('Not authorized');
+    async removeUser(root, { id }, { User, user }) {
+      const doc = await User.findOneById(id);
+      const authorized = User.isAuthorized({doc, mode: 'delete', user});
+      if (!authorized) throw new Error('User: mode: delete not authorized');
       return User.removeById(id);
     },
   },

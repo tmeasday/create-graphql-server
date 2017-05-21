@@ -2,9 +2,9 @@ type Tweet
 
 @authorize(
   create: ["owner"]
-  readOne: []
+  readOne: ["world"]
   readMany: ["world"]
-  update: ["owner", "editor"]
+  update: ["owner", "admin"]
   delete: ["owner", "admin"]
   ownerField: "author"
 )
