@@ -1,5 +1,6 @@
 type User {
   id: ObjID!
+  role: String!
   username: String!
   bio: String
   notify: Boolean
@@ -18,12 +19,14 @@ extend type Query {
 
 input CreateUserInput {
   username: String!
+  role: String!
   bio: String
   notify: Boolean
 }
 
 input UpdateUserInput {
   username: String!
+  role: String
   bio: String
   notify: Boolean
 }
