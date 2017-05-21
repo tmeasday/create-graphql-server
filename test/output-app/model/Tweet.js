@@ -1,12 +1,69 @@
+import _ from 'lodash';
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
 
 export default class Tweet {
   constructor(context) {
+    this.ownerField = 'authorId'; // @authorize(ownerField: "author")
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
     this.loader = new DataLoader(ids => findByIds(this.collection, ids));
+  }
+
+  // returns the owner of the current document @authorize(ownerField)
+  owner(doc){
+    return doc[this.ownerField] || null;
+  }
+
+  // returns true, if the current user is authorized for the current mode and document
+  isAuthorized({doc, mode, user}){
+    const owner = this.owner(doc);
+    const role = this.context.User.role(user);
+
+    switch (mode) {
+
+      case: 'create':
+        // @authorize(create: ["owner"])
+        return (!!role && user._id === owner);
+        break;
+
+      case: 'readOne':
+        // @authorize(readOne: [])
+        return false;
+        break;
+
+      case: 'readMany':
+        // @authorize(readMany: ["world"])
+        return true;
+        break;
+
+      case: 'update':
+        // @authorize(update: ["owner", editor"])
+        return (!!role && (user._id === owner || role === 'editor'));
+        break;
+
+      case: 'delete':
+        // @authorize(delete: ["owner", "admin"])
+        return (!!role && (user._id === owner || role === 'admin'));
+        break;
+
+      default:
+        return false;
+        break;
+
+    }
+  }
+
+  // returns only authorized documents
+  authorized({doc, mode, user}){
+    if (_.isArray(doc)){
+      return _.filter(doc, d => this.isAuthorized({doc: d, mode, user}) );
+    } else if (_.isObject(doc) && this.isAuthorized({doc, mode, user})) {
+      return doc;
+    } else {
+      return null;
+    }
   }
 
   findOneById(id) {

@@ -21,26 +21,52 @@ const resolvers = {
     },
   },
   Query: {
-    users(root, { lastCreatedAt, limit }, { User }) {
-      return User.all({ lastCreatedAt, limit });
+    users(root, { lastCreatedAt, limit }, { User, user }) {
+      return User.authorized({
+        doc: User.all({ lastCreatedAt, limit }), 
+        mode: 'readMany', 
+        user
+      });
     },
 
-    user(root, { id }, { User }) {
-      return User.findOneById(id);
+    user(root, { id }, { User, user }) {
+      return User.authorized({
+        doc: User.findOneById(id), 
+        mode: 'readOne', 
+        user
+      });
     },
   },
   Mutation: {
-    async createUser(root, { input }, { User }) {
+    async createUser(root, { input }, { User, user }) {
+      const authorized = User.isAuthorized({
+        doc: input,
+        mode: 'create',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       const id = await User.insert(input);
       return User.findOneById(id);
     },
 
-    async updateUser(root, { id, input }, { User }) {
+    async updateUser(root, { id, input }, { User, user }) {
+      const authorized = User.isAuthorized({
+        doc: User.findOneById(id),
+        mode: 'update',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       await User.updateById(id, input);
       return User.findOneById(id);
     },
 
-    removeUser(root, { id }, { User }) {
+    removeUser(root, { id }, { User, user }) {
+      const authorized = User.isAuthorized({
+        doc: User.findOneById(id),
+        mode: 'delete',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       return User.removeById(id);
     },
   },
