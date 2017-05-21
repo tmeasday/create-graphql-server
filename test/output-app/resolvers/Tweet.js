@@ -13,26 +13,52 @@ const resolvers = {
     },
   },
   Query: {
-    tweets(root, { lastCreatedAt, limit }, { Tweet }) {
-      return Tweet.all({ lastCreatedAt, limit });
+    tweets(root, { lastCreatedAt, limit }, { Tweet, user }) {
+      return Tweet.authorized({
+        doc: Tweet.all({ lastCreatedAt, limit }), 
+        mode: 'readMany', 
+        user
+      });
     },
 
-    tweet(root, { id }, { Tweet }) {
-      return Tweet.findOneById(id);
+    tweet(root, { id }, { Tweet, user }) {
+      return Tweet.authorized({
+        doc: Tweet.findOneById(id), 
+        mode: 'readOne', 
+        user
+      });
     },
   },
   Mutation: {
-    async createTweet(root, { input }, { Tweet }) {
+    async createTweet(root, { input }, { Tweet, user }) {
+      const authorized = Tweet.isAuthorized({
+        doc: input,
+        mode: 'create',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       const id = await Tweet.insert(input);
       return Tweet.findOneById(id);
     },
 
-    async updateTweet(root, { id, input }, { Tweet }) {
+    async updateTweet(root, { id, input }, { Tweet, user }) {
+      const authorized = Tweet.isAuthorized({
+        doc: Tweet.findOneById(id),
+        mode: 'update',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       await Tweet.updateById(id, input);
       return Tweet.findOneById(id);
     },
 
-    removeTweet(root, { id }, { Tweet }) {
+    removeTweet(root, { id }, { Tweet, user }) {
+      const authorized = Tweet.isAuthorized({
+        doc: Tweet.findOneById(id),
+        mode: 'delete',
+        user
+      });
+      if (!authorized) throw new Error('Not authorized');
       return Tweet.removeById(id);
     },
   },

@@ -1,4 +1,15 @@
-type Tweet {
+type Tweet 
+
+@authorize(
+  create: ["owner"]
+  readOne: []
+  readMany: ["world"]
+  update: ["owner", "editor"]
+  delete: ["owner", "admin"]
+  ownerField: "author"
+)
+
+{
   author: User! @unmodifiable
   body: String!
 
