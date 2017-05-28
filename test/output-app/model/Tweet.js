@@ -13,19 +13,20 @@ export default class Tweet {
 
   // returns the owner of the current document @authorize(ownerField)
   owner(doc){
-    return (doc && doc[this.ownerField]) ? doc[this.ownerField] : null;
+    return (doc && doc[this.ownerField]) ? doc[this.ownerField].toString() : null;
   }
 
   // returns true, if the current user is authorized for the current mode and document
   isAuthorized({doc, mode, user, debug = true}){
     let authResult = false;
-    const owner = this.owner(doc);
+    const ownerId = this.owner(doc);
+    const userId = (user && user._id) ? user._id.toString() : '';
     const role = this.context.User.role(user);
 
     switch (mode) {
       case 'create':
         // @authorize(create: ["owner"])
-        authResult = (!!role && !!user._id);
+        authResult = (!!role && userId === ownerId);
         break;
       case 'readOne':
         // @authorize(readOne: ["world"])
@@ -37,15 +38,15 @@ export default class Tweet {
         break;
       case 'update':
         // @authorize(update: ["owner", editor"])
-        authResult = (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (userId === ownerId || role === 'admin'));
         break;
       case 'delete':
         // @authorize(delete: ["owner", "admin"])
-        authResult = (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (userId === ownerId || role === 'admin'));
         break;
     }
 
-    (debug) ? console.log('Tweet', mode, owner, role, "===>", authResult) : null;
+    (debug) ? console.log('Tweet:', doc._id, 'User:', userId, 'Owner:', ownerId, 'Role:', role, 'Mode:', mode, "===>", 'Authorized:', authResult) : null;
     return authResult;
   }
 

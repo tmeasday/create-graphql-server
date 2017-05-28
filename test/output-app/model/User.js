@@ -14,7 +14,7 @@ export default class User {
 
   // returns the owner of the current document @authorize(ownerField)
   owner(doc){
-    return (doc && doc[this.ownerField]) ? doc[this.ownerField] : null;
+    return (doc && doc[this.ownerField]) ? doc[this.ownerField].toString() : null;
   }
 
   // returns the role of the current user @authorize(roleField)
@@ -25,7 +25,8 @@ export default class User {
   // returns true, if the current user is authorized for the current mode and document
   isAuthorized({doc, mode, user, debug = true}){
     let authResult = false;
-    const owner = this.owner(doc);
+    const ownerId = this.owner(doc);
+    const userId = (user && user._id) ? user._id.toString() : '';
     const role = this.context.User.role(user);
 
     switch (mode) {
@@ -35,7 +36,7 @@ export default class User {
         break;
       case 'readOne':
         // @authorize(readOne: ["owner", "admin"])
-        authResult = (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (userId === ownerId || role === 'admin'));
         break;
       case 'readMany':
         // @authorize(readMany: ["admin"])
@@ -43,15 +44,15 @@ export default class User {
         break;
       case 'update':
         // @authorize(update: ["owner", "admin"])
-        authResult = (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (userId == ownerId || role === 'admin'));
         break;
       case 'delete':
         // @authorize(delete: ["owner", "admin"])
-        authResult = (!!role && (user._id === owner || role === 'admin'));
+        authResult = (!!role && (userId === ownerId || role === 'admin'));
         break;
     }
 
-    (debug) ? console.log('User', mode, owner, role, "===>", authResult) : null;
+    (debug) ? console.log('User:', userId, 'Owner:', ownerId, 'Role:', role, 'Mode:', mode, "===>", 'Authorized:', authResult) : null;
     return authResult;
   }
 
@@ -64,6 +65,18 @@ export default class User {
     } else {
       return null;
     }
+  }
+
+  // returns document without role field
+  // @authorize(updateRole: ["admin"])
+  allowedFields(input, user){
+    if (user.role === 'admin'){
+      return input;
+    }
+    if (input[this.roleField]){
+      delete input[this.roleField];
+    }
+    return input;
   }
 
   async findOneById(id) {

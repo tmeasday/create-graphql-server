@@ -44,7 +44,8 @@ const resolvers = {
       const doc = await User.findOneById(id);
       const authorized = User.isAuthorized({doc, mode: 'update', user});
       if (!authorized) throw new Error('User: mode: update not authorized');
-      await User.updateById(id, input);
+      const updateDoc = User.allowedFields(input, user);
+      await User.updateById(id, updateDoc);
       return User.findOneById(id);
     },
 
