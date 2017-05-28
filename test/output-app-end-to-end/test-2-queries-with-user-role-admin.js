@@ -1,12 +1,13 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
+import { sendQuery, sendQueryAndExpect, unknownUser, defaultUser, roleUser, adminUser } from './sendQuery';
 
-import { sendQuery, sendQueryAndExpect } from './sendQuery';
 
-describe('queries', () => {
+describe('test-2: queries as user with role "admin"', () => {
+
   function itQueries(name, query, expectedResult) {
     it(name, () => {
-      sendQueryAndExpect(query, expectedResult);
+      sendQueryAndExpect(query, expectedResult, adminUser);
     });
   }
 
@@ -39,19 +40,21 @@ describe('queries', () => {
       }
 
       let lastCreatedAt;
-      return sendQuery({ query: constructQuery() })
+      return sendQuery({ query: constructQuery(), userId: adminUser })
         .then((result) => {
           const items = checkResult(result, 0, expectedItems.length);
           lastCreatedAt = items[0].createdAt;
         })
-        .then(() => sendQuery({ query: constructQuery('(limit: 1)') }))
+        .then(() => sendQuery({ query: constructQuery('(limit: 1)'), userId: adminUser }))
         .then(result => checkResult(result, 0, 1))
         .then(() => sendQuery({
           query: constructQuery(`(lastCreatedAt: ${lastCreatedAt})`),
+          userId: adminUser,
         }))
         .then(result => checkResult(result, 1, expectedItems.length - 1))
         .then(() => sendQuery({
           query: constructQuery(`(lastCreatedAt: ${lastCreatedAt}, limit: 1)`),
+          userId: adminUser,
         }))
         .then(result =>
           checkResult(result, 1, Math.min(expectedItems.length - 1, 1))
@@ -138,3 +141,4 @@ describe('queries', () => {
     }, [{ username: 'tmeasday' }, { username: 'lacker' }]);
   });
 });
+

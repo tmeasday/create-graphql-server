@@ -5,6 +5,7 @@ type User
   readOne: ["owner", "admin"]
   readMany: ["admin"]
   update: ["owner", "admin"]
+  updateRole: ["admin"]
   delete: ["owner", "admin"]
   ownerField: "_id"
   roleField: "role"
