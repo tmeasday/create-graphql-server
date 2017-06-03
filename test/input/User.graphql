@@ -1,18 +1,12 @@
 type User
 
 @authorize(
-  create: ["admin"]
-  readOne: ["owner", "admin"]
-  readMany: ["admin"]
-  update: ["owner", "admin"]
-  updateRole: ["admin"]
-  delete: ["owner", "admin"]
-  ownerField: "_id"
-  roleField: "role"
+  this: ["readOne", "update", "delete"]
+  admin: ["create", "read", "update", "delete"]
 )
 
 {
-  role: String!
+  role: String! @authRole("admin") @authorize(this: ["read"], admin: ["create", "read", "update"])
 
   username: String!
 
