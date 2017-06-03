@@ -35,6 +35,8 @@ describe('test-3: user with role "admin"', () => {
         bio: 'someone',
         role: 'admin'
       };
+      // console.log('before:', makeUserInput(expectedUser));
+      // console.log('userId', adminUser);
       sendQuery({query: `
               mutation {
                 createUser(input: ${makeUserInput(expectedUser)}) {
@@ -46,11 +48,16 @@ describe('test-3: user with role "admin"', () => {
             userId: adminUser
       })
       .then(result => {
+        // console.log('after:', result);
         assert.isNotNull(result.data);
         assert.isNotNull(result.data.createUser);
         assert.isNotNull(result.data.createUser.id);
         assert.equal(result.data.createUser.role, 'admin');
         newUser = result.data.createUser.id;
+        done();
+      })
+      .catch((error) => {
+        console.log('ERROR: BEFORE', error);
         done();
       })
   });
@@ -297,6 +304,10 @@ describe('test-3: user with role "admin"', () => {
         assert.isNotNull(result.data.createTweet);
         assert.isNotNull(result.data.createTweet.id);
         tweetId = result.data.createTweet.id;
+        done();
+      })
+      .catch((error) => {
+        console.log(error);
         done();
       })
     });

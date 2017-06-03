@@ -50,7 +50,6 @@ async function startServer() {
           // Probably indicates someone trying to send an overly expensive query
           throw new Error('Query too large.');
         }
-
         return {
           schema,
           context: Object.assign({ user }, req.context),

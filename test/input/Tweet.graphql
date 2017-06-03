@@ -1,16 +1,15 @@
 type Tweet 
 
 @authorize(
-  create: ["owner"]
-  readOne: ["world"]
-  readMany: ["world"]
-  update: ["owner", "admin"]
-  delete: ["owner", "admin"]
-  ownerField: "author"
+  author: ["create", "read", "update", "delete"], 
+  coauthors: ["read", "update"],
+  admin: ["create", "read", "update", "delete"], 
+  world: ["read"]
 )
 
 {
-  author: User! @unmodifiable
+  author: User! @unmodifiable @belongsTo @authRole("author")
+  coauthors: [User!] @belongsTo @authRole("coauthors")
   body: String!
 
   likers: [User!] @hasAndBelongsToMany(as: "liked")
