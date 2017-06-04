@@ -272,34 +272,36 @@ export default class Tweet {
     return null;
   }
 
-  async findOneById(id, _user) {
-    const doc = await this.loader.load(id);
-    return doc;
+  async getById(id, _user, resolver){
+    const doc = await this.findOneById(id);
+    return this.authorized({doc, mode: READONE, user: _user, resolver});
   }
 
-  async all({ lastCreatedAt = 0, limit = 10 }, _user) {
-    const doc = await this.collection.find({
+  findOneById(id) {
+    return this.loader.load(id);
+  }
+
+  async getAll({ lastCreatedAt, limit }, _user, resolver){
+    const doc = await this.all({ lastCreatedAt, limit }, _user);
+    return this.authorized({doc, mode: READMANY, user: _user, resolver});
+  }
+
+  all({ lastCreatedAt = 0, limit = 10 }, _user) {
+    return this.collection.find({
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    return doc;
   }
 
-  async author(tweet, _user) {
-    const doc = await this.context.User.findOneById(tweet.authorId, _user);
-    const authorizedDoc = this.context.User.authorized({doc, mode: READONE, user: _user, resolver: 'author'});
-    return authorizedDoc;
+  author(tweet, _user) {
+    return this.context.User.getById(tweet.authorId, _user, 'author');
   }
 
-  async createdBy(tweet, _user) {
-    const doc = await this.context.User.findOneById(tweet.createdById, _user);
-    const authorizedDoc = this.context.User.authorized({doc, mode: READONE, user: _user, resolver: 'createdBy'});
-    return authorizedDoc;
+  createdBy(tweet, _user) {
+    return this.context.User.getById(tweet.createdById, _user, 'createdBy');
   }
 
-  async updatedBy(tweet, _user) {
-    const doc = await this.context.User.findOneById(tweet.updatedById, _user);
-    const authorizedDoc = this.context.User.authorized({doc, mode: READONE, user: _user, resolver: 'updatedBy'});
-    return authorizedDoc;
+  updatedBy(tweet, _user) {
+    return this.context.User.getById(tweet.updatedById, _user, 'udpatedBy');
   }
 
   async coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, _user) {
@@ -307,8 +309,7 @@ export default class Tweet {
       _id: { $in: tweet.coauthorsIds },
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    const authorizedDoc = this.context.User.authorized({doc, mode: READMANY, user: _user, resolver: 'coauthors'});
-    return authorizedDoc;
+    return this.context.User.authorized({doc, mode: READMANY, user: _user, resolver: 'coauthors'});
   }
 
   async likers(tweet, { lastCreatedAt = 0, limit = 10 }, _user) {
@@ -316,8 +317,7 @@ export default class Tweet {
       likedIds: tweet._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    const authorizedDoc = this.context.User.authorized({doc, mode: READMANY, user: _user, resolver: 'likers'});
-    return authorizedDoc;
+    return this.context.User.authorized({doc, mode: READMANY, user: _user, resolver: 'likers'});
   }
 
   async insert(doc, _user) {
@@ -337,7 +337,7 @@ export default class Tweet {
     if (!authorized) throw new Error('Tweet: mode: create not authorized');
 
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
-    this.pubsub.publish('tweetInserted', await this.findOneById(id, _user));
+    this.pubsub.publish('tweetInserted', await this.findOneById(id));
     return id;
   }
 
@@ -354,12 +354,12 @@ export default class Tweet {
       }),
     });
     this.loader.clear(id);
-    this.pubsub.publish('tweetUpdated', await this.findOneById(id, _user));
+    this.pubsub.publish('tweetUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id, _user) {
-    const doc = await this.findOneById(id, _user);
+    const doc = await this.findOneById(id);
     const authorized = this.isAuthorized({doc, mode: DELETE, user: _user, resolver: 'removeById'});
     if (!authorized) throw new Error('Tweet: mode: delete not authorized');
 
