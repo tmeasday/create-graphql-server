@@ -193,6 +193,11 @@ describe('test-5: user with role "user"', () => {
       body: 'We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:',
     };
 
+    const expectedTweetOtherAuthorNoAuthor = {
+      author: null,
+      body: 'We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:',
+    };
+
     const modifiedTweet = {
       body: 'This is a modified test tweet',
     };
@@ -244,7 +249,7 @@ describe('test-5: user with role "user"', () => {
     it('can read others tweet', () => {
       return sendQueryAndExpect(
           `{ tweet(id: "${tweetIdOthers}") { author { id } body } }`,
-          { tweet: expectedTweetOtherAuthor },
+          { tweet: expectedTweetOtherAuthorNoAuthor },
           newUser)
     });
 

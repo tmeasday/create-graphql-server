@@ -3,36 +3,43 @@ import { CREATE, READ, READONE, READMANY, UPDATE, DELETE, DEBUG } from '../model
 
 const resolvers = {
   Tweet: {
-    
+
     id(tweet) {
       return tweet._id;
     },
 
-    author(tweet, args, { Tweet }) {
-      return Tweet.author(tweet);
+    async author(tweet, args, { Tweet, _user }) {
+      const doc = await Tweet.author(tweet, _user);
+      return doc;
     },
 
-    createdBy(tweet, args, { Tweet }) {
-      return Tweet.createdBy(tweet);
+    async createdBy(tweet, args, { Tweet, _user }) {
+      const doc = await Tweet.createdBy(tweet, _user);
+      return doc;
     },
 
-    updatedBy(tweet, args, { Tweet }) {
-      return Tweet.updatedBy(tweet);
+    async updatedBy(tweet, args, { Tweet, _user }) {
+      const doc = await Tweet.updatedBy(tweet, _user);
+      return doc;
     },
 
-    coauthors(tweet, { lastCreatedAt, limit }, { Tweet }) {
-      return Tweet.coauthors(tweet, { lastCreatedAt, limit });
+    async coauthors(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
+      const doc = await Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user);
+      return doc;
     },
 
-    likers(tweet, { lastCreatedAt, limit }, { Tweet }) {
-      return Tweet.likers(tweet, { lastCreatedAt, limit });
+    async likers(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
+      const doc = await Tweet.likers(tweet, { lastCreatedAt, limit }, _user);
+      return doc;
     },
   },
   Query: {
     async tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
       try {
-        const doc = await Tweet.all({ lastCreatedAt, limit });
-        return Tweet.authorized({doc, mode: 'readMany', user: _user});
+        log.debug('---------------------');
+        log.debug('Tweet resolver "tweets"');
+        const doc = await Tweet.all({ lastCreatedAt, limit }, _user);
+        return Tweet.authorized({doc, mode: READMANY, user: _user, resolver: 'tweets'});
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -40,8 +47,10 @@ const resolvers = {
 
     async tweet(root, { id }, { Tweet, _user }) {
       try {
-        const doc = await Tweet.findOneById(id);
-        return Tweet.authorized({doc, mode: 'readOne', user: _user});
+        log.debug('---------------------');
+        log.debug('Tweet resolver "tweet"');
+        const doc = await Tweet.findOneById(id, _user);
+        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'tweet'});
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -50,11 +59,11 @@ const resolvers = {
   Mutation: {
     async createTweet(root, { input }, { Tweet, _user }) {
       try {
-        const doc = Tweet.addUserToDoc({doc: input, mode: 'create', user: _user});
-        const authorized = Tweet.isAuthorized({doc, mode: 'create', user: _user});
-        if (!authorized) throw new Error('Tweet: mode: create not authorized');
-        const id = await Tweet.insert(input);
-        return Tweet.findOneById(id);
+        log.debug('---------------------------');
+        log.debug('Tweet resolver "createTweet"');
+        const id = await Tweet.insert(input, _user);
+        const doc = await Tweet.findOneById(id, _user); 
+        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'createTweet'});
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -62,11 +71,11 @@ const resolvers = {
 
     async updateTweet(root, { id, input }, { Tweet, _user }) {
       try {
-        const doc = await Tweet.findOneById(id);
-        const authorized = Tweet.isAuthorized({doc, mode: 'update', user: _user});
-        if (!authorized) throw new Error('Tweet: mode: update not authorized');
-        await Tweet.updateById(id, input);
-        return Tweet.findOneById(id);
+        log.debug('---------------------------');
+        log.debug('Tweet resolver "updateTweet"');
+        await Tweet.updateById(id, input, _user);
+        const doc = await Tweet.findOneById(id, _user); 
+        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'updateTweet'});
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -74,10 +83,10 @@ const resolvers = {
 
     async removeTweet(root, { id }, { Tweet, _user }) {
       try {
-        const doc = await Tweet.findOneById(id);
-        const authorized = Tweet.isAuthorized({doc, mode: 'delete', user: _user});
-        if (!authorized) throw new Error('Tweet: mode: delete not authorized');
-        return Tweet.removeById(id);
+        log.debug('---------------------------');
+        log.debug('Tweet resolver "removeTweet"');
+        const response = await Tweet.removeById(id, _user);
+        return response;
       } catch(error) {
         console.log('ERROR:', error.message);
       }
