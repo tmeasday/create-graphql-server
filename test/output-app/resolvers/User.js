@@ -19,15 +19,13 @@ const resolvers = {
     },
 
     async tweets(user, { minLikes, lastCreatedAt, limit }, { User, _user }) {
-      return User.tweets(user, { minLikes, lastCreatedAt, limit });
-      // const doc = User.tweets(user, { minLikes, lastCreatedAt, limit });
-      // return Tweet.authorized({doc, mode: READMANY, user});
+      const doc = await User.tweets(user, { minLikes, lastCreatedAt, limit }, _user);
+      return doc;
     },
 
-    async liked(user, { lastCreatedAt, limit }, { User, Tweet, _user }) {
-      return User.liked(user, { lastCreatedAt, limit });
-      // const doc = User.liked(user, { lastCreatedAt, limit });
-      // return Tweet.authorized({doc, mode: READMANY, user});
+    async liked(user, { lastCreatedAt, limit }, { User, _user }) {
+      const doc = await User.liked(user, { lastCreatedAt, limit }, _user);
+      return doc;
     },
 
     async following(user, { lastCreatedAt, limit }, { User, _user }) {

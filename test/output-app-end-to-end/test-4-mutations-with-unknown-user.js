@@ -103,6 +103,11 @@ describe('test-4: unkown user (e.g. not signed in, or expired token)', () => {
       body: 'We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:',
     };
 
+    const expectedTweetOtherAuthorNoAuthor = {
+      author: null,
+      body: 'We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:',
+    };
+
     const modifiedTweet = {
       body: 'This is a modified test tweet',
     };
@@ -147,7 +152,7 @@ describe('test-4: unkown user (e.g. not signed in, or expired token)', () => {
     it('can read others tweet', () => {
       return sendQueryAndExpect(
           `{ tweet(id: "${tweetIdOthers}") { author { id } body } }`,
-          { tweet: expectedTweetOtherAuthor },
+          { tweet: expectedTweetOtherAuthorNoAuthor },
           unknownUser)
     });
 

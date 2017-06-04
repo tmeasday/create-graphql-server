@@ -175,7 +175,7 @@ export default class User {
         }
       }
 
-      // ... Checking other fields if there...
+      // ... Checking fields here...
 
       // otherwise remove field from doc, 
       // because the user and mode is not authorize to access this field
@@ -241,7 +241,8 @@ export default class User {
       authorId: user._id,
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    return doc;
+    const authorizedDoc = this.context.Tweet.authorized({doc, mode: READMANY, user: _user, resolver: 'tweets'});
+    return authorizedDoc;
   }
 
   async liked(user, { lastCreatedAt = 0, limit = 10 }, _user) {
@@ -249,7 +250,8 @@ export default class User {
       _id: { $in: user.likedIds || [] },
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    return doc;
+    const authorizedDoc = this.context.Tweet.authorized({doc, mode: READMANY, user: _user, resolver: 'liked'});
+    return authorizedDoc;
   }
 
   async following(user, { lastCreatedAt = 0, limit = 10 }, _user) {
