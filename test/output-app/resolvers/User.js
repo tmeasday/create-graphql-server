@@ -1,76 +1,47 @@
-import log from '../server/logger';
-import { CREATE, READ, READONE, READMANY, UPDATE, DELETE, DEBUG } from '../model/constants';
-
-const resolvers = {
+ const resolvers = {
   User: {
-
     id(user) {
       return user._id;
     },
 
-    async createdBy(user, args, { User, _user }) {
-      const doc = await User.createdBy(user, _user);
-      return doc;
+    createdBy(user, args, { User, _user }) {
+      return User.createdBy(user, _user);
     },
 
-    async updatedBy(user, args, { User, _user }) {
-      const doc = await User.updatedBy(user, _user);
-      return doc;
+    updatedBy(user, args, { User, _user }) {
+      return User.updatedBy(user, _user);
     },
 
-    async tweets(user, { minLikes, lastCreatedAt, limit }, { User, _user }) {
-      const doc = await User.tweets(user, { minLikes, lastCreatedAt, limit }, _user);
-      return doc;
+    tweets(user, { minLikes, lastCreatedAt, limit }, { User, _user }) {
+      return User.tweets(user, { minLikes, lastCreatedAt, limit }, _user);
     },
 
-    async liked(user, { lastCreatedAt, limit }, { User, _user }) {
-      const doc = await User.liked(user, { lastCreatedAt, limit }, _user);
-      return doc;
+    liked(user, { lastCreatedAt, limit }, { User, _user }) {
+      return User.liked(user, { lastCreatedAt, limit }, _user);
     },
 
-    async following(user, { lastCreatedAt, limit }, { User, _user }) {
-      const doc = await User.following(user, { lastCreatedAt, limit }, _user);
-      return doc;
+    following(user, { lastCreatedAt, limit }, { User, _user }) {
+      return User.following(user, { lastCreatedAt, limit }, _user);
     },
 
-    async followers(user, { lastCreatedAt, limit }, { User, _user }) {
-      const doc = await User.followers(user, { lastCreatedAt, limit }, _user);
-      return doc;
+    followers(user, { lastCreatedAt, limit }, { User, _user }) {
+      return User.followers(user, { lastCreatedAt, limit }, _user);
     },
   },
   Query: {
-    async users(root, { lastCreatedAt, limit }, { User, _user }) {
-      try {
-        log.debug('---------------------');
-        log.debug('User resolver "users"');
-        const doc = await User.all({ lastCreatedAt, limit }, _user);
-        // for any reason I don't understand the authorization has to remain here in Query
-        return User.authorized({doc, mode: READMANY, user: _user, resolver: 'users'});
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+    users(root, { lastCreatedAt, limit }, { User, _user }) {
+      return User.getAll({ lastCreatedAt, limit }, _user, 'users');
     },
 
-    async user(root, { id }, { User, _user }) {
-      try {
-        log.debug('--------------------');
-        log.debug('User resolver "user"');
-        const doc = await User.findOneById(id, _user);
-        // for any reason I don't understand the authorization has to remain here in Query
-        return User.authorized({doc, mode: READONE, user: _user, resolver: 'user'});
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+    user(root, { id }, { User, _user }) {
+      return User.getById(id, _user, 'user');
     },
   },
   Mutation: {
     async createUser(root, { input }, { User, _user }) {
       try {
-        log.debug('--------------------------');
-        log.debug('User resolver "createUser"');
         const id = await User.insert(input, _user);
-        const doc = await User.findOneById(id, _user); 
-        return User.authorized({doc, mode: READONE, user: _user, resolver: 'createUser'});
+        return User.getById(id, _user, 'createUser');
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -78,11 +49,8 @@ const resolvers = {
 
     async updateUser(root, { id, input }, { User, _user }) {
       try {
-        log.debug('--------------------------');
-        log.debug('User resolver "updateUser"');
         await User.updateById(id, input, _user);
-        const doc = await User.findOneById(id, _user); 
-        return User.authorized({doc, mode: READONE, user: _user, resolver: 'updateUser'});
+        return User.getById(id, _user, 'updateUser');
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -90,10 +58,7 @@ const resolvers = {
 
     async removeUser(root, { id }, { User, _user }) {
       try {
-        log.debug('--------------------------');
-        log.debug('User resolver "removeUser"');
-        const response = await User.removeById(id, _user);
-        return response;
+        return await User.removeById(id, _user);
       } catch(error) {
         console.log('ERROR:', error.message);
       }

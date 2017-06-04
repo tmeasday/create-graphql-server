@@ -1,69 +1,43 @@
-import log from '../server/logger';
-import { CREATE, READ, READONE, READMANY, UPDATE, DELETE, DEBUG } from '../model/constants';
-
 const resolvers = {
   Tweet: {
-
     id(tweet) {
       return tweet._id;
     },
 
-    async author(tweet, args, { Tweet, _user }) {
-      const doc = await Tweet.author(tweet, _user);
-      return doc;
+    author(tweet, args, { Tweet, _user }) {
+      return Tweet.author(tweet, _user);
     },
 
-    async createdBy(tweet, args, { Tweet, _user }) {
-      const doc = await Tweet.createdBy(tweet, _user);
-      return doc;
+    createdBy(tweet, args, { Tweet, _user }) {
+      return Tweet.createdBy(tweet, _user);
     },
 
-    async updatedBy(tweet, args, { Tweet, _user }) {
-      const doc = await Tweet.updatedBy(tweet, _user);
-      return doc;
+    updatedBy(tweet, args, { Tweet, _user }) {
+      return Tweet.updatedBy(tweet, _user);
     },
 
-    async coauthors(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      const doc = await Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user);
-      return doc;
+    coauthors(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
+      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user);
     },
 
-    async likers(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      const doc = await Tweet.likers(tweet, { lastCreatedAt, limit }, _user);
-      return doc;
+    likers(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
+      return Tweet.likers(tweet, { lastCreatedAt, limit }, _user);
     },
   },
   Query: {
-    async tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
-      try {
-        log.debug('---------------------');
-        log.debug('Tweet resolver "tweets"');
-        const doc = await Tweet.all({ lastCreatedAt, limit }, _user);
-        return Tweet.authorized({doc, mode: READMANY, user: _user, resolver: 'tweets'});
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+    tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
+      return Tweet.getAll({ lastCreatedAt, limit }, _user, 'tweets');
     },
 
-    async tweet(root, { id }, { Tweet, _user }) {
-      try {
-        log.debug('---------------------');
-        log.debug('Tweet resolver "tweet"');
-        const doc = await Tweet.findOneById(id, _user);
-        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'tweet'});
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+    tweet(root, { id }, { Tweet, _user }) {
+      return Tweet.getById(id, _user, 'tweet');  
     },
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, _user }) {
       try {
-        log.debug('---------------------------');
-        log.debug('Tweet resolver "createTweet"');
         const id = await Tweet.insert(input, _user);
-        const doc = await Tweet.findOneById(id, _user); 
-        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'createTweet'});
+        return Tweet.getById(id, _user, 'createTweet'); 
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -71,11 +45,8 @@ const resolvers = {
 
     async updateTweet(root, { id, input }, { Tweet, _user }) {
       try {
-        log.debug('---------------------------');
-        log.debug('Tweet resolver "updateTweet"');
         await Tweet.updateById(id, input, _user);
-        const doc = await Tweet.findOneById(id, _user); 
-        return Tweet.authorized({doc, mode: READONE, user: _user, resolver: 'updateTweet'});
+        return Tweet.getById(id, _user, 'updateTweet');
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -83,10 +54,7 @@ const resolvers = {
 
     async removeTweet(root, { id }, { Tweet, _user }) {
       try {
-        log.debug('---------------------------');
-        log.debug('Tweet resolver "removeTweet"');
-        const response = await Tweet.removeById(id, _user);
-        return response;
+        return await Tweet.removeById(id, _user);
       } catch(error) {
         console.log('ERROR:', error.message);
       }

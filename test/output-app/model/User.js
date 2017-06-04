@@ -79,7 +79,7 @@ export default class User {
     }
     if (printLog){
       log.debug('');
-      log.debug(`${resolver} hasRole: "${role}" "${user.username ? user.username : ''} ${user.role ? user.role : ''} ${user._id ? user._id : ''}" ==> "${hasRole}"`);
+      log.debug(`${resolver} hasRole: "${role}" "${(user && user.username) ? user.username : ''} ${(user && user.role) ? user.role : ''} ${(user && user._id) ? user._id : ''}" ==> "${hasRole}"`);
     }
     return hasRole;
   }
@@ -214,26 +214,24 @@ export default class User {
     return null;
   }
 
-  async findOneById(id, _user) {
-    //console.log('findOneById _user', id, JSON.stringify(_user, null, 2));
-    const doc = await this.loader.load(id);
-    return doc;
-    // wanted to do the authorization here, but in the query, the user is false, in mutations and resolvers it is there, why?
-    // the following doesn't work, because the user is not there at this point of time for a reason I don't understand
-    // const authorizedDoc = this.authorized({doc: doc, mode: READONE, user: user});
-    // return authorizedDoc;
+  async getById(id, _user, resolver){
+    const doc = await this.findOneById(id);
+    return this.authorized({doc, mode: READONE, user: _user, resolver});
   }
 
-  async all({ lastCreatedAt = 0, limit = 10 }, _user) {
-    //console.log('findOneById _user', id, JSON.stringify(_user, null, 2));
-    const doc = await this.collection.find({
+  findOneById(id) {
+    return this.loader.load(id);
+  }
+
+  async getAll({ lastCreatedAt, limit }, _user, resolver){
+    const doc = await this.all({ lastCreatedAt, limit }, _user);
+    return this.authorized({doc, mode: READMANY, user: _user, resolver});
+  }
+
+  all({ lastCreatedAt = 0, limit = 10 }, _user) {
+    return this.collection.find({
       createdAt: { $gt: lastCreatedAt },
     }).sort({ createdAt: 1 }).limit(limit).toArray();
-    return doc;
-    // wanted to do the authorization here, but in the query, the user is false, in mutations and resolvers it is there, why?
-    // the following doesn't work, because the user is not there at this point of time for a reason I don't understand
-    // const authorizedDocs = this.authorized({doc, mode: READMANY, user});
-    // return authorizedDocs;
   }
 
   async tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, _user) {
@@ -273,13 +271,13 @@ export default class User {
   }
 
   async createdBy(user, _user) {
-    const doc = await this.context.User.findOneById(user.createdById, _user);
+    const doc = await this.context.User.getById(user.createdById, _user, 'createdBy');
     const authorizedDoc = this.authorized({doc, mode: READONE, user: _user, resolver: 'createdBy'});
     return authorizedDoc;
   }
 
   async updatedBy(user, _user) {
-    const doc = await this.context.User.findOneById(user.updatedById, _user);
+    const doc = await this.context.User.getById(user.updatedById, _user, 'updatedBy');
     const authorizedDoc = this.authorized({doc, mode: READONE, user: _user, resolver: 'updatedBy'});
     return authorizedDoc;
   }
@@ -296,7 +294,7 @@ export default class User {
     if (!authorized) throw new Error('User: mode: create not authorized');
 
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
-    this.pubsub.publish('userInserted', await this.findOneById(id, _user));
+    this.pubsub.publish('userInserted', await this.findOneById(id));
     return id;
   }
 
@@ -313,12 +311,12 @@ export default class User {
       }),
     });
     this.loader.clear(id);
-    this.pubsub.publish('userUpdated', await this.findOneById(id, _user));
+    this.pubsub.publish('userUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id, _user) {
-    const doc = await this.findOneById(id, _user);
+    const doc = await this.findOneById(id);
     const authorized = this.isAuthorized({doc, mode: DELETE, user: _user, resolver: 'removeById'});
     if (!authorized) throw new Error('User: mode: delete not authorized');
 
