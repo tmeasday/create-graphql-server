@@ -1,3 +1,5 @@
 node_modules
 /db
 /input
+server/logs/all-logs.log
+server/logs/*.log

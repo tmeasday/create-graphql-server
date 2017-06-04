@@ -9,7 +9,7 @@ type User {
   following(lastCreatedAt: Float, limit: Int): [User!]
   followers(lastCreatedAt: Float, limit: Int): [User!]
   createdAt: Float!
-  createdBy: User!
+  createdBy: User
   updatedAt: Float!
   updatedBy: User
 }
@@ -27,7 +27,7 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
-  username: String!
+  username: String
   role: String
   bio: String
   notify: Boolean

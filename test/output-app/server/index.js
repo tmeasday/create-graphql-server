@@ -7,6 +7,8 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import passport from 'passport';
+import morgan from 'morgan';
+import log, { stream } from './logger';
 
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
@@ -26,11 +28,14 @@ const {
 
 
 async function startServer() {
+  log.info('Logger started');
+
   const db = await MongoClient.connect(MONGO_URL);
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  app.use(morgan("dev", { "stream": stream }));
 
   app.use((req, res, next) => {
     req.context = addModelsToContext({ db, pubsub });
@@ -40,7 +45,7 @@ async function startServer() {
   authenticate(app);
 
   app.use('/graphql', (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, (err, user) => {
+    passport.authenticate('jwt', { session: false }, (err, _user) => {
       graphqlExpress(() => {
         // Get the query, the same way express-graphql does it
         // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
@@ -52,7 +57,7 @@ async function startServer() {
         }
         return {
           schema,
-          context: Object.assign({ user }, req.context),
+          context: Object.assign({ _user }, req.context),
           debug: true,
           formatError(e) { console.log(e) },
         };

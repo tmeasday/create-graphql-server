@@ -1,12 +1,12 @@
 type User
 
 @authorize(
-  this: ["readOne", "update", "delete"]
   admin: ["create", "read", "update", "delete"]
+  this: ["readOne", "update", "delete"]
 )
 
 {
-  role: String! @authRole("admin") @authorize(this: ["read"], admin: ["create", "read", "update"])
+  role: String! @authRole("admin") @authorize(admin: ["create", "read", "update"], this: ["read"])
 
   username: String!
 

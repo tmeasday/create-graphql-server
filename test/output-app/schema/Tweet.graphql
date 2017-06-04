@@ -5,7 +5,7 @@ type Tweet {
   body: String!
   likers(lastCreatedAt: Float, limit: Int): [User!]
   createdAt: Float!
-  createdBy: User!
+  createdBy: User
   updatedAt: Float!
   updatedBy: User
 }

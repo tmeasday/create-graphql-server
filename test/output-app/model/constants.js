@@ -7,4 +7,4 @@ export const UPDATE = 'update';
 export const DELETE = 'delete';
 
 // debug to switch on additional logs
-export const DEBUG = true;
+export const DEBUG = false;
