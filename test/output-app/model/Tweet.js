@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import log from '../server/logger';
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
 import { CREATE, READ, READONE, READMANY, UPDATE, DELETE, DEBUG } from './constants';

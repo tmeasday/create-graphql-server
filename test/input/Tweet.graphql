@@ -1,9 +1,9 @@
 type Tweet 
 
 @authorize(
+  admin: ["create", "read", "update", "delete"], 
   author: ["create", "read", "update", "delete"], 
   coauthors: ["read", "update"],
-  admin: ["create", "read", "update", "delete"], 
   world: ["read"]
 )
 

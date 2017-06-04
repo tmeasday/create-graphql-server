@@ -47,9 +47,11 @@
     "lodash": "4.16.4",
     "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
+    "morgan": "^1.8.2",
     "nodeify": "^1.0.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "subscriptions-transport-ws": "0.2.6"
+    "subscriptions-transport-ws": "0.2.6",
+    "winston": "^2.3.1"
   }
 }
