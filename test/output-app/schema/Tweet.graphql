@@ -1,7 +1,7 @@
 type Tweet {
   id: ObjID!
   author: User
-  coauthors: [User!]
+  coauthors: [User]
   body: String!
   likers(lastCreatedAt: Float, limit: Int): [User!]
   createdAt: Float!
@@ -18,12 +18,12 @@ extend type Query {
 input CreateTweetInput {
   authorId: ObjID!
   body: String!
-  coauthorsIds: [ObjID!]
+  coauthorsIds: [ObjID]
 }
 
 input UpdateTweetInput {
-  body: String!
-  coauthorsIds: [ObjID!]
+  body: String
+  coauthorsIds: [ObjID]
 }
 
 extend type Mutation {

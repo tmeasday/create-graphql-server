@@ -9,7 +9,7 @@ type Tweet
 
 {
   author: User! @unmodifiable @belongsTo @authRole("author")
-  coauthors: [User!] @belongsTo @authRole("coauthors")
+  coauthors: [User] @belongsTo @authRole("coauthors")
   body: String!
 
   likers: [User!] @hasAndBelongsToMany(as: "liked")

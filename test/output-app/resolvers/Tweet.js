@@ -26,18 +26,26 @@ const resolvers = {
   },
   Query: {
     tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.getAll({ lastCreatedAt, limit }, _user, 'tweets');
+      try {
+        return Tweet.all({ lastCreatedAt, limit }, _user, 'tweets');
+      } catch(error){
+        console.log('ERROR:', error.message);
+      }
     },
 
     tweet(root, { id }, { Tweet, _user }) {
-      return Tweet.getById(id, _user, 'tweet');  
+      try {
+        return Tweet.findOneById(id, _user, 'tweet');  
+      } catch(error){
+        console.log('ERROR:', error.message);
+      }
     },
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, _user }) {
       try {
         const id = await Tweet.insert(input, _user);
-        return Tweet.getById(id, _user, 'createTweet'); 
+        return Tweet.findOneById(id, _user, 'createTweet'); 
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -46,7 +54,7 @@ const resolvers = {
     async updateTweet(root, { id, input }, { Tweet, _user }) {
       try {
         await Tweet.updateById(id, input, _user);
-        return Tweet.getById(id, _user, 'updateTweet');
+        return Tweet.findOneById(id, _user, 'updateTweet');
       } catch(error) {
         console.log('ERROR:', error.message);
       }
