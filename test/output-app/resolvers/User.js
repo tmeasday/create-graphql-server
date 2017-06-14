@@ -34,14 +34,14 @@
     },
 
     user(root, { id }, { User, _user }) {
-      return User.findOneById(id, _user, 'user');
+      return User.getOneById(id, _user, 'user');
     },
   },
   Mutation: {
     async createUser(root, { input }, { User, _user }) {
       try {
         const id = await User.insert(input, _user);
-        return User.findOneById(id, _user, 'createUser');
+        return User.getOneById(id, _user, 'createUser');
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -50,7 +50,7 @@
     async updateUser(root, { id, input }, { User, _user }) {
       try {
         await User.updateById(id, input, _user);
-        return User.findOneById(id, _user, 'updateUser');
+        return User.getOneById(id, _user, 'updateUser');
       } catch(error) {
         console.log('ERROR:', error.message);
       }

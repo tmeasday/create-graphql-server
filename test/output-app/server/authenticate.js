@@ -11,7 +11,6 @@ async function userFromPayload(request, jwtPayload) {
   if (!jwtPayload.userId) {
     throw new Error('No userId in JWT');
   }
-
   return await request.context.User.findOneById(ObjectId(jwtPayload.userId));
 }
 

@@ -35,7 +35,7 @@ const resolvers = {
 
     tweet(root, { id }, { Tweet, _user }) {
       try {
-        return Tweet.findOneById(id, _user, 'tweet');  
+        return Tweet.getOneById(id, _user, 'tweet');  
       } catch(error){
         console.log('ERROR:', error.message);
       }
@@ -45,7 +45,7 @@ const resolvers = {
     async createTweet(root, { input }, { Tweet, _user }) {
       try {
         const id = await Tweet.insert(input, _user);
-        return Tweet.findOneById(id, _user, 'createTweet'); 
+        return Tweet.getOneById(id, _user, 'createTweet'); 
       } catch(error) {
         console.log('ERROR:', error.message);
       }
@@ -54,7 +54,7 @@ const resolvers = {
     async updateTweet(root, { id, input }, { Tweet, _user }) {
       try {
         await Tweet.updateById(id, input, _user);
-        return Tweet.findOneById(id, _user, 'updateTweet');
+        return Tweet.getOneById(id, _user, 'updateTweet');
       } catch(error) {
         console.log('ERROR:', error.message);
       }

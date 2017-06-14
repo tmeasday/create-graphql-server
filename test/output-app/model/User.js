@@ -24,14 +24,18 @@ export default class User {
     return (user && user.role) ? user.role : '<no-role>';
   }
 
-  findOneById(id, _user = {}, resolver = '') {
+  getOneById(id, _user = {}, resolver = '') {
     const authQuery = queryForRoles(_user, this.userRoles.readOne, this.docRoles.readOne, { User: this.context.User });
-    log.debug(`${resolver} findOneById readOne with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type} and ${id}`);
-    if (authQuery === {}) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    log.debug(`${resolver} getOneById readOne with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type} and ${id}`);
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`Not authorized to readOne ${this.type} ${id}.`);
     }
     return this.loader.load(id, authQuery);
+  }
+
+  findOneById(id) {
+    return this.loader.load(id);
   }
 
   all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = '') {
@@ -39,7 +43,7 @@ export default class User {
     const authQuery = queryForRoles(_user, this.userRoles.readMany, this.docRoles.readMany, { User: this.context.User });
     const finalQuery = {...baseQuery, ...authQuery};
     log.debug(`${resolver} all readMany with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type}`);
-    if (authQuery != {}) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`Not authorized to readMany ${this.type}.`);
     }
@@ -75,11 +79,11 @@ export default class User {
   }
 
   createdBy(user, _user) {
-    return this.context.User.findOneById(user.createdById, _user, 'createdBy');
+    return this.context.User.getOneById(user.createdById, _user, 'createdBy');
   }
 
   updatedBy(user, _user) {
-    return this.context.User.findOneById(user.updatedById, _user, 'updatedBy');
+    return this.context.User.getOneById(user.updatedById, _user, 'updatedBy');
   }
 
   async insert(doc, _user) {
@@ -91,7 +95,7 @@ export default class User {
     });
 
     const authQuery = queryForRoles(_user, this.userRoles.create, this.docRoles.create, { User: this.context.User });
-    if (authQuery === false || (authQuery !== {} && !userAuthorizedForDoc(_user, this.docRoles.create, doc)) ) {
+    if (authQuery === false || !userAuthorizedForDoc(_user, this.userRoles.create, this.docRoles.create, { User: this.context.User }, docToInsert) ) {
       throw new Error(`Not authorized to insert ${this.type} ${id}.`);
     }
 
@@ -104,7 +108,7 @@ export default class User {
       throw new Error(`insert not possible for ${this.type} ${id}.`);
     }
 
-    this.pubsub.publish('userInserted', await this.findOneById(id));
+    this.pubsub.publish('userInserted', await this.getOneById(id, _user, 'pubsub userInserted'));
     return id;
   }
 
@@ -116,7 +120,7 @@ export default class User {
 
     const baseQuery = {_id: id};
     const authQuery = queryForRoles(_user, this.userRoles.update, this.docRoles.update, { User: this.context.User });
-    if (authQuery === false) {
+    if (authQuery === false || !userAuthorizedForDoc(_user, this.userRoles.update, this.docRoles.update, { User: this.context.User }, docToUpdate) ) {
       throw new Error(`Not authorized to update ${this.type} ${id}.`);
     }
 
@@ -132,15 +136,16 @@ export default class User {
     }
 
     this.loader.clear(id);
-    this.pubsub.publish('userUpdated', await this.findOneById(id));
+    this.pubsub.publish('userUpdated', await this.getOneById(id, _user, 'pubsub userUpdated'));
     return result;
   }
 
   async removeById(id, _user) {
     const baseQuery = {_id: id};
     const authQuery = queryForRoles(_user, this.userRoles.delete, this.docRoles.delete, { User: this.context.User });
-    if (!authQuery) throw new Error(`Not authorized to remove ${this.type} ${id}.`);
-
+    if (authQuery === false || !userAuthorizedForDoc(_user, this.userRoles.delete, this.docRoles.delete, { User: this.context.User }, {_id: id} ) ) {
+      throw new Error(`Not authorized to remove ${this.type} ${id}.`);
+    }
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.remove(finalQuery);
 

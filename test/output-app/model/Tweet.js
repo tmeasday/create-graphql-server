@@ -15,14 +15,18 @@ export default class Tweet {
     this.docRoles = auth[this.type].docRoles;
   }
 
-  findOneById(id, _user = {}, resolver = '') {
+  getOneById(id, _user = {}, resolver = '') {
     const authQuery = queryForRoles(_user, this.userRoles.readOne, this.docRoles.readOne, { User: this.context.User });
-    log.debug(`${resolver} findOneById readOne with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type} and ${id}`);
-    log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    log.debug(`${resolver} getOneById readOne with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type} and ${id}`);
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`Not authorized to readOne ${this.type} ${id}.`);
     }
     return this.loader.load(id, authQuery);
+  }
+
+  findOneById(id) {
+    return this.loader.load(id);
   }
 
   all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = '') {
@@ -30,7 +34,7 @@ export default class Tweet {
     const authQuery = queryForRoles(_user, this.userRoles.readMany, this.docRoles.readMany, { User: this.context.User });
     const finalQuery = {...baseQuery, ...authQuery};
     log.debug(`${resolver} all readMany with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type}`);
-    if (authQuery != {}) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`Not authorized to readMany ${this.type}.`);
     }
@@ -38,15 +42,15 @@ export default class Tweet {
   }
 
   author(tweet, _user) {
-    return this.context.User.findOneById(tweet.authorId, _user, 'author');
+    return this.context.User.getOneById(tweet.authorId, _user, 'author');
   }
 
   createdBy(tweet, _user) {
-    return this.context.User.findOneById(tweet.createdById, _user, 'createdBy');
+    return this.context.User.getOneById(tweet.createdById, _user, 'createdBy');
   }
 
   updatedBy(tweet, _user) {
-    return this.context.User.findOneById(tweet.updatedById, _user, 'udpatedBy');
+    return this.context.User.getOneById(tweet.updatedById, _user, 'udpatedBy');
   }
 
   coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, _user) {
@@ -54,7 +58,7 @@ export default class Tweet {
     const authQuery = queryForRoles(_user, this.userRoles.readMany, this.docRoles.readMany, { User: this.context.User });
     const finalQuery = {...baseQuery, ...authQuery};
     log.debug(`coauthors readMany with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type}`);
-    log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`coauthors Not authorized to readMany ${this.type} ${id}.`);
     }
@@ -66,7 +70,7 @@ export default class Tweet {
     const authQuery = queryForRoles(_user, this.userRoles.readMany, this.docRoles.readMany, { User: this.context.User });
     const finalQuery = {...baseQuery, ...authQuery};
     log.debug(`likers readMany with user ${(_user && _user.username) ? _user.username : '<no-user>'} for ${this.type}`);
-    log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
+    if (typeof authQuery === "object" && Object.keys(authQuery).length > 0 ) log.debug('authQuery:', JSON.stringify(authQuery, null, 2));
     if (authQuery === false) {
       throw new Error(`coauthors Not authorized to readMany ${this.type} ${id}.`);
     }
@@ -82,7 +86,7 @@ export default class Tweet {
     });
 
     const authQuery = queryForRoles(_user, this.userRoles.create, this.docRoles.create, { User: this.context.User });
-    if (authQuery === false || (authQuery !== {} && !userAuthorizedForDoc(_user, this.docRoles.create, doc)) ) {
+    if (authQuery === false || (typeof authQuery === "object" && Object.keys(authQuery).length > 0 && !userAuthorizedForDoc(_user, this.userRoles.create, this.docRoles.create, { User: this.context.User }, docToInsert)) ) {
       throw new Error(`Not authorized to insert ${this.type} ${id}.`);
     }
     
@@ -95,7 +99,7 @@ export default class Tweet {
       throw new Error(`insert not possible for ${this.type} ${id}.`);
     }
 
-    this.pubsub.publish('tweetInserted', await this.findOneById(id));
+    this.pubsub.publish('tweetInserted', await this.getOneById(id, _user, 'pubsub tweetInserted'));
     return id;
   }
 
@@ -107,7 +111,7 @@ export default class Tweet {
 
     const baseQuery = {_id: id};
     const authQuery = queryForRoles(_user, this.userRoles.update, this.docRoles.update, { User: this.context.User });
-    if (authQuery === false) {
+    if (authQuery === false || (typeof authQuery === "object" && Object.keys(authQuery).length > 0 && !userAuthorizedForDoc(_user, this.userRoles.update, this.docRoles.update, { User: this.context.User }, docToUpdate)) ) {
       throw new Error(`Not authorized to update ${this.type} ${id}.`);
     }
 
@@ -123,14 +127,16 @@ export default class Tweet {
     }
 
     this.loader.clear(id);
-    this.pubsub.publish('tweetUpdated', await this.findOneById(id));
+    this.pubsub.publish('tweetUpdated', await this.getOneById(id, _user, 'pubsub tweetUpdated'));
     return result;
   }
 
   async removeById(id, _user) {
     const baseQuery = {_id: id};
     const authQuery = queryForRoles(_user, this.userRoles.delete, this.docRoles.delete, { User: this.context.User });
-    if (!authQuery) throw new Error(`Not authorized to remove ${this.type} ${id}.`);
+    if (authQuery === false || (typeof authQuery === "object" && Object.keys(authQuery).length > 0 && !userAuthorizedForDoc(_user, this.userRoles.delete, this.docRoles.delete, { User: this.context.User }, {_id: id} )) ) {
+      throw new Error(`Not authorized to remove ${this.type} ${id}.`);
+    }
 
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.remove(finalQuery);

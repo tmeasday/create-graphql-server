@@ -20,7 +20,7 @@ export function loggedIn(user) {
   return false;
 }
 
-export function queryForRoles(user, userRoles = [], docRoles = [], { User }) {
+export function queryForRoles(user = {}, userRoles = [], docRoles = [], { User }) {
   // Authorized by userRoles
   const role = User.authRole(user);
   if (userRoles.includes(role) || userRoles.includes('world')) {
@@ -36,19 +36,23 @@ export function queryForRoles(user, userRoles = [], docRoles = [], { User }) {
   return false;
 }
 
-export function userAuthorizedForDoc(_user, docRoles, doc){
+export function userAuthorizedForDoc(user = {}, userRoles = [], docRoles = [], { User }, doc){
   const newDoc = Object.assign({}, doc);
   let authorized = false;
+  // Authorized by userRoles
+  const role = User.authRole(user);
+  if (userRoles.includes(role) || userRoles.includes('world')) {
+    authorized = true;
+  }
+  // Authorized by docRoles
   docRoles.forEach(docRole => {
-    // user logged in and
-    // role field in doc exists and
+    // user logged in and role field in doc exists and
     // includes the current user
-    // includes works for String and Array
     if (
-         loggedIn(_user) && newDoc[docRole] &&
+         loggedIn(user) && newDoc[docRole] &&
          ( 
-           ( _.isArray(newDoc[docRole]) && newDoc[docRole].includes(_user._id.toString()) ) ||
-           ( _.isObject(newDoc[docRole]) && newDoc[docRole].toString().includes(_user._id.toString()) )
+           ( _.isArray(newDoc[docRole]) && newDoc[docRole].includes(user._id.toString()) ) ||
+           ( _.isObject(newDoc[docRole]) && newDoc[docRole].toString().includes(user._id.toString()) )
          ) 
        ){
         authorized = true;
