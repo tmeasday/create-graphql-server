@@ -5,27 +5,27 @@
     },
 
     createdBy(user, args, { User, _user }) {
-      return User.createdBy(user, _user);
+      return User.createdBy(user, _user, 'createdBy');
     },
 
     updatedBy(user, args, { User, _user }) {
-      return User.updatedBy(user, _user);
+      return User.updatedBy(user, _user, 'updatedBy');
     },
 
     tweets(user, { minLikes, lastCreatedAt, limit }, { User, _user }) {
-      return User.tweets(user, { minLikes, lastCreatedAt, limit }, _user);
+      return User.tweets(user, { minLikes, lastCreatedAt, limit }, _user, 'tweets');
     },
 
     liked(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.liked(user, { lastCreatedAt, limit }, _user);
+      return User.liked(user, { lastCreatedAt, limit }, _user, 'liked');
     },
 
     following(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.following(user, { lastCreatedAt, limit }, _user);
+      return User.following(user, { lastCreatedAt, limit }, _user, 'following');
     },
 
     followers(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.followers(user, { lastCreatedAt, limit }, _user);
+      return User.followers(user, { lastCreatedAt, limit }, _user, 'followers');
     },
   },
   Query: {
@@ -49,7 +49,7 @@
     },
 
     async removeUser(root, { id }, { User, _user }) {
-      return await User.removeById(id, _user);
+      return await User.removeById(id, _user, 'removeUser');
     },
   },
   Subscription: {
