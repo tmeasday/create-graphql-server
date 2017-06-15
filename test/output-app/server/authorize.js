@@ -23,31 +23,31 @@ export function loggedIn(user) {
 }
 
 // creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access
-export function queryForRoles(user = {}, auth = {}, type = '', mode = '', { User }, doc = {}, resolver = '') {
+export function queryForRoles(user = {}, auth = {}, mode = '', { User }, doc = {}, resolver = '') {
 
   // Build query for the case: The logged in user's role is authorized
-  if (roleAuthorizedForDoc(user, auth, type, mode, { User }, doc, resolver)) {
+  if (roleAuthorizedForDoc(user, auth, mode, { User }, doc, resolver)) {
     return {};  // empty authQuery means, do operation with no access restrictions
   }
 
   // Build query for the case: The user is listed in any document field
   const query = { $or: [] };
-  if (userAuthorizedForDoc(user, auth, type, mode, { User }, doc, resolver)){
-    const docRoles =  auth[type].docRoles[mode] || [];
+  if (userAuthorizedForDoc(user, auth, mode, { User }, doc, resolver)){
+    const docRoles =  auth.docRoles[mode] || [];
     docRoles.forEach(docRole => query.$or.push( { [docRole]: user._id } ) );
     log.debug('authQuery:', JSON.stringify(query, null, 2));
     return query;
   }
 
   // Not Authorized
-  throw new Error(`Authorization: Not authorized to ${mode} ${type} ${doc._id ? doc._id : ''}.`); 
+  throw new Error(`Authorization: Not authorized to ${mode} ${auth.type} ${doc._id ? doc._id : ''}.`); 
 }
 
 // returns true, if the user's role is authorized for a document
-export function roleAuthorizedForDoc(user = {}, auth = {}, type = '', mode = '', { User }, doc = {}, resolver = ''){
-  const userRoles = auth[type].userRoles[mode] || [];
+export function roleAuthorizedForDoc(user = {}, auth = {}, mode = '', { User }, doc = {}, resolver = ''){
+  const userRoles = auth.userRoles[mode] || [];
   const role = User.authRole(user);
-  const fields = auth[type].fields || [];
+  const fields = auth.fields || [];
 
   if ( userRoles.includes('world') || role && role !== '' && role !== '<no-role>' && userRoles.length > 0 && userRoles.includes(role) ) {
     let fieldsAuthorized = true;
@@ -66,7 +66,7 @@ export function roleAuthorizedForDoc(user = {}, auth = {}, type = '', mode = '',
 
     // only if all fields of the document are allowed for the role
     if (fieldsAuthorized){
-      log.debug(`${resolver} ${mode} with user ${user.username ? user.username : '<no-user>'} for ${type} and ${doc._id ? doc._id : ''}`);
+      log.debug(`${resolver} ${mode} with user ${user.username ? user.username : '<no-user>'} for ${auth.type} and ${doc._id ? doc._id : ''}`);
       return true;
     }
     
@@ -76,9 +76,9 @@ export function roleAuthorizedForDoc(user = {}, auth = {}, type = '', mode = '',
 }
 
 // returns true, if the user is authorized by a document role
-export function userAuthorizedForDoc(user = {}, auth = {}, type = '', mode = '', { User }, doc = {}, resolver = ''){
-  const docRoles =  auth[type].docRoles[mode] || [];
-  const fields = auth[type].fields || [];
+export function userAuthorizedForDoc(user = {}, auth = {}, mode = '', { User }, doc = {}, resolver = ''){
+  const docRoles =  auth.docRoles[mode] || [];
+  const fields = auth.fields || [];
   let userId;
   let authorized = false;
 
@@ -111,7 +111,7 @@ export function userAuthorizedForDoc(user = {}, auth = {}, type = '', mode = '',
 
         // only if the same role is authorized for the document and all fields, it is allowed
         if (fieldsAuthorized){
-          log.debug(`${resolver} ${mode} with user ${(user.username) ? user.username : '<no-username>'} for ${type} and docRole ${docRole} for doc with id: ${doc._id ? doc._id : ''}`);
+          log.debug(`${resolver} ${mode} with user ${(user.username) ? user.username : '<no-username>'} for ${auth.type} and docRole ${docRole} for doc with id: ${doc._id ? doc._id : ''}`);
           authorized = true;
           return true;
         }

@@ -1,6 +1,6 @@
 import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { auth, findByIds, queryForRoles } from '../authorizations';
+import { findByIds, queryForRoles } from '../server/authorize';
 
 export default class User {
   constructor(context) {
@@ -8,7 +8,46 @@ export default class User {
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
     this.loader = new DataLoader((ids, authQuery = {}) => findByIds(this.collection, ids, authQuery));
-    this.type = 'User';
+    this.auth = {
+      type: 'User',
+      userRoles: {
+        create: ['admin'],
+        read: ['admin'],
+        readOne: ['admin'],
+        readMany: ['admin'],
+        update: ['admin'],
+        delete: ['admin'],
+      },
+      docRoles: {
+        create: [],
+        read: [],
+        readOne: ['_id'], // == 'this'
+        readMany: [],
+        update: ['_id'],
+        delete: ['_id'],
+      },
+      fields: [
+        { 
+          name: 'role', 
+          userRoles: {
+            create: ['admin'],
+            read: ['admin'],
+            readOne: ['admin'],
+            readMany: ['admin'],
+            update: ['admin'],
+            delete: ['admin'],
+          },
+          docRoles: {
+            create: [],
+            read: [],
+            readOne: ['_id'], // == 'this'
+            readMany: [],
+            update: [],
+            delete: ['_id'],
+          },
+        }
+      ]
+    }
   }
 
   authRole(user){
@@ -20,13 +59,13 @@ export default class User {
   }
 
   getOneById(id, _user = {}, resolver = 'getOneById') {
-    const authQuery = queryForRoles(_user, auth, this.type, 'readOne', { User: this.context.User }, {_id: id}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'readOne', { User: this.context.User }, {_id: id}, resolver);
     return this.loader.load(id, authQuery);
   }
 
   all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'all') {
     const baseQuery = { createdAt: { $gt: lastCreatedAt } };
-    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
@@ -36,7 +75,7 @@ export default class User {
       authorId: user._id,
       createdAt: { $gt: lastCreatedAt },
     };
-    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
+    const authQuery = queryForRoles(_user, this.context.Tweet.auth, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.Tweet.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
@@ -46,7 +85,7 @@ export default class User {
       _id: { $in: user.likedIds },
       createdAt: { $gt: lastCreatedAt },
     };
-    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
+    const authQuery = queryForRoles(_user, this.context.Tweet.auth, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.Tweet.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
@@ -56,7 +95,7 @@ export default class User {
       _id: { $in: user.followingIds || [] },
       createdAt: { $gt: lastCreatedAt },
     };
-    const authQuery = queryForRoles(_user, auth, this.context.User.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
@@ -66,7 +105,7 @@ export default class User {
       followingIds: user._id,
       createdAt: { $gt: lastCreatedAt },
     };
-    const authQuery = queryForRoles(_user, auth, this.context.User.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
@@ -87,7 +126,7 @@ export default class User {
       updatedById: (_user && _user._id) ? _user._id : 'unknown',
     });
 
-    const authQuery = queryForRoles(_user, auth, this.type, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, resolver);
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
 
     if (id){
@@ -110,7 +149,7 @@ export default class User {
     })};
 
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.updateOne(finalQuery, docToUpdate);
     
@@ -131,7 +170,7 @@ export default class User {
     // must get the record first, to capture all authorization relevant fields
     const docBefore = await this.getOneById(id, _user, 'getOneById in removeById for docBefore');
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'delete', { User: this.context.User }, {...docBefore}, resolver);
+    const authQuery = queryForRoles(_user, this.auth, 'delete', { User: this.context.User }, {...docBefore}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.remove(finalQuery);
 
