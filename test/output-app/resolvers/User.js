@@ -39,29 +39,17 @@
   },
   Mutation: {
     async createUser(root, { input }, { User, _user }) {
-      try {
-        const id = await User.insert(input, _user);
-        return User.getOneById(id, _user, 'createUser');
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      const id = await User.insert(input, _user);
+      return User.getOneById(id, _user, 'createUser');
     },
 
     async updateUser(root, { id, input }, { User, _user }) {
-      try {
-        await User.updateById(id, input, _user);
-        return User.getOneById(id, _user, 'updateUser');
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      await User.updateById(id, input, _user);
+      return User.getOneById(id, _user, 'updateUser');
     },
 
     async removeUser(root, { id }, { User, _user }) {
-      try {
-        return await User.removeById(id, _user);
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      return await User.removeById(id, _user);
     },
   },
   Subscription: {
