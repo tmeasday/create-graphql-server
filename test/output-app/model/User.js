@@ -19,12 +19,12 @@ export default class User {
     return this.loader.load(id);
   }
 
-  getOneById(id, _user = {}, resolver = '') {
+  getOneById(id, _user = {}, resolver = 'getOneById') {
     const authQuery = queryForRoles(_user, auth, this.type, 'readOne', { User: this.context.User }, {_id: id}, resolver);
     return this.loader.load(id, authQuery);
   }
 
-  all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = '') {
+  all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'all') {
     const baseQuery = { createdAt: { $gt: lastCreatedAt } };
     const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
@@ -71,15 +71,15 @@ export default class User {
     return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
-  createdBy(user, _user) {
-    return this.context.User.getOneById(user.createdById, _user, 'createdBy');
+  createdBy(user, _user, resolver = 'createdBy') {
+    return this.context.User.getOneById(user.createdById, _user, resolver);
   }
 
-  updatedBy(user, _user) {
-    return this.context.User.getOneById(user.updatedById, _user, 'updatedBy');
+  updatedBy(user, _user, resolver = 'updatedBy') {
+    return this.context.User.getOneById(user.updatedById, _user, resolver);
   }
 
-  async insert(doc, _user) {
+  async insert(doc, _user, resolver = 'insert') {
     let docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -87,7 +87,7 @@ export default class User {
       updatedById: (_user && _user._id) ? _user._id : 'unknown',
     });
 
-    const authQuery = queryForRoles(_user, auth, this.type, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, 'insert');
+    const authQuery = queryForRoles(_user, auth, this.type, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, resolver);
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
 
     if (id){
@@ -101,7 +101,7 @@ export default class User {
     return id;
   }
 
-  async updateById(id, doc, _user) {
+  async updateById(id, doc, _user, resolver = 'updateById') {
     // must get the record first, to capture all authorization relevant fields
     const docBefore = await this.getOneById(id, _user, 'getOneById in updateById for docBefore');
     let docToUpdate = {$set: Object.assign({}, doc, {
@@ -110,7 +110,7 @@ export default class User {
     })};
 
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, 'updateById');
+    const authQuery = queryForRoles(_user, auth, this.type, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.updateOne(finalQuery, docToUpdate);
     
@@ -127,11 +127,11 @@ export default class User {
     return result;
   }
 
-  async removeById(id, _user) {
+  async removeById(id, _user, resolver = 'removeById') {
     // must get the record first, to capture all authorization relevant fields
     const docBefore = await this.getOneById(id, _user, 'getOneById in removeById for docBefore');
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'delete', { User: this.context.User }, {...docBefore}, 'removeById');
+    const authQuery = queryForRoles(_user, auth, this.type, 'delete', { User: this.context.User }, {...docBefore}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.remove(finalQuery);
 

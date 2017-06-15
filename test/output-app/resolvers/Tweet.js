@@ -5,23 +5,23 @@ const resolvers = {
     },
 
     author(tweet, args, { Tweet, _user }) {
-      return Tweet.author(tweet, _user);
+      return Tweet.author(tweet, _user, 'author');
     },
 
     createdBy(tweet, args, { Tweet, _user }) {
-      return Tweet.createdBy(tweet, _user);
+      return Tweet.createdBy(tweet, _user, 'createdBy');
     },
 
     updatedBy(tweet, args, { Tweet, _user }) {
-      return Tweet.updatedBy(tweet, _user);
+      return Tweet.updatedBy(tweet, _user, 'updatedBy');
     },
 
     coauthors(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user);
+      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user, 'coauthors');
     },
 
     likers(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.likers(tweet, { lastCreatedAt, limit }, _user);
+      return Tweet.likers(tweet, { lastCreatedAt, limit }, _user, 'likers');
     },
   },
   Query: {
@@ -45,7 +45,7 @@ const resolvers = {
     },
 
     async removeTweet(root, { id }, { Tweet, _user }) {
-      return await Tweet.removeById(id, _user);
+      return await Tweet.removeById(id, _user, 'removeTweet');
     },
   },
   Subscription: {

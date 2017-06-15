@@ -15,45 +15,45 @@ export default class Tweet {
     return this.loader.load(id);
   }
 
-  getOneById(id, _user = {}, resolver = '') {
+  getOneById(id, _user = {}, resolver = 'getOneById') {
     const authQuery = queryForRoles(_user, auth, this.type, 'readOne', { User: this.context.User }, {_id: id}, resolver);
     return this.loader.load(id, authQuery);
   }
 
-  all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = '') {
+  all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'all') {
     const baseQuery = { createdAt: { $gt: lastCreatedAt } };
     const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
-  author(tweet, _user) {
-    return this.context.User.getOneById(tweet.authorId, _user, 'author');
+  author(tweet, _user, resolver = 'author') {
+    return this.context.User.getOneById(tweet.authorId, _user, resolver);
   }
 
-  createdBy(tweet, _user) {
-    return this.context.User.getOneById(tweet.createdById, _user, 'createdBy');
+  createdBy(tweet, _user, resolver = 'createdBy') {
+    return this.context.User.getOneById(tweet.createdById, _user, resolver);
   }
 
-  updatedBy(tweet, _user) {
-    return this.context.User.getOneById(tweet.updatedById, _user, 'udpatedBy');
+  updatedBy(tweet, _user, resolver = 'updatedBy') {
+    return this.context.User.getOneById(tweet.updatedById, _user, resolver);
   }
 
-  coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, _user) {
+  coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, _user, resolver = 'coauthors') {
     const baseQuery = {_id: { $in: tweet.coauthorsIds }, createdAt: { $gt: lastCreatedAt } };
-    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, 'coauthors');
+    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
-  likers(tweet, { lastCreatedAt = 0, limit = 10 }, _user) {
+  likers(tweet, { lastCreatedAt = 0, limit = 10 }, _user, resolver = 'likers') {
     const baseQuery = {likedIds: tweet._id, createdAt: { $gt: lastCreatedAt } };
-    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, 'likers');
+    const authQuery = queryForRoles(_user, auth, this.type, 'readMany', { User: this.context.User }, {_id: 'all'}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   }
 
-  async insert(doc, _user) {
+  async insert(doc, _user, resolver = 'insert') {
     let docToInsert = Object.assign({}, doc, {
         createdAt: Date.now(),
         updatedAt: Date.now(),
@@ -61,7 +61,7 @@ export default class Tweet {
         updatedById: (_user && _user._id) ? _user._id : 'unknown',
     });
 
-    const authQuery = queryForRoles(_user, auth, this.type, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, 'insert');
+    const authQuery = queryForRoles(_user, auth, this.type, 'create', { User: this.context.User }, {_id: '<new>', ...docToInsert}, resolver);
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     
     if (id){
@@ -75,7 +75,7 @@ export default class Tweet {
     return id;
   }
 
-  async updateById(id, doc, _user) {
+  async updateById(id, doc, _user, resolver = 'updateById') {
     // must get the record first, to capture all authorization relevant fields
     const docBefore = await this.getOneById(id, _user, 'getOneById in updateById for docBefore');
     let docToUpdate = {$set: Object.assign({}, doc, {
@@ -84,7 +84,7 @@ export default class Tweet {
     })};
 
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, 'updateById');
+    const authQuery = queryForRoles(_user, auth, this.type, 'update', { User: this.context.User }, {...docBefore, ...docToUpdate}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.updateOne(finalQuery, docToUpdate);
     
@@ -101,11 +101,11 @@ export default class Tweet {
     return result;
   }
 
-  async removeById(id, _user) {
+  async removeById(id, _user, resolver = 'removeById') {
     // must get the record first, to capture all authorization relevant fields
     const docBefore = await this.getOneById(id, _user, 'getOneById in removeById for docBefore');
     const baseQuery = {_id: id};
-    const authQuery = queryForRoles(_user, auth, this.type, 'delete', { User: this.context.User }, {...docBefore}, 'removeById');
+    const authQuery = queryForRoles(_user, auth, this.type, 'delete', { User: this.context.User }, {...docBefore}, resolver);
     const finalQuery = {...baseQuery, ...authQuery};
     const result = await this.collection.remove(finalQuery);
 
