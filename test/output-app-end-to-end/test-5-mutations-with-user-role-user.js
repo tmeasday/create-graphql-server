@@ -7,17 +7,24 @@ let tweetId;
 const tweetIdOthers = '583676d3618530145474e352';
 
 function makeUserInput(user) {
-  return `{
-    username: "${user.username}",
-    bio: "${user.bio}",
-    role: "${user.role}"
-  }`;
+  if (user.role) 
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}",
+      role: "${user.role}"
+    }`;
+  else
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}"
+    }`;
 }
 
 function makeTweetInput(tweet, userId) {
   if (tweet.author) {
     return `{
       authorId: "${userId ? userId : tweet.author.id}",
+      coauthorsIds: ${tweet.coauthorsIds ? JSON.stringify(tweet.coauthorsIds) : JSON.stringify([])},
       body: "${tweet.body}"
     }`;
   }
@@ -90,7 +97,18 @@ describe('test-5: user with role "user"', () => {
       newUser)
     });
 
-    it('can read himself', () => {
+    it('can read himself without field "role"', () => {
+      return sendQueryAndExpect(`
+        { user(id: "${newUser}") { username } }
+      `, { 
+          user: {
+            username: 'tobkle'
+          }
+       },
+      newUser)
+    });
+
+    it('can read himself with field "role"', () => {
       return sendQueryAndExpect(`
         { user(id: "${newUser}") { username, role } }
       `, { 
@@ -124,21 +142,18 @@ describe('test-5: user with role "user"', () => {
         const modifiedUser = {
           username: 'tobkle',
           bio: 'Maker of things, I guess',
-          role: 'user'
         };
         return sendQueryAndExpect(`
           mutation {
             updateUser(id: "${newUser}", input: ${makeUserInput(modifiedUser)}) {
               username
               bio
-              role
             }
           }
         `, { 
             updateUser: {
               username: 'tobkle',
               bio: 'Maker of things, I guess',
-              role: 'user'
             }
          },
         newUser)
@@ -159,11 +174,7 @@ describe('test-5: user with role "user"', () => {
             }
           }
         `, { 
-            updateUser: {
-              username: 'tobkle',
-              bio: 'Maker of things, I guess',
-              role: 'user'
-            }
+            updateUser: null
          },
         newUser)
     });

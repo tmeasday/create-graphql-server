@@ -5,20 +5,28 @@ import { sendQuery, sendQueryAndExpect, roleUser, adminUser } from './sendQuery'
 let newUser;
 let otherUser;
 let tweetId;
+let tweetId2;
 let tweetIdOthers;
 
 function makeUserInput(user) {
-  return `{
-    username: "${user.username}",
-    bio: "${user.bio}",
-    role: "${user.role}"
-  }`;
+  if (user.role) 
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}",
+      role: "${user.role}"
+    }`;
+  else
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}"
+    }`;
 }
 
 function makeTweetInput(tweet, userId) {
   if (tweet.author) {
     return `{
       authorId: "${userId ? userId : tweet.author.id}",
+      coauthorsIds: ${tweet.coauthorsIds ? JSON.stringify(tweet.coauthorsIds) : JSON.stringify([])},
       body: "${tweet.body}"
     }`;
   }
@@ -68,7 +76,7 @@ describe('test-3: user with role "admin"', () => {
       assert.isNotNull(newUser);
     });
 
-    it('can create new users', () => {
+    it('admin user created new "other" user with role "editor"', () => {
       const expectedUser = {
         username: 'zol',
         bio: 'Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead',
@@ -88,27 +96,6 @@ describe('test-3: user with role "admin"', () => {
         assert.isNotNull(result.data.createUser);
         assert.isNotNull(result.data.createUser.id);
         otherUser = result.data.createUser.id;
-
-        let expectedTweet = {
-          author: { id: otherUser },
-          body: 'This is a test tweet of user zoltan',
-        };
-
-        sendQuery({ query: `
-          mutation {
-            createTweet(input: ${makeTweetInput(expectedTweet, otherUser)}) {
-              id
-            }
-          }
-        `, 
-        userId: otherUser
-        })
-        .then((result) => {
-          assert.isNotNull(result.data);
-          assert.isNotNull(result.data.createTweet);
-          assert.isNotNull(result.data.createTweet.id);
-          tweetIdOthers = result.data.createTweet.id;
-        });
       });
     });
 
@@ -230,11 +217,7 @@ describe('test-3: user with role "admin"', () => {
             }
           }
         `, { 
-            updateUser: {
-              username: 'tobkle',
-              bio: 'Maker of things, I guess',
-              role: 'editor'
-            }
+            updateUser: null
          },
         newUser)
     });
@@ -276,11 +259,13 @@ describe('test-3: user with role "admin"', () => {
 
     let expectedTweet = {
       author: { id: newUser },
+      //coauthors: [],
       body: 'This is a test tweet of user tobkle',
     };
 
     const expectedTweetOtherAuthor = {
       author: { id: adminUser },
+      //coauthors: [],
       body: 'We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:',
     };
 
@@ -316,16 +301,22 @@ describe('test-3: user with role "admin"', () => {
       assert.isNotNull(tweetId);
     });
 
-    it('can not create tweet for other author', () => {
-      return sendQueryAndExpect(`
+    it('can create tweet for other author', () => {
+      sendQuery({ query: `
         mutation {
           createTweet(input: ${makeTweetInput(expectedTweetOtherAuthor, adminUser)}) {
             id
           }
         }
-        `, 
-        { createTweet: null },
-        newUser);
+      `, 
+      userId: newUser
+      })
+      .then((result) => {
+        assert.isNotNull(result.data);
+        assert.isNotNull(result.data.createTweet);
+        assert.isNotNull(result.data.createTweet.id);
+        tweetIdOthers = result.data.createTweet.id;
+      })
     });
 
     it('can read own tweet', () => {

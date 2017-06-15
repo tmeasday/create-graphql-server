@@ -7,17 +7,24 @@ let tweetId;
 const tweetIdOthers = '583676d3618530145474e352';
 
 function makeUserInput(user) {
-  return `{
-    username: "${user.username}",
-    bio: "${user.bio}",
-    role: "${user.role}"
-  }`;
+  if (user.role) 
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}",
+      role: "${user.role}"
+    }`;
+  else
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}"
+    }`;
 }
 
 function makeTweetInput(tweet, userId) {
   if (tweet.author) {
     return `{
       authorId: "${userId ? userId : tweet.author.id}",
+      coauthorsIds: ${tweet.coauthorsIds ? JSON.stringify(tweet.coauthorsIds) : JSON.stringify([])},
       body: "${tweet.body}"
     }`;
   }
@@ -124,21 +131,18 @@ describe('test-6: user with role "editor"', () => {
         const modifiedUser = {
           username: 'tmeasday',
           bio: 'Maker of things, I guess',
-          role: 'editor'
         };
         return sendQueryAndExpect(`
           mutation {
             updateUser(id: "${newUser}", input: ${makeUserInput(modifiedUser)}) {
               username
               bio
-              role
             }
           }
         `, { 
             updateUser: {
               username: 'tmeasday',
               bio: 'Maker of things, I guess',
-              role: 'editor'
             }
          },
         newUser)
@@ -159,11 +163,7 @@ describe('test-6: user with role "editor"', () => {
             }
           }
         `, { 
-            updateUser: {
-              username: 'tmeasday',
-              bio: 'Maker of things, I guess',
-              role: 'editor'
-            }
+            updateUser: null
          },
         newUser)
     });

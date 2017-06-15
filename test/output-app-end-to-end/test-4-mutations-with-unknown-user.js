@@ -7,17 +7,24 @@ let tweetId;
 const tweetIdOthers = '583676d3618530145474e352';
 
 function makeUserInput(user) {
-  return `{
-    username: "${user.username}",
-    bio: "${user.bio}",
-    role: "${user.role}"
-  }`;
+  if (user.role) 
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}",
+      role: "${user.role}"
+    }`;
+  else
+    return `{
+      username: "${user.username}",
+      bio: "${user.bio}"
+    }`;
 }
 
 function makeTweetInput(tweet, userId) {
   if (tweet.author) {
     return `{
       authorId: "${userId ? userId : tweet.author.id}",
+      coauthorsIds: ${tweet.coauthorsIds ? JSON.stringify(tweet.coauthorsIds) : JSON.stringify([])},
       body: "${tweet.body}"
     }`;
   }

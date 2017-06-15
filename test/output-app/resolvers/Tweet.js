@@ -26,46 +26,26 @@ const resolvers = {
   },
   Query: {
     tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
-      try {
-        return Tweet.all({ lastCreatedAt, limit }, _user, 'tweets');
-      } catch(error){
-        console.log('ERROR:', error.message);
-      }
+      return Tweet.all({ lastCreatedAt, limit }, _user, 'tweets');
     },
 
     tweet(root, { id }, { Tweet, _user }) {
-      try {
-        return Tweet.getOneById(id, _user, 'tweet');  
-      } catch(error){
-        console.log('ERROR:', error.message);
-      }
+      return Tweet.getOneById(id, _user, 'tweet');  
     },
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, _user }) {
-      try {
-        const id = await Tweet.insert(input, _user);
-        return Tweet.getOneById(id, _user, 'createTweet'); 
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      const id = await Tweet.insert(input, _user);
+      return Tweet.getOneById(id, _user, 'createTweet'); 
     },
 
     async updateTweet(root, { id, input }, { Tweet, _user }) {
-      try {
-        await Tweet.updateById(id, input, _user);
-        return Tweet.getOneById(id, _user, 'updateTweet');
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      await Tweet.updateById(id, input, _user);
+      return Tweet.getOneById(id, _user, 'updateTweet');
     },
 
     async removeTweet(root, { id }, { Tweet, _user }) {
-      try {
-        return await Tweet.removeById(id, _user);
-      } catch(error) {
-        console.log('ERROR:', error.message);
-      }
+      return await Tweet.removeById(id, _user);
     },
   },
   Subscription: {

@@ -14,5 +14,5 @@ export const Tweet = {
     readMany: ['authorId', 'coauthorsIds'],
     update: ['authorId', 'coauthorsIds'],
     delete: ['authorId'],
-  }
+  },
 };
