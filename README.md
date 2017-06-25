@@ -17,7 +17,7 @@ To add some types, simply run one of the following alternatives:
 ```bash
 create-graphql-server add-type path/to/input.graphql
 OR:
-create-grapqhl-server add-type path
+create-graphql-server add-type path
 ```
 
 Where `path/to/input.graphql` is an input GraphQL schema (see below). Or:
