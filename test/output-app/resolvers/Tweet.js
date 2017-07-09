@@ -35,13 +35,11 @@ const resolvers = {
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, _user }) {
-      const id = await Tweet.insert(input, _user);
-      return Tweet.getOneById(id, _user, 'createTweet'); 
+      return await Tweet.insert(input, _user);
     },
 
     async updateTweet(root, { id, input }, { Tweet, _user }) {
-      await Tweet.updateById(id, input, _user);
-      return Tweet.getOneById(id, _user, 'updateTweet');
+      return await Tweet.updateById(id, input, _user);
     },
 
     async removeTweet(root, { id }, { Tweet, _user }) {

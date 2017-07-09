@@ -14,6 +14,7 @@ import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
 import authenticate from './authenticate';
+import { parse, print } from 'graphql';
 
 import { pubsub, subscriptionManager } from './subscriptions';
 
@@ -49,10 +50,15 @@ async function startServer() {
       graphqlExpress(() => {
         // Get the query, the same way express-graphql does it
         // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
+        const {variables, operationName} = req.body;
+        const {_id, username, role} = _user;
         const query = req.query.query || req.body.query;
+        log.debug('-'.repeat(80));
+        log.debug(`Request:\nUser: "${(username) ? username: '<no-user>'}", role: "${(role) ? role : '<no-role>'}", id: "${(_id) ? _id : '<no-id>'}",\nOperation: "${operationName ? operationName : '<no-name>'}", variables: "${variables ? JSON.stringify(variables) : '<no-variables>'}",\nQuery:\n${print(parse(query))}`);
         if (query && query.length > 4000) {
           // None of our app's queries are this long
           // Probably indicates someone trying to send an overly expensive query
+          log.error('Query too large.');
           throw new Error('Query too large.');
         }
         return {

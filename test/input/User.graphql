@@ -6,7 +6,7 @@ type User
 )
 
 {
-  role: String! @authRole("admin") @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne", "delete"])
+  role: String! @authRole("admin") @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"])
 
   username: String!
 

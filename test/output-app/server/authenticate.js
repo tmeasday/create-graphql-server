@@ -4,6 +4,7 @@ import jwt from 'jwt-simple';
 import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
+import log from '../server/logger';
 
 const KEY = 'test-key';
 
