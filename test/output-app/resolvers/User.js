@@ -39,13 +39,11 @@
   },
   Mutation: {
     async createUser(root, { input }, { User, _user }) {
-      const id = await User.insert(input, _user);
-      return User.getOneById(id, _user, 'createUser');
+      return await User.insert(input, _user);
     },
 
     async updateUser(root, { id, input }, { User, _user }) {
-      await User.updateById(id, input, _user);
-      return User.getOneById(id, _user, 'updateUser');
+      return await User.updateById(id, input, _user);
     },
 
     async removeUser(root, { id }, { User, _user }) {
