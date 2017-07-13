@@ -101,7 +101,7 @@ export default class <Type> {
 	this.loaders = (_user = {}, resolver = '') => ({
 	  readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
 	    try {
-	      const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User: this.context.User }, resolver);
+	      const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readOne', _user));
 	      const result = await findByIds(this.collection, ids, authQuery);
 	      resolve(result);
 	    } catch (err) { reject(err); }
@@ -120,7 +120,7 @@ async getOneById(id, _user = {}, resolver = 'tweet getOneById') {
 all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'tweet all') {
   try {
     const baseQuery = { createdAt: { $gt: lastCreatedAt } };
-    const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readMany', { User: this.context.User }, resolver);
+    const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', _user));
     const finalQuery = {...baseQuery, ...authQuery};
     return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
   } catch (err){ log.error(err.message); }
@@ -145,14 +145,14 @@ export default class Tweet {
     this.loaders = (_user = {}, resolver = '') => ({
       readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
         try {
-          const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User: this.context.User }, resolver);
+          const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readOne', _user));
           const result = await findByIds(this.collection, ids, authQuery);
           resolve(result);
         } catch (err) { reject(err); }
       })),
       // readMany: new DataLoader(ids => new Promise( async (resolve, reject) => {
       //   try { 
-      //     const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readMany', { User: this.context.User }, resolver);
+      //     const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', _user));
       //     const result = await findByIds(this.collection, ids, authQuery);
       //     resolve(result);
       //   } catch (err) { reject(err); }
@@ -170,7 +170,7 @@ export default class Tweet {
   all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'tweet all') {
     try {
       const baseQuery = { createdAt: { $gt: lastCreatedAt } };
-      const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readMany', { User: this.context.User }, resolver);
+      const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', _user));
       const finalQuery = {...baseQuery, ...authQuery};
       return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
     } catch (err){ log.error(err.message); }
@@ -206,14 +206,14 @@ export default class User {
       })),
       readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
         try {
-          const authQuery = queryForRoles(_user, ['admin'], ['_id'], 'readOne', { User: this.context.User }, resolver);
+          const authQuery = queryForRoles(_user, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'readOne', _user));
           const result = await findByIds(this.collection, ids, authQuery);
           resolve(result);
         } catch (err) { reject(err); }
       })),
       // readMany: new DataLoader(ids => new Promise( async (resolve, reject) => {
       //   try { 
-      //     const authQuery = queryForRoles(_user, ['admin'], [], 'readMany', { User: this.context.User }, resolver);
+      //     const authQuery = queryForRoles(_user, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', _user));
       //     const result = await findByIds(this.collection, ids, authQuery);
       //     resolve(result);
       //   } catch (err) { reject(err); }
@@ -244,7 +244,7 @@ export default class User {
   all({ lastCreatedAt = 0, limit = 10 }, _user, resolver = 'user all') {
     try { 
       const baseQuery = { createdAt: { $gt: lastCreatedAt } };
-      const authQuery = queryForRoles(_user, ['admin'], [], 'readMany', { User: this.context.User }, resolver);
+      const authQuery = queryForRoles(_user, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', _user));
       const restrictedFields = (Object.keys(authQuery).length === 0) ? {} : { role: 0 };
       const finalQuery = {...baseQuery, ...authQuery};
       return this.collection.find(finalQuery).sort({ createdAt: 1 }).project(restrictedFields).limit(limit).toArray();
@@ -278,10 +278,10 @@ Use function queryForRoles to generate an authQuery object.
 It expects the following arguments:
 ```javascript
 // creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access
-export function queryForRoles(user = {}, userRoles = [], docRoles = [], mode = '', { User }, resolver = '') {
+export function queryForRoles(user = {}, userRoles = [], docRoles = [], { User }, logger) {
 
   // Build query for the case: The logged in user's role is authorized
-  if (roleAuthorizedForDoc(user, userRoles, docRoles, mode, { User }, resolver)) {
+  if (roleAuthorizedForDoc(user, userRoles, docRoles, { User }, logger)) {
     return {};  // empty authQuery means, do operation with no access restrictions
   }
 
@@ -289,12 +289,12 @@ export function queryForRoles(user = {}, userRoles = [], docRoles = [], mode = '
   const query = { $or: [] };
   if (loggedIn(user)){
     docRoles.forEach(docRole => query.$or.push( { [docRole]: user._id } ) );
-    log.debug('authQuery:', JSON.stringify(query, null, 2));
+    logger.debug(user, `authQuery: ${JSON.stringify(query, null, 2)}`);
     if (query.$or.length > 0) return query;
   }
 
   // Not Authorized
-  throw new Error(`Authorization: Not authorized to ${mode} in ${resolver}.`); 
+  logger.error(user, 'Not authorized');
 }
 ```
 
@@ -317,11 +317,11 @@ This helper function is used by queryForRoles, and decides, if a user gains the 
 For example: If a user has a field "role" in his user document and it contains the value "admin". So it checks if a user's role is admin, and allows all operations for admins.
 ```javascript
 // returns true, if the user's role is authorized for a document
-export function roleAuthorizedForDoc(user = {}, userRoles = [], docRoles = [], mode = '', { User }, resolver = ''){
+export function roleAuthorizedForDoc(user = {}, userRoles = [], docRoles = [], { User }, logger){
   const role = User.authRole(user);
 
   if ( userRoles.includes('world') || role && role !== '' && role !== '<no-role>' && userRoles.length > 0 && userRoles.includes(role) ) {
-    log.debug(`${resolver} ${mode} with user ${user.username ? user.username : '<no-user>'} is authorized`);
+    logger.debug(user, 'is authorized');
     return true;
   }
 
@@ -391,6 +391,20 @@ export function fieldContainsUserId(docRoleField, userId) {
 
   }
   return found;
+}
+```
+
+### function authlog
+
+A logging function that understands "resolvers", "modes" and "users". Simple wrapper around whatever logging function we use
+
+```js
+export function authlog(resolver, mode, user) {
+  const makeMessage = (message) => `${resolver} ${mode} with user ${user.username ? user.username : '<no-user>'} ${message}`;
+  return {
+    debug: (message) => logger.debug(makeMessage(message)),
+    error: (message) => throw new Error(makeMessage(message))
+  };
 }
 ```
 
