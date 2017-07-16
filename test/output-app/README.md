@@ -249,7 +249,6 @@ import { queryForRoles, findByIds } from '../server/authorize';
 
 export default class <Type> {
   constructor(context){
-<<<<<<< HEAD
   ...
   const { me, User } = context;
   let authQuery;
@@ -262,15 +261,6 @@ export default class <Type> {
   this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
   this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
     ...
-=======
-	...
-	
-	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
-	
-	const { user: me, User } = context;
-	const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User }, 'findOneLoader');
-	this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
->>>>>>> 151b0b403ce6a91e6b8b05ba8bc51f7efe563f8e
   }
 ...
 // used from server calls, without authorization checks, NOT for use in resolvers
