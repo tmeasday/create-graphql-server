@@ -310,6 +310,7 @@ export default class <Type> {
 =======
   constructor(context){
 <<<<<<< HEAD
+<<<<<<< HEAD
 	...
 	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
 	const { user: me, User } = context;
@@ -333,6 +334,8 @@ export default class <Type> {
     } catch (err){ log.error(err.message); }
   }
 =======
+=======
+>>>>>>> merge correction
   ...
   const { me, User } = context;
   let authQuery;
