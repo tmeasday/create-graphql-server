@@ -4,46 +4,46 @@ const resolvers = {
       return tweet._id;
     },
 
-    author(tweet, args, { Tweet, _user }) {
-      return Tweet.author(tweet, _user, 'author');
+    author(tweet, args, { Tweet, me }) {
+      return Tweet.author(tweet, me, 'author');
     },
 
-    createdBy(tweet, args, { Tweet, _user }) {
-      return Tweet.createdBy(tweet, _user, 'createdBy');
+    createdBy(tweet, args, { Tweet, me }) {
+      return Tweet.createdBy(tweet, me, 'createdBy');
     },
 
-    updatedBy(tweet, args, { Tweet, _user }) {
-      return Tweet.updatedBy(tweet, _user, 'updatedBy');
+    updatedBy(tweet, args, { Tweet, me }) {
+      return Tweet.updatedBy(tweet, me, 'updatedBy');
     },
 
-    coauthors(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, _user, 'coauthors');
+    coauthors(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
+      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'coauthors');
     },
 
-    likers(tweet, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.likers(tweet, { lastCreatedAt, limit }, _user, 'likers');
+    likers(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
+      return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'likers');
     },
   },
   Query: {
-    tweets(root, { lastCreatedAt, limit }, { Tweet, _user }) {
-      return Tweet.all({ lastCreatedAt, limit }, _user, 'tweets');
+    tweets(root, { lastCreatedAt, limit }, { Tweet, me }) {
+      return Tweet.all({ lastCreatedAt, limit }, me, 'tweets');
     },
 
-    tweet(root, { id }, { Tweet, _user }) {
-      return Tweet.getOneById(id, _user, 'tweet');  
+    tweet(root, { id }, { Tweet, me }) {
+      return Tweet.getOneById(id, me, 'tweet');  
     },
   },
   Mutation: {
-    async createTweet(root, { input }, { Tweet, _user }) {
-      return await Tweet.insert(input, _user);
+    async createTweet(root, { input }, { Tweet, me }) {
+      return await Tweet.insert(input, me);
     },
 
-    async updateTweet(root, { id, input }, { Tweet, _user }) {
-      return await Tweet.updateById(id, input, _user);
+    async updateTweet(root, { id, input }, { Tweet, me }) {
+      return await Tweet.updateById(id, input, me);
     },
 
-    async removeTweet(root, { id }, { Tweet, _user }) {
-      return await Tweet.removeById(id, _user, 'removeTweet');
+    async removeTweet(root, { id }, { Tweet, me }) {
+      return await Tweet.removeById(id, me, 'removeTweet');
     },
   },
   Subscription: {

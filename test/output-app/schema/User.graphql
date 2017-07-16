@@ -1,6 +1,6 @@
 type User {
   id: ObjID!
-  role: String!
+  role: String
   username: String!
   bio: String
   notify: Boolean
