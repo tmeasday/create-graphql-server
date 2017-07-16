@@ -98,9 +98,7 @@ import { queryForRoles, findByIds } from '../server/authorize';
 export default class <Type> {
   constructor(context){
 	...
-
 	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
-
 	const { user: me, User } = context;
 	const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User }, 'findOneLoader');
 	this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
@@ -147,13 +145,6 @@ export default class Tweet {
           resolve(result);
         } catch (err) { reject(err); }
       })),
-      // readMany: new DataLoader(ids => new Promise( async (resolve, reject) => {
-      //   try { 
-      //     const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', _user));
-      //     const result = await findByIds(this.collection, ids, authQuery);
-      //     resolve(result);
-      //   } catch (err) { reject(err); }
-      // })),
     });
   }
 
@@ -208,13 +199,6 @@ export default class User {
           resolve(result);
         } catch (err) { reject(err); }
       })),
-      // readMany: new DataLoader(ids => new Promise( async (resolve, reject) => {
-      //   try { 
-      //     const authQuery = queryForRoles(_user, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', _user));
-      //     const result = await findByIds(this.collection, ids, authQuery);
-      //     resolve(result);
-      //   } catch (err) { reject(err); }
-      // })),
     });
   }
 
