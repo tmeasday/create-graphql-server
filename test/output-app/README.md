@@ -244,6 +244,7 @@ import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc
 const log = logger(getLogFilename());
 
 export default class <Type> {
+<<<<<<< HEAD
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('<type>');
@@ -257,6 +258,17 @@ export default class <Type> {
       authQuery = {_id: false}; // otherwise admin access
     }
     this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+=======
+  constructor(context){
+	...
+
+	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
+
+	const { user: me, User } = context;
+	const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User }, 'findOneLoader');
+	this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+	...
+>>>>>>> handle conflicts
   }
 
   async findOneById(id, me, resolver) {
