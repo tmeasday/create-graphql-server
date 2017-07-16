@@ -261,9 +261,7 @@ export default class <Type> {
 =======
   constructor(context){
 	...
-
 	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
-
 	const { user: me, User } = context;
 	const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User }, 'findOneLoader');
 	this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
@@ -300,6 +298,7 @@ export default class Tweet {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
+<<<<<<< HEAD
     let authQuery;
     try {
       const { me, User } = context;
@@ -309,6 +308,17 @@ export default class Tweet {
       authQuery = {_id: false}; // otherwise admin access
     }
     this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+=======
+    this.loaders = (_user = {}, resolver = '') => ({
+      readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
+        try {
+          const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readOne', _user));
+          const result = await findByIds(this.collection, ids, authQuery);
+          resolve(result);
+        } catch (err) { reject(err); }
+      })),
+    });
+>>>>>>> applied changes
   }
 
   async findOneById(id, me, resolver) {
@@ -430,6 +440,7 @@ export default class User {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
+<<<<<<< HEAD
     this.authRole = User.authRole;
     let authQuery;
     try {
@@ -440,6 +451,24 @@ export default class User {
       authQuery = {_id: false}; // otherwise admin access
     }
     this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+=======
+    this._user = {};
+    this.loaders = (_user = {}, resolver = '') => ({
+      readOneWithoutAuth: new DataLoader(ids => new Promise( async (resolve, reject) => {
+        try {
+          const result = await findByIds(this.collection, ids, {});
+          resolve(result);
+        } catch (err) { reject(err); }
+      })),
+      readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
+        try {
+          const authQuery = queryForRoles(_user, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'readOne', _user));
+          const result = await findByIds(this.collection, ids, authQuery);
+          resolve(result);
+        } catch (err) { reject(err); }
+      })),
+    });
+>>>>>>> applied changes
   }
 
   static authRole(user){
