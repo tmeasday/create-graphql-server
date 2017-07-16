@@ -98,16 +98,12 @@ import { queryForRoles, findByIds } from '../server/authorize';
 export default class <Type> {
   constructor(context){
 	...
-	this.loaders = (_user = {}, resolver = '') => ({
-	  readOne: new DataLoader(ids => new Promise( async (resolve, reject) => {
-	    try {
-	      const authQuery = queryForRoles(_user, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User: this.context.User }, resolver);
-	      const result = await findByIds(this.collection, ids, authQuery);
-	      resolve(result);
-	    } catch (err) { reject(err); }
-	  })),
-	});
-	...
+	
+	this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
+	
+	const { user: me, User } = context;
+	const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], 'readOne', { User }, 'findOneLoader');
+	this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
   }
 ...
 async getOneById(id, _user = {}, resolver = 'tweet getOneById') {
