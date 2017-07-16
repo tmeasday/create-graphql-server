@@ -1,5 +1,8 @@
-2017-07-09 21:12:22  --------------------------------------------------------------------------------
-2017-07-09 21:12:22  Request:
+2017-07-17 00:07:18  Logger started
+2017-07-17 00:07:49  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:07:49  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:07:49  --------------------------------------------------------------------------------
+2017-07-17 00:07:49  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -11,8 +14,10 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -24,8 +29,10 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -36,9 +43,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -49,9 +58,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -62,9 +73,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -76,9 +89,10 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -89,9 +103,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  users readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "usersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -102,9 +120,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  users readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "usersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -115,9 +136,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  users readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "usersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -128,9 +152,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  users readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "usersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -143,10 +170,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  followers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -159,10 +189,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  followers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -175,10 +208,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  followers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -191,10 +227,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  followers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followersfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -207,10 +246,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  following readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "following" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "followingfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  --------------------------------------------------------------------------------
+2017-07-17 00:08:01  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -223,10 +265,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  following readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:01  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:01  Authorize readMany "following" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "followingfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -239,10 +284,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  following readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "following" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "followingfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -255,10 +303,13 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  following readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "following" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "followingfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -271,10 +322,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -287,10 +340,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -303,10 +358,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -319,10 +376,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -335,10 +394,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  liked readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "liked" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -351,10 +412,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  liked readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "liked" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -367,10 +430,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  liked readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "liked" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -383,10 +448,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  user readOne with user stubailo is authorized
-2017-07-09 21:12:33  liked readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readMany "liked" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -398,8 +465,10 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -410,11 +479,10 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  author readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -425,9 +493,12 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "authorfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -438,9 +509,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -451,9 +524,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -464,9 +539,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweets readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -479,10 +556,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  likers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "likers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -495,10 +573,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  likers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "likers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -511,10 +590,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  likers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "likers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -527,10 +607,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user stubailo is authorized
-2017-07-09 21:12:33  likers readMany with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
+2017-07-17 00:08:02  Authorize readMany "likers" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -541,12 +622,15 @@ mutation {
   }
 }
 
-2017-07-09 21:12:33  insert user create with user stubailo is authorized
-2017-07-09 21:12:33  inserted user 596280212157d09ddf9d7294.
-2017-07-09 21:12:33  pubsub userInserted readOne with user stubailo is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize create "insert user" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize create "insert userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  inserted user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  Authorize readOne "pubsub userInsertedfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -555,165 +639,217 @@ mutation {
   }
 }
 
-2017-07-09 21:12:33  insert user create with user tobkle is authorized
-2017-07-09 21:12:33  inserted user 596280212157d09ddf9d7295.
-2017-07-09 21:12:33  pubsub userInserted readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize create "insert user" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize create "insert userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  inserted user 596be3c2949652fd418cc8ff.
+2017-07-17 00:08:02  Authorize readOne "pubsub userInsertedfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280212157d09ddf9d7295") {
+  user(id: "596be3c2949652fd418cc8ff") {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  user readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280212157d09ddf9d7294") {
+  user(id: "596be3c2949652fd418cc8fe") {
     username
     role
   }
 }
 
-2017-07-09 21:12:33  user readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize readOne "userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280212157d09ddf9d7295", input: {username: "zoltan", bio: "Maker of things, I guess", role: "editor"}) {
+  updateUser(id: "596be3c2949652fd418cc8ff", input: {username: "zoltan", bio: "Maker of things, I guess", role: "editor"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  update user update with user tobkle is authorized
-2017-07-09 21:12:33  updated user 596280212157d09ddf9d7295.
-2017-07-09 21:12:33  pubsub userUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8ff.
+2017-07-17 00:08:02  Authorize readOne "pubsub userUpdatedfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280212157d09ddf9d7294", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+  updateUser(id: "596be3c2949652fd418cc8fe", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  update user update with user tobkle is authorized
-2017-07-09 21:12:33  updated user 596280212157d09ddf9d7294.
-2017-07-09 21:12:33  pubsub userUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  Authorize readOne "pubsub userUpdatedfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280212157d09ddf9d7295", input: {username: "zoltan", bio: "now an admin", role: "admin"}) {
+  updateUser(id: "596be3c2949652fd418cc8ff", input: {username: "zoltan", bio: "now an admin", role: "admin"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  update user update with user tobkle is authorized
-2017-07-09 21:12:33  updated user 596280212157d09ddf9d7295.
-2017-07-09 21:12:33  pubsub userUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8ff.
+2017-07-17 00:08:02  Authorize readOne "pubsub userUpdatedfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280212157d09ddf9d7294", input: {username: "tobkle", bio: "Maker of things, I guess", role: "editor"}) {
+  updateUser(id: "596be3c2949652fd418cc8fe", input: {username: "tobkle", bio: "Maker of things, I guess", role: "editor"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  update user update with user tobkle is authorized
-2017-07-09 21:12:33  updated user 596280212157d09ddf9d7294.
-2017-07-09 21:12:33  pubsub userUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "editor", id: "596280212157d09ddf9d7294",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-mutation {
-  updateUser(id: "596280212157d09ddf9d7294", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
-    username
-    bio
-    role
-  }
-}
-
-2017-07-09 21:12:33  authQuery: {
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  Authorize readOne "pubsub userUpdatedfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280212157d09ddf9d7294"
+      "_id": "596be3c2949652fd418cc8fe"
     }
   ]
 }
-2017-07-09 21:12:33  ERROR Not authorized to update field "role"
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "zoltan", role: "admin", id: "596280212157d09ddf9d7295",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280212157d09ddf9d7294", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+  updateUser(id: "596be3c2949652fd418cc8fe", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:33  update user update with user zoltan is authorized
-2017-07-09 21:12:33  updated user 596280212157d09ddf9d7294.
-2017-07-09 21:12:33  pubsub userUpdated readOne with user zoltan is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc8fe"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" with role "editor" field "role" removed from document id "undefined". No authorization.
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "zoltan" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "zoltan" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "zoltan", role: "admin", id: "596be3c2949652fd418cc8ff",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  removeUser(id: "596280212157d09ddf9d7295")
+  updateUser(id: "596be3c2949652fd418cc8fe", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
 }
 
-2017-07-09 21:12:33  removeUser delete with user tobkle is authorized
-2017-07-09 21:12:33  removed user 596280212157d09ddf9d7295.
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update user" with user "zoltan" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "zoltan" and role "admin" is authorized
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  Authorize readOne "pubsub userUpdatedfield "role"" with user "zoltan" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  createTweet(input: {authorId: "596280212157d09ddf9d7294", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+  removeUser(id: "596be3c2949652fd418cc8ff")
+}
+
+2017-07-17 00:08:02  Authorize delete "removeUser" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  removed user 596be3c2949652fd418cc8ff.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "596be3c2949652fd418cc8fe", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
     id
   }
 }
 
-2017-07-09 21:12:33  insert tweet create with user tobkle is authorized
-2017-07-09 21:12:33  inserted tweet 596280212157d09ddf9d7296.
-2017-07-09 21:12:33  pubsub tweetInserted readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize create "insert tweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  inserted tweet 596be3c2949652fd418cc900.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596be3c2949652fd418cc900") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -722,28 +858,14 @@ mutation {
   }
 }
 
-2017-07-09 21:12:33  insert tweet create with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-{
-  tweet(id: "596280212157d09ddf9d7296") {
-    author {
-      id
-    }
-    body
-  }
-}
-
-2017-07-09 21:12:33  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:33  inserted tweet 596280212157d09ddf9d7297.
-2017-07-09 21:12:33  pubsub tweetInserted readOne with user tobkle is authorized
-2017-07-09 21:12:33  author readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize create "insert tweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  inserted tweet 596be3c2949652fd418cc901.
+2017-07-17 00:08:02  Authorize readOne "authorfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
@@ -755,113 +877,122 @@ Query:
   }
 }
 
-2017-07-09 21:12:33  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:33  author readOne with user tobkle is authorized
-2017-07-09 21:12:33  --------------------------------------------------------------------------------
-2017-07-09 21:12:33  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize readOne "authorfield "role"" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateTweet(id: "596280212157d09ddf9d7296", input: {body: "This is a modified test tweet"}) {
+  updateTweet(id: "596be3c2949652fd418cc900", input: {body: "This is a modified test tweet"}) {
     body
   }
 }
 
-2017-07-09 21:12:33  tweet getOneById in updateById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:33  update tweet update with user tobkle is authorized
-2017-07-09 21:12:33  updated tweet 596280212157d09ddf9d7296.
-2017-07-09 21:12:33  pubsub tweetUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update tweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated tweet 596be3c2949652fd418cc900.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateTweet(id: "596280212157d09ddf9d7297", input: {body: "This is a modified test tweet"}) {
+  updateTweet(id: "596be3c2949652fd418cc901", input: {body: "This is a modified test tweet"}) {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  update tweet update with user tobkle is authorized
-2017-07-09 21:12:34  updated tweet 596280212157d09ddf9d7297.
-2017-07-09 21:12:34  pubsub tweetUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize update "update tweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  updated tweet 596be3c2949652fd418cc901.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280212157d09ddf9d7296") {
+  tweet(id: "596be3c2949652fd418cc900") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  removeTweet(id: "596280212157d09ddf9d7296")
+  removeTweet(id: "596be3c2949652fd418cc900")
 }
 
-2017-07-09 21:12:34  removeTweet delete with user tobkle is authorized
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  removed tweet 596280212157d09ddf9d7296.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize delete "removeTweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  removed tweet 596be3c2949652fd418cc900.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  removeTweet(id: "596280212157d09ddf9d7297")
+  removeTweet(id: "596be3c2949652fd418cc901")
 }
 
-2017-07-09 21:12:34  removeTweet delete with user tobkle is authorized
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  removed tweet 596280212157d09ddf9d7297.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize delete "removeTweet" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  removed tweet 596be3c2949652fd418cc901.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280212157d09ddf9d7296") {
+  tweet(id: "596be3c2949652fd418cc900") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "admin", id: "596280212157d09ddf9d7294",
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "admin", id: "596be3c2949652fd418cc8fe",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  removeUser(id: "596280212157d09ddf9d7294")
+  removeUser(id: "596be3c2949652fd418cc8fe")
 }
 
-2017-07-09 21:12:34  removeUser delete with user tobkle is authorized
-2017-07-09 21:12:34  removed user 596280212157d09ddf9d7294.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  Authorize delete "removeUser" with user "tobkle" and role "admin" is authorized
+2017-07-17 00:08:02  removed user 596be3c2949652fd418cc8fe.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280212157d09ddf9d7294") {
+  user(id: "596be3c2949652fd418cc8fe") {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to readOne in user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -871,9 +1002,11 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to create in insert user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize create "insert user" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -885,9 +1018,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to readOne in user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -899,9 +1034,11 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to update in update user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize update "update user" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -909,9 +1046,11 @@ mutation {
   removeUser(id: "583291a1638566b3c5a92ca1")
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to delete in removeUser.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize delete "removeUser" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -921,8 +1060,10 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -932,9 +1073,11 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to create in insert tweet.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize create "insert tweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -947,10 +1090,11 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user <no-user> is authorized
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to readOne in author.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -960,10 +1104,11 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user <no-user> is authorized
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to update in update tweet.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize update "update tweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -973,10 +1118,11 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user <no-user> is authorized
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to update in update tweet.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize update "update tweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -984,10 +1130,11 @@ mutation {
   removeTweet(id: "583676d3618530145474e352")
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to delete in removeTweet.
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user <no-user> is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Authorize delete "removeTweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -998,12 +1145,22 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  insert user create with user stubailo is authorized
-2017-07-09 21:12:34  inserted user 596280222157d09ddf9d7298.
-2017-07-09 21:12:34  pubsub userInserted readOne with user stubailo is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize create "insert user" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize create "insert userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  inserted user 596be3c2949652fd418cc902.
+2017-07-17 00:08:02  Authorize readOne "pubsub userInsertedfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1012,13 +1169,23 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize create "insert user" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": []
 }
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to create in insert user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  ERROR Authorize create "insert user" with user "tobkle" and role: "user" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
@@ -1029,53 +1196,60 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280222157d09ddf9d7298") {
+  user(id: "596be3c2949652fd418cc902") {
     username
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280222157d09ddf9d7298") {
+  user(id: "596be3c2949652fd418cc902") {
     username
     role
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1086,110 +1260,155 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to update field "role"
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" with role "user" field "role" removed from document id "undefined". No authorization.
+2017-07-17 00:08:02  updated user 583291a1638566b3c5a92ca1.
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280222157d09ddf9d7298", input: {username: "tobkle", bio: "Maker of things, I guess"}) {
+  updateUser(id: "596be3c2949652fd418cc902", input: {username: "tobkle", bio: "Maker of things, I guess"}) {
     username
     bio
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  updated user 596280222157d09ddf9d7298.
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc902.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280222157d09ddf9d7298", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+  updateUser(id: "596be3c2949652fd418cc902", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to update field "role"
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" with role "user" field "role" removed from document id "undefined". No authorization.
+2017-07-17 00:08:02  updated user 596be3c2949652fd418cc902.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
   removeUser(id: "583291a1638566b3c5a92ca1")
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize delete "removeUser" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove user failed for finalQuery: {
+2017-07-17 00:08:02  ERROR remove user failed for finalQuery: {
   "_id": "583291a1638566b3c5a92ca1",
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  createTweet(input: {authorId: "596280222157d09ddf9d7298", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+  createTweet(input: {authorId: "596be3c2949652fd418cc902", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
     id
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize create "insert tweet" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  inserted tweet 596280222157d09ddf9d7299.
-2017-07-09 21:12:34  pubsub tweetInserted readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  inserted tweet 596be3c2949652fd418cc903.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1198,21 +1417,31 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize create "insert tweet" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to insert tweet
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  ERROR Not authorized to insert tweet
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d7299") {
+  tweet(id: "596be3c2949652fd418cc903") {
     author {
       id
     }
@@ -1220,17 +1449,18 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
@@ -1242,41 +1472,51 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateTweet(id: "596280222157d09ddf9d7299", input: {body: "This is a modified test tweet"}) {
+  updateTweet(id: "596be3c2949652fd418cc903", input: {body: "This is a modified test tweet"}) {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update tweet" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d7298"
+      "coauthorsIds": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  updated tweet 596280222157d09ddf9d7299.
-2017-07-09 21:12:34  pubsub tweetUpdated readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  updated tweet 596be3c2949652fd418cc903.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1285,137 +1525,185 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update tweet" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d7298"
+      "coauthorsIds": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR update tweet failed finalQuery: {
+2017-07-17 00:08:02  ERROR update tweet failed finalQuery: {
   "_id": "583676d3618530145474e352",
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d7298"
+      "coauthorsIds": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR update tweet failed for docToUpdate: {
+2017-07-17 00:08:02  ERROR update tweet failed for docToUpdate: {
   "$set": {
     "body": "This is a modified test tweet",
-    "updatedAt": 1499627554277,
-    "updatedById": "596280222157d09ddf9d7298"
+    "updatedAt": 1500242882867,
+    "updatedById": "596be3c2949652fd418cc902"
   }
 }
-2017-07-09 21:12:34  ERROR update tweet not possible for 583676d3618530145474e352.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  ERROR update tweet not possible for 583676d3618530145474e352.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d7299") {
+  tweet(id: "596be3c2949652fd418cc903") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-mutation {
-  removeTweet(id: "596280222157d09ddf9d7299")
-}
-
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  removed tweet 596280222157d09ddf9d7299.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596be3c2949652fd418cc903")
+}
+
+2017-07-17 00:08:02  Authorize delete "removeTweet" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  removed tweet 596be3c2949652fd418cc903.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
   removeTweet(id: "583676d3618530145474e352")
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize delete "removeTweet" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tobkle is authorized
-2017-07-09 21:12:34  ERROR remove tweet failed for finalQuery: {
+2017-07-17 00:08:02  ERROR remove tweet failed for finalQuery: {
   "_id": "583676d3618530145474e352",
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d7298"
+      "authorId": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove tweet not possible for 583676d3618530145474e352.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
+2017-07-17 00:08:02  ERROR remove tweet not possible for 583676d3618530145474e352.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d7299") {
+  tweet(id: "596be3c2949652fd418cc903") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tobkle is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "user", id: "596280222157d09ddf9d7298",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-mutation {
-  removeUser(id: "596280222157d09ddf9d7298")
-}
-
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "user" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d7298"
+      "_id": "596be3c2949652fd418cc902"
     }
   ]
 }
-2017-07-09 21:12:34  removed user 596280222157d09ddf9d7298.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "user" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "user", id: "596be3c2949652fd418cc902",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596be3c2949652fd418cc902")
+}
+
+2017-07-17 00:08:02  Authorize delete "removeUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc902"
+    }
+  ]
+}
+2017-07-17 00:08:02  removed user 596be3c2949652fd418cc902.
+2017-07-17 00:08:02  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280222157d09ddf9d7298") {
+  user(id: "596be3c2949652fd418cc902") {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to readOne in user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
 User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
@@ -1426,12 +1714,22 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  insert user create with user stubailo is authorized
-2017-07-09 21:12:34  inserted user 596280222157d09ddf9d729a.
-2017-07-09 21:12:34  pubsub userInserted readOne with user stubailo is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:02  Authorize create "insert user" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize create "insert userfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  inserted user 596be3c2949652fd418cc904.
+2017-07-17 00:08:02  Authorize readOne "pubsub userInsertedfield "role"" with user "stubailo" and role "admin" is authorized
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1440,13 +1738,23 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize create "insert user" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": []
 }
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to create in insert user.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:02  ERROR Authorize create "insert user" with user "tobkle" and role: "editor" is not authorized.
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
@@ -1457,35 +1765,40 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280222157d09ddf9d729a") {
+  user(id: "596be3c2949652fd418cc904") {
     username
     role
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:02  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:02  --------------------------------------------------------------------------------
+2017-07-17 00:08:02  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1496,110 +1809,155 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:02  Authorize update "update user" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to update field "role"
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tobkle", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:02  Authorize update "update userfield "role"" with user "tobkle" with role "editor" field "role" removed from document id "undefined". No authorization.
+2017-07-17 00:08:03  updated user 583291a1638566b3c5a92ca1.
+2017-07-17 00:08:03  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tobkle" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tobkle", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280222157d09ddf9d729a", input: {username: "tmeasday", bio: "Maker of things, I guess"}) {
+  updateUser(id: "596be3c2949652fd418cc904", input: {username: "tmeasday", bio: "Maker of things, I guess"}) {
     username
     bio
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize update "update user" with user "tobkle" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  updated user 596280222157d09ddf9d729a.
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  updated user 596be3c2949652fd418cc904.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateUser(id: "596280222157d09ddf9d729a", input: {username: "tmeasday", bio: "Maker of things, I guess", role: "admin"}) {
+  updateUser(id: "596be3c2949652fd418cc904", input: {username: "tmeasday", bio: "Maker of things, I guess", role: "admin"}) {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize update "update user" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to update field "role"
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  Authorize update "update userfield "role"" with user "tmeasday" with role "editor" field "role" removed from document id "undefined". No authorization.
+2017-07-17 00:08:03  updated user 596be3c2949652fd418cc904.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
   removeUser(id: "583291a1638566b3c5a92ca1")
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize delete "removeUser" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove user failed for finalQuery: {
+2017-07-17 00:08:03  ERROR remove user failed for finalQuery: {
   "_id": "583291a1638566b3c5a92ca1",
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  createTweet(input: {authorId: "596280222157d09ddf9d729a", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+  createTweet(input: {authorId: "596be3c2949652fd418cc904", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
     id
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize create "insert tweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  inserted tweet 596280222157d09ddf9d729b.
-2017-07-09 21:12:34  pubsub tweetInserted readOne with user tmeasday is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  inserted tweet 596be3c3949652fd418cc905.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1608,21 +1966,31 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize create "insert tweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR Not authorized to insert tweet
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  ERROR Not authorized to insert tweet
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d729b") {
+  tweet(id: "596be3c3949652fd418cc905") {
     author {
       id
     }
@@ -1630,17 +1998,18 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tmeasday is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
@@ -1652,41 +2021,51 @@ Query:
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tmeasday is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  ERROR Cannot read property 'role' of undefined
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
-  updateTweet(id: "596280222157d09ddf9d729b", input: {body: "This is a modified test tweet"}) {
+  updateTweet(id: "596be3c3949652fd418cc905", input: {body: "This is a modified test tweet"}) {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user tmeasday is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize update "update tweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d729a"
+      "coauthorsIds": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  updated tweet 596280222157d09ddf9d729b.
-2017-07-09 21:12:34  pubsub tweetUpdated readOne with user tmeasday is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  updated tweet 596be3c3949652fd418cc905.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
@@ -1695,132 +2074,178 @@ mutation {
   }
 }
 
-2017-07-09 21:12:34  tweet getOneById in updateById for docBefore readOne with user tmeasday is authorized
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize update "update tweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d729a"
+      "coauthorsIds": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR update tweet failed finalQuery: {
+2017-07-17 00:08:03  ERROR update tweet failed finalQuery: {
   "_id": "583676d3618530145474e352",
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     },
     {
-      "coauthorsIds": "596280222157d09ddf9d729a"
+      "coauthorsIds": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR update tweet failed for docToUpdate: {
+2017-07-17 00:08:03  ERROR update tweet failed for docToUpdate: {
   "$set": {
     "body": "This is a modified test tweet",
-    "updatedAt": 1499627554467,
-    "updatedById": "596280222157d09ddf9d729a"
+    "updatedAt": 1500242883108,
+    "updatedById": "596be3c2949652fd418cc904"
   }
 }
-2017-07-09 21:12:34  ERROR update tweet not possible for 583676d3618530145474e352.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  ERROR update tweet not possible for 583676d3618530145474e352.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d729b") {
+  tweet(id: "596be3c3949652fd418cc905") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tmeasday is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-mutation {
-  removeTweet(id: "596280222157d09ddf9d729b")
-}
-
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tmeasday is authorized
-2017-07-09 21:12:34  removed tweet 596280222157d09ddf9d729b.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596be3c3949652fd418cc905")
+}
+
+2017-07-17 00:08:03  Authorize delete "removeTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  removed tweet 596be3c3949652fd418cc905.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 mutation {
   removeTweet(id: "583676d3618530145474e352")
 }
 
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize delete "removeTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  tweet getOneById in removeById for docBefore readOne with user tmeasday is authorized
-2017-07-09 21:12:34  ERROR remove tweet failed for finalQuery: {
+2017-07-17 00:08:03  ERROR remove tweet failed for finalQuery: {
   "_id": "583676d3618530145474e352",
   "$or": [
     {
-      "authorId": "596280222157d09ddf9d729a"
+      "authorId": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  ERROR remove tweet not possible for 583676d3618530145474e352.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
+2017-07-17 00:08:03  ERROR remove tweet not possible for 583676d3618530145474e352.
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  tweet(id: "596280222157d09ddf9d729b") {
+  tweet(id: "596be3c3949652fd418cc905") {
     body
   }
 }
 
-2017-07-09 21:12:34  tweet readOne with user tmeasday is authorized
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
-User: "tmeasday", role: "editor", id: "596280222157d09ddf9d729a",
-Operation: "<no-name>", variables: "<no-variables>",
-Query:
-mutation {
-  removeUser(id: "596280222157d09ddf9d729a")
-}
-
-2017-07-09 21:12:34  authQuery: {
+2017-07-17 00:08:03  Authorize readOne "user findOneLoader" with user "tmeasday" and role: "editor" with 
+authQuery: {
   "$or": [
     {
-      "_id": "596280222157d09ddf9d729a"
+      "_id": "596be3c2949652fd418cc904"
     }
   ]
 }
-2017-07-09 21:12:34  removed user 596280222157d09ddf9d729a.
-2017-07-09 21:12:34  --------------------------------------------------------------------------------
-2017-07-09 21:12:34  Request:
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "tmeasday" and role "editor" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
+User: "tmeasday", role: "editor", id: "596be3c2949652fd418cc904",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596be3c2949652fd418cc904")
+}
+
+2017-07-17 00:08:03  Authorize delete "removeUser" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596be3c2949652fd418cc904"
+    }
+  ]
+}
+2017-07-17 00:08:03  removed user 596be3c2949652fd418cc904.
+2017-07-17 00:08:03  ERROR Authorize readOne "user findOneLoader" with user "<no-user>" and role: "null" is not authorized.
+2017-07-17 00:08:03  Authorize readOne "tweet findOneLoader" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-17 00:08:03  --------------------------------------------------------------------------------
+2017-07-17 00:08:03  Request:
 User: "<no-user>", role: "<no-role>", id: "<no-id>",
 Operation: "<no-name>", variables: "<no-variables>",
 Query:
 {
-  user(id: "596280222157d09ddf9d729a") {
+  user(id: "596be3c2949652fd418cc904") {
     username
     bio
     role
   }
 }
 
-2017-07-09 21:12:34  ERROR Authorization: Not authorized to readOne in user.
+2017-07-17 00:08:03  ERROR Cannot read property 'role' of undefined

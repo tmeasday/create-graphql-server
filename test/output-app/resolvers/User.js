@@ -4,50 +4,50 @@
       return user._id;
     },
 
-    createdBy(user, args, { User, _user }) {
-      return User.createdBy(user, _user, 'createdBy');
+    createdBy(user, args, { User, me }) {
+      return User.createdBy(user, me, 'createdBy');
     },
 
-    updatedBy(user, args, { User, _user }) {
-      return User.updatedBy(user, _user, 'updatedBy');
+    updatedBy(user, args, { User, me }) {
+      return User.updatedBy(user, me, 'updatedBy');
     },
 
-    tweets(user, { minLikes, lastCreatedAt, limit }, { User, _user }) {
-      return User.tweets(user, { minLikes, lastCreatedAt, limit }, _user, 'tweets');
+    tweets(user, { minLikes, lastCreatedAt, limit }, { User, me }) {
+      return User.tweets(user, { minLikes, lastCreatedAt, limit }, me, 'tweets');
     },
 
-    liked(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.liked(user, { lastCreatedAt, limit }, _user, 'liked');
+    liked(user, { lastCreatedAt, limit }, { User, me }) {
+      return User.liked(user, { lastCreatedAt, limit }, me, 'liked');
     },
 
-    following(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.following(user, { lastCreatedAt, limit }, _user, 'following');
+    following(user, { lastCreatedAt, limit }, { User, me }) {
+      return User.following(user, { lastCreatedAt, limit }, me, 'following');
     },
 
-    followers(user, { lastCreatedAt, limit }, { User, _user }) {
-      return User.followers(user, { lastCreatedAt, limit }, _user, 'followers');
+    followers(user, { lastCreatedAt, limit }, { User, me }) {
+      return User.followers(user, { lastCreatedAt, limit }, me, 'followers');
     },
   },
   Query: {
-    users(root, { lastCreatedAt, limit }, { User, _user }) {
-      return User.all({ lastCreatedAt, limit }, _user, 'users');
+    users(root, { lastCreatedAt, limit }, { User, me }) {
+      return User.all({ lastCreatedAt, limit }, me, 'users');
     },
 
-    user(root, { id }, { User, _user }) {
-      return User.getOneById(id, _user, 'user');
+    user(root, { id }, { User, me }) {
+      return User.getOneById(id, me, 'user');
     },
   },
   Mutation: {
-    async createUser(root, { input }, { User, _user }) {
-      return await User.insert(input, _user);
+    async createUser(root, { input }, { User, me }) {
+      return await User.insert(input, me);
     },
 
-    async updateUser(root, { id, input }, { User, _user }) {
-      return await User.updateById(id, input, _user);
+    async updateUser(root, { id, input }, { User, me }) {
+      return await User.updateById(id, input, me);
     },
 
-    async removeUser(root, { id }, { User, _user }) {
-      return await User.removeById(id, _user, 'removeUser');
+    async removeUser(root, { id }, { User, me }) {
+      return await User.removeById(id, me, 'removeUser');
     },
   },
   Subscription: {

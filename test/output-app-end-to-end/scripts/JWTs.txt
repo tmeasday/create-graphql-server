@@ -1,0 +1,49 @@
+{ _id: { '$oid': '583291a1638566b3c5a92ca1' },
+  bio: 'tech lead @meteorjs @apollographql',
+  createdAt: 1479776905993,
+  followingIds: [ { '$oid': '583291a1638566b3c5a92ca0' } ],
+  likedIds: 
+   [ { '$oid': '583676d3618530145474e350' },
+     { '$oid': '583676d3618530145474e351' } ],
+  updatedAt: 1479776905993,
+  username: 'stubailo',
+  role: 'admin',
+  createdById: { '$oid': '583291a1638566b3c5a92ca1' },
+  updatedById: { '$oid': '583291a1638566b3c5a92ca1' } }
+Generated JWT Token for tests:
+JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1ODMyOTFhMTYzODU2NmIzYzVhOTJjYTEifQ.QaJYP81K7kgB8FVw6bOK7XSZYI6_gn9GCOlDToQcu0Q
+######################################
+{ _id: { '$oid': '583291a1638566b3c5a92ca0' },
+  bio: 'I build things with @percolatestudio. Author of @discovermeteor. Exploring how to improve user experience through technology, design and performance.',
+  createdAt: 1479776904993,
+  followingIds: 
+   [ { '$oid': '583291a1638566b3c5a92ca1' },
+     { '$oid': '583291a1638566b3c5a92ca2' } ],
+  likedIds: 
+   [ { '$oid': '583676d3618530145474e352' },
+     { '$oid': '583676d3618530145474e353' },
+     { '$oid': '583676d3618530145474e354' } ],
+  updatedAt: 1479776904993,
+  username: 'tmeasday',
+  role: 'editor',
+  hash: '$2a$10$SeepHv0X3GZfSzl0uqlXmucLsP2VjdI.nuA0UJnmOtEecLSx.RiWe',
+  createdById: { '$oid': '583291a1638566b3c5a92ca1' },
+  updatedById: { '$oid': '583291a1638566b3c5a92ca1' } }
+Generated JWT Token for tests:
+JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1ODMyOTFhMTYzODU2NmIzYzVhOTJjYTAifQ.9Vv99jJ1EyJyp7Q8G09vs7qdjtBicq0UlU4GeNKZ5Dc
+######################################
+{ _id: { '$oid': '583291a1638566b3c5a92ca2' },
+  bio: 'Co-founder of Parse, now at Facebook. Ex Google search quality, game developer & math contester.',
+  createdAt: 1479776906993,
+  followingIds: [ { '$oid': '583291a1638566b3c5a92ca1' } ],
+  likedIds: 
+   [ { '$oid': '583676d3618530145474e350' },
+     { '$oid': '583676d3618530145474e353' } ],
+  updatedAt: 1479776906993,
+  username: 'lacker',
+  role: 'user',
+  createdById: { '$oid': '583291a1638566b3c5a92ca1' },
+  updatedById: { '$oid': '583291a1638566b3c5a92ca1' } }
+Generated JWT Token for tests:
+JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1ODMyOTFhMTYzODU2NmIzYzVhOTJjYTIifQ.qfw1KGMp2tZ28csjYwkkv44SMMh4V0-VSLP3c5iC49Y
+######################################

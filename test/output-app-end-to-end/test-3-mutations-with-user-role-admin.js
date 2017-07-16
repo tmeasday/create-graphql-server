@@ -217,7 +217,11 @@ describe('test-3: user with role "admin"', () => {
             }
           }
         `, { 
-            updateUser: null
+            updateUser: {
+              bio: 'Maker of things, I guess',
+              role: 'editor',
+              username: 'tobkle',
+            } 
          },
         newUser)
     });

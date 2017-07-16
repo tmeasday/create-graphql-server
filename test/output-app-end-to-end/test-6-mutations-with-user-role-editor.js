@@ -163,7 +163,11 @@ describe('test-6: user with role "editor"', () => {
             }
           }
         `, { 
-            updateUser: null
+            updateUser: {
+              bio: 'Maker of things, I guess',
+              role: 'editor',
+              username: 'tmeasday',
+            }
          },
         newUser)
     });
