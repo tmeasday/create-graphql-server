@@ -27,10 +27,8 @@ mongoimport --drop --host 127.0.0.1:3002 --db database --collection tweet "$SEED
 
 echo "running tests"
 
-$MOCHA "$TEST_DIR"
-
-echo "Please consider the log file for debugging $LOG_FILE"
-echo ""
+# Test all...
+ $MOCHA "$TEST_DIR"
 
 # Test only specific test files...
 # $MOCHA "$TEST_DIR/test-1-roles.js"
@@ -39,3 +37,6 @@ echo ""
 # $MOCHA "$TEST_DIR/test-4-mutations-with-unknown-user.js"
 # $MOCHA "$TEST_DIR/test-5-mutations-with-user-role-user.js"
 # $MOCHA "$TEST_DIR/test-6-mutations-with-user-role-editor.js"
+
+echo "Please consider the log file for debugging $LOG_FILE"
+echo ""
