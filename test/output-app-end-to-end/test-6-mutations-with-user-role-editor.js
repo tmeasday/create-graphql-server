@@ -59,6 +59,10 @@ describe('test-6: user with role "editor"', () => {
         newUser = result.data.createUser.id;
         done();
       })
+      .catch(err => {
+        console.log(err);
+        done();
+      });
   });
   
   describe('on type "user" (part 1)...', () => {
@@ -224,6 +228,10 @@ describe('test-6: user with role "editor"', () => {
         tweetId = result.data.createTweet.id;
         done();
       })
+      .catch(err => {
+        console.log(err);
+        done();
+      });
     });
 
     it('can create tweet for himself', () => {

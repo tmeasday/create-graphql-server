@@ -239,11 +239,15 @@ type User
 
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   role: String @authRole("admin") 
 =======
   role: String @authRole("admin") @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"])
 
 >>>>>>> new authorization version from 2017-07-17
+=======
+  role: String @authRole("admin") 
+>>>>>>> authorization-simple
   username: String!
 
   bio: String
@@ -266,6 +270,7 @@ This has the following meaning:
   Only the user id of "this" meaning _id is allowed  to readOne, update, delete its single User document.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Use create-graphql-server command to generate the according schema, resolver, model files with the create-graphql-server command line interface. After its generation, you will find the generated files in the sub folders: schema, resolvers, model. The generated model files will use the following functions to implement the authorization logic.
 =======
 Here we use also the @authorize directive on field level for the field role:
@@ -281,6 +286,8 @@ In this case it checks:
 * if the user-role "admin" is the authorized user, then it allows him to create, read, update, delete operations also on the document, if it contains the field "role"
 * if the document-role "this" (=owner of the document user._id_ = doc._id_) to do the operations "readOne" on the User document, but it doesn't allow him to upgrade/update his own User.role.
 
+=======
+>>>>>>> authorization-simple
 Use create-graphql-server cli to generate the according schema, resolver, model files with the create-graphql-server command line interface. After its generation, you will find the generated files in the sub folders: schema, resolvers, model folders. The generated model files will use the following functions to implement the authorization logic.
 >>>>>>> new authorization version from 2017-07-17
 
@@ -293,6 +300,7 @@ import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc
 const log = logger(getLogFilename());
 
 export default class <Type> {
+<<<<<<< HEAD
 <<<<<<< HEAD
   constructor(context) {
     this.context = context;
@@ -349,25 +357,29 @@ export default class <Type> {
   this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
     ...
   }
+=======
+	constructor(context) {
+      ...
+	  let authQuery;
+	  try {
+	    const { me, User } = context;
+	    authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('tweet findOneById', 'readOne', me));
+	  } catch (err) { 
+	    log.error(err.message);
+	    authQuery = {_id: false}; // otherwise admin access
+	  }
+	  this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+	}
+>>>>>>> authorization-simple
 ...
-// used from server calls, without authorization checks, NOT for use in resolvers
-async findOneById(id, me = {}, resolver = 'tweet findOneById') {
+async findOneById(id, me, resolver) {
   try {
-    return await this.unauthorizedLoader.load(id);
+    return await this.authorizedLoader.load(id);
   } catch (err) { log.error(err.message); }
 }
 
-// used for api calls, with authorization checks, for use in resolvers
-async getOneById(id, me = {}, resolver = 'tweet getOneById') {
+find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
   try {
-    const result = await this.authorizedLoader.load(id);
-    return result;
-  } catch (err) { log.error(err.message); }
-}
-
-all({ lastCreatedAt = 0, limit = 10 }, me, resolver = 'tweet all') {
-  try {
-    const baseQuery = { createdAt: { $gt: lastCreatedAt } };
     const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
     const finalQuery = {...baseQuery, ...authQuery};
     return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
@@ -382,6 +394,7 @@ all({ lastCreatedAt = 0, limit = 10 }, me, resolver = 'tweet all') {
 generated model file for the above input type Tweet.graphql considering the @authorize directive. You can see, the directive argument "read" is used to express "readOne" and "readMany" at the same time. Instead you can use "readOne" and "readMany" for fine grained control on read operations, to allow access to just one record or many records.
 ```javascript
 <<<<<<< HEAD
+<<<<<<< HEAD
 import DataLoader from 'dataloader';
 import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc } from 'create-graphql-server-authorization';
 const log = logger(getLogFilename());
@@ -390,12 +403,18 @@ iimport log from '../server/logger';
 import DataLoader from 'dataloader';
 import { findByIds, queryForRoles, fieldForRoles, fieldContainsUserId, authorizedFields, authlog } from '../server/authorize';
 >>>>>>> new authorization version from 2017-07-17
+=======
+import log from '../server/logger';
+import DataLoader from 'dataloader';
+import { findByIds, queryForRoles, authlog, checkAuthDoc } from '../server/authorize';
+>>>>>>> authorization-simple
 
 export default class Tweet {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     let authQuery;
@@ -432,35 +451,27 @@ export default class Tweet {
       const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt }};
 =======
     const { me, User } = context;
+=======
+>>>>>>> authorization-simple
     let authQuery;
     try {
-      authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('tweet findOneLoader', 'readOne', me));
+      const { me, User } = context;
+      authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('tweet findOneById', 'readOne', me));
     } catch (err) { 
       log.error(err.message);
-      authQuery = {_id: false};
+      authQuery = {_id: false}; // otherwise admin access
     }
-    this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
     this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
   }
 
-  // used from server calls, without authorization checks, NOT for use in resolvers
-  async findOneById(id, me = {}, resolver = 'tweet findOneById') {
+  async findOneById(id, me, resolver) {
     try {
-      return await this.unauthorizedLoader.load(id);
+      return await this.authorizedLoader.load(id);
     } catch (err) { log.error(err.message); }
   }
 
-  // used for api calls, with authorization checks, for use in resolvers
-  async getOneById(id, me = {}, resolver = 'tweet getOneById') {
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
     try {
-      const result = await this.authorizedLoader.load(id);
-      return result;
-    } catch (err) { log.error(err.message); }
-  }
-
-  all({ lastCreatedAt = 0, limit = 10 }, me, resolver = 'tweet all') {
-    try {
-      const baseQuery = { createdAt: { $gt: lastCreatedAt } };
       const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
       const finalQuery = {...baseQuery, ...authQuery};
 >>>>>>> new authorization version from 2017-07-17
@@ -468,6 +479,7 @@ export default class Tweet {
     } catch (err){ log.error(err.message); }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   createdBy(tweet, me, resolver) {
     return this.context.User.findOneById(tweet.createdById, me, resolver);
@@ -497,44 +509,44 @@ export default class Tweet {
 =======
   author(tweet, me, resolver = 'tweet author') {
     return this.context.User.getOneById(tweet.authorId, me, resolver);
+=======
+  createdBy(tweet, me, resolver) {
+    return this.context.User.findOneById(tweet.createdById, me, resolver);
+>>>>>>> authorization-simple
   }
 
-  createdBy(tweet, me, resolver = 'tweet createdBy') {
-    return this.context.User.getOneById(tweet.createdById, me, resolver);
+  updatedBy(tweet, me, resolver) {
+    return this.context.User.findOneById(tweet.updatedById, me, resolver);
   }
 
-  updatedBy(tweet, me, resolver = 'tweet updatedBy') {
-    return this.context.User.getOneById(tweet.updatedById, me, resolver);
+  author(tweet, me, resolver) {
+    return this.context.User.findOneById(tweet.authorId, me, resolver);
   }
 
-  coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver = 'tweet coauthors') {
+  coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = {_id: { $in: tweet.coauthorsIds }, createdAt: { $gt: lastCreatedAt } };
+    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  likers(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = {likedIds: tweet._id, createdAt: { $gt: lastCreatedAt } };
+    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  async insert(doc, me, resolver) {
     try {
-      const baseQuery = {_id: { $in: tweet.coauthorsIds }, createdAt: { $gt: lastCreatedAt } };
-      const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
-    } catch (err){ log.error(err.message); }
-  }
-
-  likers(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver = 'tweet likers') {
-    try {
-      const baseQuery = {likedIds: tweet._id, createdAt: { $gt: lastCreatedAt } };
-      const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
-    } catch (err){ log.error(err.message); }
-  }
-
-  async insert(doc, me, resolver = 'insert tweet') {
-    try {
+<<<<<<< HEAD
       let insertedDoc = null;
 >>>>>>> new authorization version from 2017-07-17
+=======
+>>>>>>> authorization-simple
       let docToInsert = Object.assign({}, doc, {
           createdAt: Date.now(),
           updatedAt: Date.now(),
           createdById: (me && me._id) ? me._id : 'unknown',
           updatedById: (me && me._id) ? me._id : 'unknown',
       });
+<<<<<<< HEAD
 <<<<<<< HEAD
       log.debug(JSON.stringify(docToInsert, null, 2));
 
@@ -555,21 +567,28 @@ export default class Tweet {
         throw new Error('Not authorized to insert tweet');
       }
 
+=======
+      log.debug(JSON.stringify(docToInsert, null, 2));
+      // const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
+      checkAuthDoc(docToInsert, me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
+>>>>>>> authorization-simple
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
-        log.error('insert tweet failed for docToInsert:', JSON.stringify(docToInsert, null, 2));
-        throw new Error(`insert tweet not possible for  ${id}.`);
+        throw new Error(`insert tweet not possible.`);
       }
-
       log.debug(`inserted tweet ${id}.`);
+<<<<<<< HEAD
       insertedDoc = this.getOneById(id, me, 'pubsub tweetInserted');
 >>>>>>> new authorization version from 2017-07-17
+=======
+      const insertedDoc = this.findOneById(id, me, 'pubsub tweetInserted');
+>>>>>>> authorization-simple
       this.pubsub.publish('tweetInserted', insertedDoc);
       return insertedDoc;
-
     } catch (err){ log.error(err.message); }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   async updateById(id, doc, me, resolver) {
     try {
@@ -580,13 +599,17 @@ export default class Tweet {
       let updatedDoc = null;
       const docBefore = await this.getOneById(id, me, 'tweet getOneById in updateById for docBefore');
 >>>>>>> new authorization version from 2017-07-17
+=======
+  async updateById(id, doc, me, resolver) {
+    try {
+>>>>>>> authorization-simple
       let docToUpdate = {$set: Object.assign({}, doc, {
             updatedAt: Date.now(),
             updatedById: (me && me._id) ? me._id : 'unknown',
       })};
-
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'update', me));
+<<<<<<< HEAD
 <<<<<<< HEAD
       const finalQuery = {...baseQuery, ...authQuery};
       const result = await this.collection.updateOne(finalQuery, docToUpdate);
@@ -599,10 +622,15 @@ export default class Tweet {
         log.error(`update tweet failed finalQuery:`, JSON.stringify(finalQuery, null, 2));
         log.error('update tweet failed for docToUpdate:', JSON.stringify(docToUpdate, null, 2));
 >>>>>>> new authorization version from 2017-07-17
+=======
+      const finalQuery = {...baseQuery, ...authQuery};
+      const result = await this.collection.updateOne(finalQuery, docToUpdate);
+      if (result.result.ok !== 1 || result.result.n !== 1){
+>>>>>>> authorization-simple
         throw new Error(`update tweet not possible for ${id}.`);
       }
-
       log.debug(`updated tweet ${id}.`);
+<<<<<<< HEAD
 <<<<<<< HEAD
       this.authorizedLoader.clear(id);
       const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
@@ -612,12 +640,16 @@ export default class Tweet {
 
       updatedDoc = this.getOneById(id, me, 'pubsub tweetUpdated');
 >>>>>>> new authorization version from 2017-07-17
+=======
+      this.authorizedLoader.clear(id);
+      const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
+>>>>>>> authorization-simple
       this.pubsub.publish('tweetUpdated', updatedDoc);
       return updatedDoc;
-
     } catch (err){ log.error(err.message); }
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   async removeById(id, me, resolver) {
     try {
@@ -627,10 +659,15 @@ export default class Tweet {
     try {
       const docBefore = this.getOneById(id, me, 'tweet getOneById in removeById for docBefore');
 >>>>>>> new authorization version from 2017-07-17
+=======
+  async removeById(id, me, resolver) {
+    try {
+>>>>>>> authorization-simple
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'delete', me));
       const finalQuery = {...baseQuery, ...authQuery};
       const result = await this.collection.remove(finalQuery);
+<<<<<<< HEAD
 <<<<<<< HEAD
       if (result.result.ok !== 1 || result.result.n !== 1){
 =======
@@ -638,10 +675,13 @@ export default class Tweet {
       if (result.result.ok !== 1 || result.result.n !== 1){
         log.error(`remove tweet failed for finalQuery:`, JSON.stringify(finalQuery, null, 2));
 >>>>>>> new authorization version from 2017-07-17
+=======
+      if (result.result.ok !== 1 || result.result.n !== 1){
+>>>>>>> authorization-simple
         throw new Error(`remove tweet not possible for ${id}.`);
       }
-
       log.debug(`removed tweet ${id}.`);
+<<<<<<< HEAD
 <<<<<<< HEAD
       this.authorizedLoader.clear(id);
       this.pubsub.publish('tweetRemoved', id);
@@ -649,12 +689,16 @@ export default class Tweet {
       
 =======
       this.unauthorizedLoader.clear(id);
+=======
+>>>>>>> authorization-simple
       this.authorizedLoader.clear(id);
-
       this.pubsub.publish('tweetRemoved', id);
       return result;
+<<<<<<< HEAD
 
 >>>>>>> new authorization version from 2017-07-17
+=======
+>>>>>>> authorization-simple
     } catch (err){ log.error(err.message); }
   }
 }
@@ -671,17 +715,22 @@ this.auth is generated by the @authorize directive. Here also with field authori
 ```javascript
 import DataLoader from 'dataloader';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
 const log = logger(getLogFilename());
 =======
 import { findByIds, queryForRoles, fieldForRoles, fieldContainsUserId, authorizedFields, authlog } from '../server/authorize';
 >>>>>>> new authorization version from 2017-07-17
+=======
+import { findByIds, queryForRoles, authlog, checkAuthDoc } from '../server/authorize';
+>>>>>>> authorization-simple
 
 export default class User {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     this.authRole = User.authRole;
@@ -717,23 +766,30 @@ export default class User {
 =======
     const { me } = context;
     this.authRole = User.authRole; // otherwise not accessible in queryForRoles
+=======
+    this.authRole = User.authRole;
+>>>>>>> authorization-simple
     let authQuery;
     try {
-      authQuery = queryForRoles(me, ['admin'], ['_id'], { User }, authlog('user findOneLoader', 'readOne', me));
+      const { me } = context;
+      authQuery = queryForRoles(me, ['admin'], ['_id'], { User }, authlog('user findOneById', 'readOne', me));
     } catch (err) { 
       log.error(err.message);
-      authQuery = {_id: false};
+      authQuery = {_id: false}; // otherwise admin access
     }
-    this.unauthorizedLoader = new DataLoader(ids => findByIds(this.collection, ids));
     this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
   }
 
+<<<<<<< HEAD
   // returns the role of the user
 >>>>>>> new authorization version from 2017-07-17
+=======
+>>>>>>> authorization-simple
   static authRole(user){
     return (user && user.role) ? user.role : null;
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   async findOneById(id, me, resolver) {
     try {
@@ -825,170 +881,123 @@ export default class User {
 =======
   // used from server calls, without authorization checks, NOT for use in resolvers
   async findOneById(id, me = {}, resolver = 'user findOneById') {
+=======
+  async findOneById(id, me, resolver) {
+>>>>>>> authorization-simple
     try {
-      return await this.unauthorizedLoader.load(id);
+      return await this.authorizedLoader.load(id);
     } catch (err) { log.error(err.message); }
   }
 
-  // used for api calls, with authorization checks, for use in resolvers
-  async getOneById(id, me = {}, resolver = 'user getOneById') {
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
     try {
-      const result = await this.authorizedLoader.load(id);
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                  =====             ======                       ====    =======
-      return authorizedFields(result, 'role', me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver + 'field "role"', 'readOne', me));
-    } catch (err) { log.error(err.message); }
-  }
-
-  all({ lastCreatedAt = 0, limit = 10 }, me, resolver = 'user all') {
-    try { 
-      const baseQuery = { createdAt: { $gt: lastCreatedAt } };
-      const authQuery = queryForRoles(me, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                  =====             ======                      
-      let authFields = {};
-      authFields = fieldForRoles(authFields, 'role', me, ['admin'], [], { User: this.context.User }, authlog(resolver + 'field "role"', 'readMany', me));
+      const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'readMany', me));
       const finalQuery = {...baseQuery, ...authQuery};
-      return this.collection.find(finalQuery).sort({ createdAt: 1 }).project(authFields).limit(limit).toArray();
+      return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
     } catch (err) { log.error(err.message); }
   }
 
-  tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver = 'user tweets') {
+  tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { authorId: user._id, createdAt: { $gt: lastCreatedAt } };
+    return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.likedIds || [] }, createdAt: { $gt: lastCreatedAt } };
+    return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { _id: { $in: user.followingIds || [] }, createdAt: { $gt: lastCreatedAt } };
+    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
+    const baseQuery = { followingIds: user._id, createdAt: { $gt: lastCreatedAt } };
+    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+  }
+
+  createdBy(user, me, resolver) {
+    return this.context.User.findOneById(user.createdById, me, resolver);
+  }
+
+  updatedBy(user, me, resolver) {
+    return this.context.User.findOneById(user.updatedById, me, resolver);
+  }
+
+  // Begin of user inserted method
+  protectFields(me, authorizedUserRoles, protectedFields, inputObject){
+    const result = Object.assign({}, inputObject);
+    const role = this.context.User.authRole(me);
+    // if user is not allowed to access specific fields...
+    if (!authorizedUserRoles.includes(role)){
+      protectedFields.every(protectedField => {
+        if (result[protectedField]) delete result[protectedField];
+      });
+    }
+    return result;
+  }
+  // End of user inserted method
+
+  async insert(doc, me, resolver) {
     try {
-      const baseQuery = {
-        authorId: user._id,
-        createdAt: { $gt: lastCreatedAt },
-      };
-      const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.Tweet.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
-    } catch (err) { log.error(err.message); }
-  }
-
-  liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver = 'user liked') {
-    try {
-      const baseQuery = {
-        _id: { $in: user.likedIds },
-        createdAt: { $gt: lastCreatedAt },
-      };
-      const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.Tweet.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
-    } catch (err) { log.error(err.message); }
-  }
-
-  following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver = 'user following') {
-    try {
-      const baseQuery = {
-        _id: { $in: user.followingIds || [] },
-        createdAt: { $gt: lastCreatedAt },
-      };
-      const authQuery = queryForRoles(me, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                                    ======
-      let authFields = {};
-      authFields = fieldForRoles(authFields, 'role', me, ['admin'], [], { User: this.context.User }, authlog(resolver + 'field "role"', 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).project(authFields).limit(limit).toArray();
-    } catch (err) { log.error(err.message); }
-  }
-
-  followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver = 'user followers') {
-    try {
-      const baseQuery = {
-        followingIds: user._id,
-        createdAt: { $gt: lastCreatedAt },
-      };
-      const authQuery = queryForRoles(me, ['admin'], [], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                                    ======
-      let authFields = {};
-      authFields = fieldForRoles(authFields, 'role', me, ['admin'], [], { User: this.context.User }, authlog(resolver + 'field "role"', 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
-      return this.context.User.collection.find(finalQuery).sort({ createdAt: 1 }).project(authFields).limit(limit).toArray();
-    } catch (err) { log.error(err.message); }
-  }
-
-  createdBy(user, me, resolver = 'user createdBy') {
-    return this.context.User.getOneById(user.createdById, me, resolver);
-  }
-
-  updatedBy(user, me, resolver = 'user updatedBy') {
-    return this.context.User.getOneById(user.updatedById, me, resolver);
-  }
-
-  async insert(doc, me, resolver = 'insert user') {
-    try {
-      let insertedDoc = null;
       let docToInsert = Object.assign({}, doc, {
         createdAt: Date.now(),
         updatedAt: Date.now(),
         createdById: (me && me._id) ? me._id : 'unknown',
         updatedById: (me && me._id) ? me._id : 'unknown',
       });
-
-      const authQuery = queryForRoles(me, ['admin'], [], { User: this.context.User }, authlog(resolver, 'create', me));
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                  =====    ======
-      docToInsert = authorizedFields(docToInsert, 'role', me, ['admin'], [], { User: this.context.User }, authlog(resolver + 'field "role"', 'create', me));
-      
+      // const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));
+      checkAuthDoc(docToInsert, me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));
+      // User inserted line:
+      docToInsert = this.protectFields(me, ['admin'], ['role'], docToInsert);
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
-        log.error('insert user failed for:', JSON.stringify(docToInsert, null, 2));
-        throw new Error(`insert user not possible for user ${id}.`);
+        throw new Error(`insert user not possible.`);
       }
-
       log.debug(`inserted user ${id}.`);
-      insertedDoc = this.getOneById(id, me, 'pubsub userInserted');
+      const insertedDoc = this.findOneById(id, me, 'pubsub userInserted');
       this.pubsub.publish('userInserted', insertedDoc);
       return insertedDoc;
-
     } catch (err) { log.error(err.message); }
   }
 
-  async updateById(id, doc, me, resolver = 'update user') {
+  async updateById(id, doc, me, resolver) {
     try {
-      let updatedDoc = null;
-      const docBefore = await this.findOneById(id, me, 'user findOneById in updateById for docBefore');
       let docToUpdate = {$set: Object.assign({}, doc, {
             updatedAt: Date.now(),
             updatedById: (me && me._id) ? me._id : 'unknown',
       })};
-
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'update', me));
-      // role: @authorize(admin: ["create", "read", "update", "delete"], this: ["readOne"]) 
-      //                  =====                      ======
-      docToUpdate.$set = authorizedFields(docToUpdate.$set, 'role', me, ['admin'], [], { User: this.context.User }, authlog(resolver + 'field "role"', 'update', me));
-
       const finalQuery = {...baseQuery, ...authQuery};
+      // User inserted line:
+      docToUpdate.$set = this.protectFields(me, ['admin'], ['role'], docToUpdate.$set);
       const result = await this.collection.updateOne(finalQuery, docToUpdate);
-      if (result.result.ok !== 1){
-        log.error(`update user failed finalQuery:`, JSON.stringify(finalQuery, null, 2));
-        log.error('update user failed for docToUpdate:', JSON.stringify(docToUpdate, null, 2));
+      if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`update user not possible for ${id}.`);
       }
-
       log.debug(`updated user ${id}.`);
-      this.unauthorizedLoader.clear(id);
       this.authorizedLoader.clear(id);
-
-      updatedDoc = this.getOneById(id, me, 'pubsub userUpdated')
+      const updatedDoc = this.findOneById(id, me, 'pubsub userUpdated')
       this.pubsub.publish('userUpdated', updatedDoc);
       return updatedDoc;
-
     } catch (err) { log.error(err.message); }
   }
 
-  async removeById(id, me, resolver = 'remove user') {
+  async removeById(id, me, resolver) {
     try {
+<<<<<<< HEAD
       const docBefore = await this.findOneById(id, me, 'user findOneById in removeById for docBefore');
 >>>>>>> new authorization version from 2017-07-17
+=======
+>>>>>>> authorization-simple
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'delete', me));
       const finalQuery = {...baseQuery, ...authQuery};
       const result = await this.collection.remove(finalQuery);
       if (result.result.ok !== 1 || result.result.n !== 1){
+<<<<<<< HEAD
 <<<<<<< HEAD
         throw new Error(`remove user not possible for ${id}.`);
       }
@@ -998,17 +1007,19 @@ export default class User {
       return result;
 =======
         log.error(`remove user failed for finalQuery:`, JSON.stringify(finalQuery, null, 2));
+=======
+>>>>>>> authorization-simple
         throw new Error(`remove user not possible for ${id}.`);
       }
-
       log.debug(`removed user ${id}.`);
-      this.unauthorizedLoader.clear(id);
       this.authorizedLoader.clear(id);
-
       this.pubsub.publish('userRemoved', id);
       return result;
+<<<<<<< HEAD
 
 >>>>>>> new authorization version from 2017-07-17
+=======
+>>>>>>> authorization-simple
     } catch (err) { log.error(err.message); }
   }
 }
@@ -1226,6 +1237,37 @@ export function findByIds(collection, ids = [], authQuery) {
 }
 ```
 
+### function checkAuthDoc
+Use function checkAuthDoc to check and get back the document. Especially used in insert operations, to figure out, if the toBeInsertedDoc is valid to be added by this userRole, docRole and action.
+
+```javascript
+export function checkAuthDoc(doc, me, userRoles, docRoles, { User }, logger){
+  const role = User.authRole(me);
+
+  // check if userRole entitles current user for this action
+  if (userRoleAuthorized(me, userRoles, { User }, logger)) {
+    logger.debug(`and role: "${role}" is authorized by userRole.`);
+    return doc;
+  }
+
+  // check if docRole entitles current user for this document and action
+  let authorized = false;
+  docRoles.every(field => {
+    if (fieldContainsUserId(doc[field], me._id)){
+      authorized = true;
+    }
+  })
+  if (authorized) {
+    logger.debug(`and role: "${role}" is authorized by docRole.`);
+    return doc;
+  }
+
+  // Not Authorized
+  logger.error(`and role: "${role}" is not authorized.`);
+}
+```
+
+
 ### function loggedIn
 Use function loggedIn, to check if a user is logged in.
 
@@ -1236,121 +1278,6 @@ export function loggedIn(me) {
     return true;
   }
   return false;
-}
-```
-
-### function fieldAuthorized
-User function fieldAuthorized, to check, if a user is allowed to access a specific field e.g. field "role" in the User model.
-
-```javascript
-// returns true, if authorized to get field
-// returns false, if NOT authorized to get field
-export function fieldAuthorized(me = {}, userRoles = [], docRoles = [], { User }, logger){
-  // The logged in user's role is authorized for the field
-  if (roleAuthorizedForDoc(me, userRoles, docRoles, { User }, logger)) {
-    return true;  
-  }
-  // The user might be listed in any document field
-  if (loggedIn(me) && docRoles.length > 0){
-    return true;
-  }
-  return false;
-}
-```
-
-### function fieldForRoles
-Use function fieldForRoles to prepare an authField object, which can be used in db calls, to get only those fields, the user is allowed to access. Use it like...
-
-```javascript 
-const authField = fieldForRoles(...)
-this.collection.find(finalQuery).sort({ createdAt: 1 }).project(authFields).limit(limit).toArray();
-```
-
-
-```javascript
-// returns a projection query of fields not to be shown, e.g. { role: 0 }
-export function fieldForRoles(projection, field, me = {}, userRoles = [], docRoles = [], { User }, logger){
-  const role = User.authRole(me);
-  // The logged in user's role is authorized for the field
-  if (roleAuthorizedForDoc(me, userRoles, docRoles, { User }, logger)) {
-    return projection;  
-  }
-  // The user is listed in any document field
-  if (loggedIn(me) && docRoles.length > 0){
-    return projection;
-  }
-  const authFields = Object.assign({}, { [field]: 0 }, projection);
-  logger.debug(`and role "${role ? role : '<no-role>'}" not authorized to access field "${field}".`)
-  return authFields;
-}
-```
-
-### function authorizedFields
-Use function authorizedFields, to filter documents, to contain only the fields, which the user is allowed to access. E.g. pass in a result variable, which can be whether an array of documents or a document. It returns the documents without the field "role", if the user is not allowed to access the field role.
-
-```javascript
-// imports a result (which is document or an array of documents), and returns the result,
-// but it removes the field without authorization from documents,
-// e.g. field "role" is removed from all result documents, if the user/role is not allowed to access it
-export function authorizedFields(result, field, me, userRoles = [], docRoles = [], { User }, logger){
-  const role = User.authRole(me) || '<no-role>';
-
-  // if any userRole authorizes field
-  if (roleAuthorizedForDoc(me, userRoles, docRoles, { User }, logger)) {
-    return result;  
-  }
-
-  // if any docRole authorizes field
-  // The user is listed in any document field
-  if (loggedIn(me) && docRoles.length > 0){
-
-    // if the result was an array of documents, check each doc and field
-    if (_.isArray(result)){
-      const authorizedResult = [];
-      // check all documents in the result array
-      result.every(doc => {
-        let fieldAuthorized = false;
-        // check all docRoles if any of them authorizes field
-        docRoles.every(docRole => {
-          // if one docRole authorizes the field, then fieldAuthorized = true
-          if (doc[docRole] && fieldContainsUserId(doc[docRole], me._id)){
-            fieldAuthorized = true;
-          }
-        });
-        if (!fieldAuthorized && doc[field]){
-          delete doc[field];
-          logger.debug(`with role "${role}" field "${field}" removed from document id "${doc._id}". No authorization.`);
-        }
-        authorizedResult.push(doc);
-      });
-      return authorizedResult;
-    }
-
-    // if the result was a document
-    if (_.isObject(result)){
-      // check with all docRoles
-      let fieldAuthorized = false;
-      docRoles.every(docRole => {
-        // if one docRole authorizes the field, then fieldAuthorized = true
-        if (result[docRole] && fieldContainsUserId(result[docRole], me._id)){
-          fieldAuthorized = true;
-        }
-      });
-      if (!fieldAuthorized && result[field]){
-        delete result[field];
-        logger.debug(`with role "${role}" field "${field}" removed from document id "${result._id}". No authorization.`);
-      }
-      return result;
-    }
-
-  }
-
-  // not authorized to access field
-  if (result[field]){
-    delete result[field];
-    logger.debug(`with role "${role}" field "${field}" removed from document id "${result._id}". No authorization.`);
-  }
-  return result;
 }
 ```
 
@@ -1396,7 +1323,7 @@ export function queryForRoles(me = {}, userRoles = [], docRoles = [], { User }, 
   const role = User.authRole(me);
 
   // Build query for the case: The logged in user's role is authorized
-  if (roleAuthorizedForDoc(me, userRoles, docRoles, { User }, logger)) {
+  if (userRoleAuthorized(me, userRoles, { User }, logger)) {
     return {};  // empty authQuery means, do operation with no access restrictions
 >>>>>>> new authorization version from 2017-07-17
   }
@@ -1504,12 +1431,12 @@ function userRoleAuthorized(
 	* **resolver:** this is a string with the resolver's name, optional, only for easier debugging
 	* **me:** the user object, who is executing the request, and who is checked for authorization
 
-### function roleAuthorizedForDoc
+### function userRoleAuthorized
 This helper function is used by queryForRoles, and decides, if a user gains the authorization by its role.
 For example: If a user has a field "role" in his user document and it contains the value "admin". So it checks if a user's role is admin, and allows all operations for admins.
 ```javascript
 // returns true, if the user's role is authorized for a document
-export function roleAuthorizedForDoc(me = {}, userRoles = [], docRoles = [], { User }, logger){
+export function userRoleAuthorized(me = {}, userRoles = [], { User }, logger){
   const role = User.authRole(me);
 
   if ( userRoles.includes('world') || role && userRoles.length > 0 && userRoles.includes(role) ) {
@@ -1602,6 +1529,7 @@ In the resolver interfaces, there are different objects:
 * the last argument in the resolver function is the resolver's name, which is optional and only to enhance the logging in debugging mode by additional information. If you have to analyze authorization outcomes, this helps a lot to figure out, which resolvers authorization rule fired.
 
 ```javascript
+<<<<<<< HEAD
 <<<<<<< HEAD
     const resolvers = {
      User: {
@@ -1725,6 +1653,68 @@ In the resolver interfaces, there are different objects:
 
  export default resolvers;
 >>>>>>> new authorization version from 2017-07-17
+=======
+   const resolvers = {
+    User: {
+      id(user) {
+        return user._id;
+      },
+
+      createdBy(user, args, { User, me }) {
+        return User.createdBy(user, me, 'user createdBy');
+      },
+
+      updatedBy(user, args, { User, me }) {
+        return User.updatedBy(user, me, 'user updatedBy');
+      },
+
+      tweets(user, { minLikes, lastCreatedAt, limit }, { User, me }) {
+        return User.tweets(user, { minLikes, lastCreatedAt, limit }, me, 'user tweets');
+      },
+
+      liked(user, { lastCreatedAt, limit }, { User, me }) {
+        return User.liked(user, { lastCreatedAt, limit }, me, 'user liked');
+      },
+
+      following(user, { lastCreatedAt, limit }, { User, me }) {
+        return User.following(user, { lastCreatedAt, limit }, me, 'user following');
+      },
+
+      followers(user, { lastCreatedAt, limit }, { User, me }) {
+        return User.followers(user, { lastCreatedAt, limit }, me, 'user followers');
+      },
+    },
+    Query: {
+      users(root, { lastCreatedAt, limit }, { User, me }) {
+        return User.find({ lastCreatedAt, limit }, me, 'users');
+      },
+
+      user(root, { id }, { User, me }) {
+        return User.findOneById(id, me, 'user');
+      },
+    },
+    Mutation: {
+      async createUser(root, { input }, { User, me }) {
+        return await User.insert(input, me, 'createUser');
+      },
+
+      async updateUser(root, { id, input }, { User, me }) {
+        return await User.updateById(id, input, me, 'updateUser');
+      },
+
+      async removeUser(root, { id }, { User, me }) {
+        return await User.removeById(id, me, 'removeUser');
+      },
+    },
+    Subscription: {
+      userCreated: user => user,
+      userUpdated: user => user,
+      userRemoved: id => id,
+    },
+  };
+
+  export default resolvers;
+>>>>>>> authorization-simple
 ```
 
 ### ./resolver/Tweet.js
@@ -1743,6 +1733,7 @@ In the resolver interfaces, there are different objects:
       },
 
       author(tweet, args, { Tweet, me }) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         return Tweet.author(tweet, me, 'tweet author');
       },
@@ -1763,27 +1754,35 @@ In the resolver interfaces, there are different objects:
         return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'tweet likers');
 =======
         return Tweet.author(tweet, me, 'author');
+=======
+        return Tweet.author(tweet, me, 'tweet author');
+>>>>>>> authorization-simple
       },
 
       createdBy(tweet, args, { Tweet, me }) {
-        return Tweet.createdBy(tweet, me, 'createdBy');
+        return Tweet.createdBy(tweet, me, 'tweet createdBy');
       },
 
       updatedBy(tweet, args, { Tweet, me }) {
-        return Tweet.updatedBy(tweet, me, 'updatedBy');
+        return Tweet.updatedBy(tweet, me, 'tweet updatedBy');
       },
 
       coauthors(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
-        return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'coauthors');
+        return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'tweet coauthors');
       },
 
       likers(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
+<<<<<<< HEAD
         return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'likers');
 >>>>>>> new authorization version from 2017-07-17
+=======
+        return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'tweet likers');
+>>>>>>> authorization-simple
       },
     },
     Query: {
       tweets(root, { lastCreatedAt, limit }, { Tweet, me }) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         return Tweet.find({ lastCreatedAt, limit }, me, 'tweets');
       },
@@ -1797,10 +1796,18 @@ In the resolver interfaces, there are different objects:
       tweet(root, { id }, { Tweet, me }) {
         return Tweet.getOneById(id, me, 'tweet');  
 >>>>>>> new authorization version from 2017-07-17
+=======
+        return Tweet.find({ lastCreatedAt, limit }, me, 'tweets');
+      },
+
+      tweet(root, { id }, { Tweet, me }) {
+        return Tweet.findOneById(id, me, 'tweet');  
+>>>>>>> authorization-simple
       },
     },
     Mutation: {
       async createTweet(root, { input }, { Tweet, me }) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         return await Tweet.insert(input, me, 'createTweet');
       },
@@ -1814,6 +1821,13 @@ In the resolver interfaces, there are different objects:
       async updateTweet(root, { id, input }, { Tweet, me }) {
         return await Tweet.updateById(id, input, me);
 >>>>>>> new authorization version from 2017-07-17
+=======
+        return await Tweet.insert(input, me, 'createTweet');
+      },
+
+      async updateTweet(root, { id, input }, { Tweet, me }) {
+        return await Tweet.updateById(id, input, me, 'updateTweet');
+>>>>>>> authorization-simple
       },
 
       async removeTweet(root, { id }, { Tweet, me }) {

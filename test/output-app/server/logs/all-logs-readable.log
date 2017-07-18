@@ -1,0 +1,2144 @@
+x2017-07-18 23:42:06  Logger started
+2017-07-18 23:42:35  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:35  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:35  --------------------------------------------------------------------------------
+2017-07-18 23:42:35  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  __schema {
+    queryType {
+      name
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  __schema {
+    queryType {
+      name
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca1") {
+    role
+    username
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    role
+    username
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca2") {
+    role
+    username
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    id
+    username
+    bio
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  users {
+    username
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  users(limit: 1) {
+    username
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  users(lastCreatedAt: 1479776904993) {
+    username
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  users(lastCreatedAt: 1479776904993, limit: 1) {
+    username
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "users" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    followers {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user followers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    followers(limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user followers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    followers(lastCreatedAt: 1479776905993) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user followers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    followers(lastCreatedAt: 1479776905993, limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user followers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    following {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user following" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    following(limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user following" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    following(lastCreatedAt: 1479776905993) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user following" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    following(lastCreatedAt: 1479776905993, limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user following" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    tweets {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    tweets(limit: 1) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    tweets(lastCreatedAt: 1479964340853) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    tweets(lastCreatedAt: 1479964340853, limit: 1) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    liked {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user liked" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    liked(limit: 1) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user liked" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    liked(lastCreatedAt: 1479964371334) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user liked" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca0") {
+    liked(lastCreatedAt: 1479964371334, limit: 1) {
+      id
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "user liked" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e351") {
+    id
+    body
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e351") {
+    author {
+      username
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweets {
+    id
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweets(limit: 1) {
+    id
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweets(lastCreatedAt: 1479964340853) {
+    id
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweets(lastCreatedAt: 1479964340853, limit: 1) {
+    id
+    createdAt
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweets" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e353") {
+    likers {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweet likers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e353") {
+    likers(limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweet likers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e353") {
+    likers(lastCreatedAt: 1479776904993) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweet likers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e353") {
+    likers(lastCreatedAt: 1479776904993, limit: 1) {
+      username
+      createdAt
+    }
+  }
+}
+
+2017-07-18 23:42:49  Authorize readMany "tweet likers" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "tobkle", bio: "someone", role: "admin"}) {
+    id
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize create "createUser" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize create "createUser" with user "stubailo" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:49  inserted user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "zol", bio: "Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead", role: "editor"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:49  Authorize create "createUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize create "createUser" with user "tobkle" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:49  inserted user 596e80d9aba34620ffa518b8.
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80d9aba34620ffa518b8") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80d9aba34620ffa518b7") {
+    username
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b8", input: {username: "zoltan", bio: "Maker of things, I guess", role: "editor"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize update "updateUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  updated user 596e80d9aba34620ffa518b8.
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b7", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize update "updateUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  updated user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:49  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  --------------------------------------------------------------------------------
+2017-07-18 23:42:49  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b8", input: {username: "zoltan", bio: "now an admin", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:49  Authorize update "updateUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:49  updated user 596e80d9aba34620ffa518b8.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b7", input: {username: "tobkle", bio: "Maker of things, I guess", role: "editor"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  updated user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80d9aba34620ffa518b7"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b7", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80d9aba34620ffa518b7"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "zoltan" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "zoltan" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "zoltan", role: "admin", id: "596e80d9aba34620ffa518b8",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80d9aba34620ffa518b7", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "zoltan" and role "admin" is authorized
+2017-07-18 23:42:50  updated user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596e80d9aba34620ffa518b8")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  removed user 596e80d9aba34620ffa518b8.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "596e80d9aba34620ffa518b7", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "596e80d9aba34620ffa518b7",
+  "body": "This is a test tweet of user tobkle",
+  "coauthorsIds": [],
+  "createdAt": 1500414170065,
+  "updatedAt": 1500414170065,
+  "createdById": "596e80d9aba34620ffa518b7",
+  "updatedById": "596e80d9aba34620ffa518b7"
+}
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tobkle" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:50  inserted tweet 596e80daaba34620ffa518b9.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "583291a1638566b3c5a92ca1", coauthorsIds: [], body: "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "583291a1638566b3c5a92ca1",
+  "body": "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:",
+  "coauthorsIds": [],
+  "createdAt": 1500414170102,
+  "updatedAt": 1500414170102,
+  "createdById": "596e80d9aba34620ffa518b7",
+  "updatedById": "596e80d9aba34620ffa518b7"
+}
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tobkle" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518b9") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  inserted tweet 596e80daaba34620ffa518ba.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e352") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "596e80daaba34620ffa518b9", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  updated tweet 596e80daaba34620ffa518b9.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "596e80daaba34620ffa518ba", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  updated tweet 596e80daaba34620ffa518ba.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518b9") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596e80daaba34620ffa518b9")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  removed tweet 596e80daaba34620ffa518b9.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596e80daaba34620ffa518ba")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  removed tweet 596e80daaba34620ffa518ba.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518b9") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "admin", id: "596e80d9aba34620ffa518b7",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596e80d9aba34620ffa518b7")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tobkle" and role "admin" is authorized
+2017-07-18 23:42:50  removed user 596e80d9aba34620ffa518b7.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80d9aba34620ffa518b7") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "zol", bio: "Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead", role: "user"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  ERROR Cannot read property 'toString' of undefined
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca1") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "583291a1638566b3c5a92ca1", input: {username: "zoltan", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize update "updateUser" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "583291a1638566b3c5a92ca1")
+}
+
+2017-07-18 23:42:50  ERROR Authorize delete "removeUser" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "583291a1638566b3c5a92ca1", coauthorsIds: [], body: "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "583291a1638566b3c5a92ca1",
+  "body": "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:",
+  "coauthorsIds": [],
+  "createdAt": 1500414170256,
+  "updatedAt": 1500414170256,
+  "createdById": "unknown",
+  "updatedById": "unknown"
+}
+2017-07-18 23:42:50  ERROR Cannot read property 'toString' of undefined
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e352") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "583676d3618530145474e352", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize update "updateTweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "583676d3618530145474e352", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  ERROR Authorize update "updateTweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "583676d3618530145474e352")
+}
+
+2017-07-18 23:42:50  ERROR Authorize delete "removeTweet" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "tobkle", bio: "someone", role: "user"}) {
+    id
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize create "createUser" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize create "createUser" with user "stubailo" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:50  inserted user 596e80daaba34620ffa518bb.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "zol", bio: "Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead", role: "user"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  ERROR Cannot read property 'toString' of undefined
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca1") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80daaba34620ffa518bb") {
+    username
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80daaba34620ffa518bb") {
+    username
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "583291a1638566b3c5a92ca1", input: {username: "zoltan", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR update user not possible for 583291a1638566b3c5a92ca1.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80daaba34620ffa518bb", input: {username: "tobkle", bio: "Maker of things, I guess"}) {
+    username
+    bio
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated user 596e80daaba34620ffa518bb.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80daaba34620ffa518bb", input: {username: "tobkle", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated user 596e80daaba34620ffa518bb.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "583291a1638566b3c5a92ca1")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "596e80daaba34620ffa518bb", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "596e80daaba34620ffa518bb",
+  "body": "This is a test tweet of user tobkle",
+  "coauthorsIds": [],
+  "createdAt": 1500414170485,
+  "updatedAt": 1500414170485,
+  "createdById": "596e80daaba34620ffa518bb",
+  "updatedById": "596e80daaba34620ffa518bb"
+}
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tobkle" and role: "user" is authorized by docRole.
+2017-07-18 23:42:50  inserted tweet 596e80daaba34620ffa518bc.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "583291a1638566b3c5a92ca1", coauthorsIds: [], body: "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "583291a1638566b3c5a92ca1",
+  "body": "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:",
+  "coauthorsIds": [],
+  "createdAt": 1500414170510,
+  "updatedAt": 1500414170510,
+  "createdById": "596e80daaba34620ffa518bb",
+  "updatedById": "596e80daaba34620ffa518bb"
+}
+2017-07-18 23:42:50  ERROR Authorize create "createTweet" with user "tobkle" and role: "user" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518bc") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e352") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "596e80daaba34620ffa518bc", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bb"
+    },
+    {
+      "coauthorsIds": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated tweet 596e80daaba34620ffa518bc.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "583676d3618530145474e352", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bb"
+    },
+    {
+      "coauthorsIds": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR update tweet not possible for 583676d3618530145474e352.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518bc") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596e80daaba34620ffa518bc")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  removed tweet 596e80daaba34620ffa518bc.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "583676d3618530145474e352")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR remove tweet not possible for 583676d3618530145474e352.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518bc") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "user" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "user", id: "596e80daaba34620ffa518bb",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596e80daaba34620ffa518bb")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tobkle" and role: "user" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bb"
+    }
+  ]
+}
+2017-07-18 23:42:50  removed user 596e80daaba34620ffa518bb.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80daaba34620ffa518bb") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "stubailo", role: "admin", id: "583291a1638566b3c5a92ca1",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "tobkle", bio: "someone", role: "editor"}) {
+    id
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize create "createUser" with user "stubailo" and role "admin" is authorized
+2017-07-18 23:42:50  Authorize create "createUser" with user "stubailo" and role: "admin" is authorized by userRole.
+2017-07-18 23:42:50  inserted user 596e80daaba34620ffa518bd.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createUser(input: {username: "zol", bio: "Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead", role: "editor"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  ERROR Cannot read property 'toString' of undefined
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "583291a1638566b3c5a92ca1") {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80daaba34620ffa518bd") {
+    username
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "583291a1638566b3c5a92ca1", input: {username: "zoltan", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR update user not possible for 583291a1638566b3c5a92ca1.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tobkle" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tobkle", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80daaba34620ffa518bd", input: {username: "tmeasday", bio: "Maker of things, I guess"}) {
+    username
+    bio
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tobkle" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated user 596e80daaba34620ffa518bd.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateUser(id: "596e80daaba34620ffa518bd", input: {username: "tmeasday", bio: "Maker of things, I guess", role: "admin"}) {
+    username
+    bio
+    role
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateUser" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated user 596e80daaba34620ffa518bd.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "583291a1638566b3c5a92ca1")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR remove user not possible for 583291a1638566b3c5a92ca1.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "596e80daaba34620ffa518bd", coauthorsIds: [], body: "This is a test tweet of user tobkle"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "596e80daaba34620ffa518bd",
+  "body": "This is a test tweet of user tobkle",
+  "coauthorsIds": [],
+  "createdAt": 1500414170722,
+  "updatedAt": 1500414170722,
+  "createdById": "596e80daaba34620ffa518bd",
+  "updatedById": "596e80daaba34620ffa518bd"
+}
+2017-07-18 23:42:50  Authorize create "createTweet" with user "tmeasday" and role: "editor" is authorized by docRole.
+2017-07-18 23:42:50  inserted tweet 596e80daaba34620ffa518be.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  createTweet(input: {authorId: "583291a1638566b3c5a92ca1", coauthorsIds: [], body: "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:"}) {
+    id
+  }
+}
+
+2017-07-18 23:42:50  {
+  "authorId": "583291a1638566b3c5a92ca1",
+  "body": "We put our hearts into this talk about a #GraphQL-first workflow and how it helped us build apps fast:",
+  "coauthorsIds": [],
+  "createdAt": 1500414170729,
+  "updatedAt": 1500414170729,
+  "createdById": "596e80daaba34620ffa518bd",
+  "updatedById": "596e80daaba34620ffa518bd"
+}
+2017-07-18 23:42:50  ERROR Authorize create "createTweet" with user "tmeasday" and role: "editor" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518be") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "583676d3618530145474e352") {
+    author {
+      id
+    }
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "596e80daaba34620ffa518be", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bd"
+    },
+    {
+      "coauthorsIds": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  updated tweet 596e80daaba34620ffa518be.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  updateTweet(id: "583676d3618530145474e352", input: {body: "This is a modified test tweet"}) {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize update "updateTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bd"
+    },
+    {
+      "coauthorsIds": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR update tweet not possible for 583676d3618530145474e352.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518be") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "596e80daaba34620ffa518be")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  removed tweet 596e80daaba34620ffa518be.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeTweet(id: "583676d3618530145474e352")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeTweet" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "authorId": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  ERROR remove tweet not possible for 583676d3618530145474e352.
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  tweet(id: "596e80daaba34620ffa518be") {
+    body
+  }
+}
+
+2017-07-18 23:42:50  Authorize readOne "user findOneById" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "tmeasday" and role "editor" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "tmeasday", role: "editor", id: "596e80daaba34620ffa518bd",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+mutation {
+  removeUser(id: "596e80daaba34620ffa518bd")
+}
+
+2017-07-18 23:42:50  Authorize delete "removeUser" with user "tmeasday" and role: "editor" with 
+authQuery: {
+  "$or": [
+    {
+      "_id": "596e80daaba34620ffa518bd"
+    }
+  ]
+}
+2017-07-18 23:42:50  removed user 596e80daaba34620ffa518bd.
+2017-07-18 23:42:50  ERROR Authorize readOne "user findOneById" with user "<no-user>" and role: "null" is not authorized.
+2017-07-18 23:42:50  Authorize readOne "tweet findOneById" with user "<no-user>" and role "<no-role>" is authorized
+2017-07-18 23:42:50  --------------------------------------------------------------------------------
+2017-07-18 23:42:50  Request:
+User: "<no-user>", role: "<no-role>", id: "<no-id>",
+Operation: "<no-name>", variables: "<no-variables>",
+Query:
+{
+  user(id: "596e80daaba34620ffa518bd") {
+    username
+    bio
+    role
+  }
+}
+
+2017-08-18 18:15:59  Logger started

@@ -5,41 +5,41 @@ const resolvers = {
     },
 
     author(tweet, args, { Tweet, me }) {
-      return Tweet.author(tweet, me, 'author');
+      return Tweet.author(tweet, me, 'tweet author');
     },
 
     createdBy(tweet, args, { Tweet, me }) {
-      return Tweet.createdBy(tweet, me, 'createdBy');
+      return Tweet.createdBy(tweet, me, 'tweet createdBy');
     },
 
     updatedBy(tweet, args, { Tweet, me }) {
-      return Tweet.updatedBy(tweet, me, 'updatedBy');
+      return Tweet.updatedBy(tweet, me, 'tweet updatedBy');
     },
 
     coauthors(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
-      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'coauthors');
+      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'tweet coauthors');
     },
 
     likers(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
-      return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'likers');
+      return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'tweet likers');
     },
   },
   Query: {
     tweets(root, { lastCreatedAt, limit }, { Tweet, me }) {
-      return Tweet.all({ lastCreatedAt, limit }, me, 'tweets');
+      return Tweet.find({ lastCreatedAt, limit }, me, 'tweets');
     },
 
     tweet(root, { id }, { Tweet, me }) {
-      return Tweet.getOneById(id, me, 'tweet');  
+      return Tweet.findOneById(id, me, 'tweet');  
     },
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, me }) {
-      return await Tweet.insert(input, me);
+      return await Tweet.insert(input, me, 'createTweet');
     },
 
     async updateTweet(root, { id, input }, { Tweet, me }) {
-      return await Tweet.updateById(id, input, me);
+      return await Tweet.updateById(id, input, me, 'updateTweet');
     },
 
     async removeTweet(root, { id }, { Tweet, me }) {
