@@ -1,5 +1,0 @@
-type Post1
-{
-  post: String!
-  owner: User1 @belongsTo
-}

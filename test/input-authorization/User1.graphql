@@ -1,3 +1,0 @@
-type User1 {
-  name: String
-}

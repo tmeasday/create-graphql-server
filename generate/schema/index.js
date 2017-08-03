@@ -15,14 +15,10 @@ import {
 
 /* eslint-disable no-param-reassign */
 
-export default function generateSchema(inputSchema, mode) {
+export default function generateSchema(inputSchema) {
   // Check that the input looks like we expect -- a single ObjectType definition
   assert(inputSchema.kind === 'Document');
   assert(inputSchema.definitions.length === 1);
-
-  let emailFieldIncluded = false;
-  let passwordFieldIncluded = false;
-  let roleFieldIncluded = false;
 
   const outputSchema = cloneDeep(inputSchema);
 
@@ -38,10 +34,6 @@ export default function generateSchema(inputSchema, mode) {
       applyCustomDirectives(field);
     });
 
-    if (field.name === 'email') emailFieldIncluded = true;
-    if (field.name === 'password') passwordFieldIncluded = true;
-    if (field.name === 'role') roleFieldIncluded = true;
-
     // XXX: Not sure if this the correct logic but it makes my tests pass
     // TODO: check for @unmodifiable
     let possibleInputType = field.type;
@@ -52,19 +44,12 @@ export default function generateSchema(inputSchema, mode) {
     }
 
     if (possibleInputType.kind === 'NamedType') {
-      const isScalarField = includes(
-        SCALAR_TYPE_NAMES,
-        possibleInputType.name.value
-      );
+      const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
       let inputField;
       if (isScalarField || !!directivesByName.enum) {
         inputField = field;
       } else {
-        inputField = buildField(
-          `${field.name.value}Id`,
-          [],
-          `ObjID${inputTypeModifier}`
-        );
+        inputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
       }
 
       createInputFields.push(inputField);
@@ -76,94 +61,51 @@ export default function generateSchema(inputSchema, mode) {
     field.directives = [];
   });
 
-  if (mode === 'add-user') {
-    if (!emailFieldIncluded) {
-      createInputFields.push(buildField('email', [], 'String!'));
-      updateInputFields.push(buildField('email', [], 'String'));
-      type.fields.push(buildField('email', [], 'String!'));
-    }
-    if (!passwordFieldIncluded) {
-      createInputFields.push(buildField('password', [], 'String!'));
-      updateInputFields.push(buildField('password', [], 'String'));
-      // no type field, as it won't be stored, is only for input/update
-    }
-    if (!roleFieldIncluded) {
-      createInputFields.push(buildField('role', [], 'String!'));
-      updateInputFields.push(buildField('role', [], 'String'));
-      type.fields.push(buildField('role', [], 'String!'));
-    }
-  }
-
   type.fields.unshift(buildField('id', [], 'ObjID!'));
   type.fields.push(buildField('createdAt', [], 'Float!'));
   type.fields.push(buildField('updatedAt', [], 'Float!'));
 
-  const queryOneField = buildField(
-    typeName.toLowerCase(),
-    [idArgument()],
-    typeName
-  );
-  const queryAllField = buildField(
-    `${typeName.toLowerCase()}s`,
-    [],
-    `[${typeName}!]`
-  );
+  const queryOneField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
+  const queryAllField = buildField(`${typeName.toLowerCase()}s`, [], `[${typeName}!]`);
   addPaginationArguments(queryAllField);
   outputSchema.definitions.push(
-    buildTypeExtension(
-      buildTypeDefinition('Query', [queryAllField, queryOneField])
-    )
+    buildTypeExtension(buildTypeDefinition('Query', [queryAllField, queryOneField]))
   );
 
   const createInputTypeName = `Create${typeName}Input`;
   outputSchema.definitions.push(
-    buildTypeDefinition(
-      createInputTypeName,
-      createInputFields,
-      'InputObjectTypeDefinition'
-    )
+    buildTypeDefinition(createInputTypeName, createInputFields, 'InputObjectTypeDefinition')
   );
 
   const updateInputTypeName = `Update${typeName}Input`;
   outputSchema.definitions.push(
-    buildTypeDefinition(
-      updateInputTypeName,
-      updateInputFields,
-      'InputObjectTypeDefinition'
-    )
+    buildTypeDefinition(updateInputTypeName, updateInputFields, 'InputObjectTypeDefinition')
   );
 
   // Create update input type if readonly fields
 
-  outputSchema.definitions.push(
-    buildTypeExtension(
-      buildTypeDefinition('Mutation', [
-        buildField(
-          `create${typeName}`,
-          [buildArgument('input', `${createInputTypeName}!`)],
-          typeName
-        ),
+  outputSchema.definitions.push(buildTypeExtension(
+    buildTypeDefinition('Mutation', [
+      buildField(`create${typeName}`, [
+        buildArgument('input', `${createInputTypeName}!`),
+      ], typeName),
 
-        buildField(
-          `update${typeName}`,
-          [idArgument(), buildArgument('input', `${updateInputTypeName}!`)],
-          typeName
-        ),
+      buildField(`update${typeName}`, [
+        idArgument(),
+        buildArgument('input', `${updateInputTypeName}!`),
+      ], typeName),
 
-        buildField(`remove${typeName}`, [idArgument()], 'Boolean'),
-      ])
-    )
-  );
+      buildField(`remove${typeName}`, [idArgument()], 'Boolean'),
+    ])
+  ));
 
-  outputSchema.definitions.push(
-    buildTypeExtension(
-      buildTypeDefinition('Subscription', [
-        buildField(`${typeName.toLowerCase()}Created`, [], typeName),
-        buildField(`${typeName.toLowerCase()}Updated`, [], typeName),
-        buildField(`${typeName.toLowerCase()}Removed`, [], 'ObjID'),
-      ])
-    )
-  );
+  outputSchema.definitions.push(buildTypeExtension(
+    buildTypeDefinition('Subscription', [
+      buildField(`${typeName.toLowerCase()}Created`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Updated`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Removed`, [], 'ObjID'),
+    ])
+  ));
 
   return outputSchema;
 }
