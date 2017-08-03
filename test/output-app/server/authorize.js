@@ -22,6 +22,19 @@ export function findByIds(collection, ids = [], authQuery) {
  });
 }
 
+// returns whether the authorized record, or the record without not authorized field(s)
+export function protectFields(me, authorizedUserRoles, protectedFields, inputObject, { User }){
+  const result = Object.assign({}, inputObject);
+  const role = User.authRole(me);
+  // if user is not allowed to access specific fields, remove field from object...
+  if (!authorizedUserRoles.includes(role)){
+    protectedFields.every(protectedField => {
+      if (result[protectedField]) delete result[protectedField];
+    });
+  }
+  return result;
+}
+
 export function checkAuthDoc(doc, me, userRoles, docRoles, { User }, logger){
   const role = User.authRole(me);
 
