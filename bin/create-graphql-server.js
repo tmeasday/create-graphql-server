@@ -39,7 +39,6 @@ function usage() {
   console.log(' - create-graphql-server init project-dir');
   console.log(' - create-graphql-server add-type path/to/type.graphql');
   console.log(' - create-graphql-server add-type path');
-  console.log(' - create-graphql-server add-user path/to/UserType.graphql');
   console.log(' - create-graphql-server remove-type path/to/type.graphql');
   console.log(' - create-graphql-server remove-type path');
   console.log(' - create-graphql-server remove-type typename');
@@ -71,21 +70,18 @@ function usage() {
   process.exit(1);
 }
 
-function adjustTypeName(typeName) {
+function adjustTypeName(typeName){
   return typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase();
 }
 
 function getFileUpdateList(inputSchemaFile, mode) {
   let inputSchemaStr = '';
   // in add mode or if a graphql path/file name was provided, the input file must be there,
-  if (
-    mode === 'add-type' ||
-    mode === 'add-user' ||
-    inputSchemaFile.includes('.graphql') ||
-    inputSchemaFile.includes('/')
-  ) {
-    if (!fs.existsSync(inputSchemaFile)) {
-      console.error(chalk.bold.red('Error: Cannot read file', inputSchemaFile));
+  if (mode === 'add' || inputSchemaFile.includes('.graphql') || inputSchemaFile.includes('/')) {
+    if (! fs.existsSync(inputSchemaFile)) {
+      console.error(
+        chalk.bold.red('Error: Cannot read file', inputSchemaFile)
+      );
       console.log('');
       process.exit(1);
     }
@@ -104,8 +100,7 @@ function getFileUpdateList(inputSchemaFile, mode) {
     outputSchemaStr,
     resolversStr,
     modelStr,
-    authorizationStr,
-  } = generate(inputSchemaStr, mode);
+  } = generate(inputSchemaStr);
 
   // do validation checks
   // shouldn't be necessary, but...
@@ -120,8 +115,7 @@ function getFileUpdateList(inputSchemaFile, mode) {
     !modelStr ||
     outputSchemaStr === '' ||
     resolversStr === '' ||
-    modelStr === '' ||
-    authorizationStr === ''
+    modelStr === ''
   ) {
     console.error('Error: Error while generating target Code.');
     process.exit(0);
@@ -158,13 +152,6 @@ function getFileUpdateList(inputSchemaFile, mode) {
       indexPath: path.join('model', 'index.js'),
       indexPattern: `\nimport ${TypeName} from './${TypeName}';\n` +
         `models.${TypeName} = ${TypeName};\n`,
-    },
-    {
-      typePath: path.join('authorization', `${TypeName}.js`),
-      typeString: authorizationStr,
-      indexPath: path.join('authorization', 'index.js'),
-      indexPattern: `\nimport ${TypeName} from './${TypeName}';\n` +
-        `authorizations.${TypeName} = ${TypeName};\n`,
     },
   ];
 }
@@ -403,19 +390,16 @@ function addPatternToFiles(fileUpdateList) {
 
 function getFilesRecursively(folder, filetype) {
   // getting all files of a path and of a specific filetype recursively
-  let list = [];
-  let stats;
-  const files = fs.readdirSync(folder);
+  let list = [], stats,
+    files = fs.readdirSync(folder);
 
-  files.forEach((file) => {
+  files.forEach(file => {
     stats = fs.lstatSync(path.join(folder, file));
-    if (stats.isDirectory()) {
-      list = list.concat(
-        getFilesRecursively(path.join(folder, file), filetype)
-      );
+    if(stats.isDirectory()) {
+      list = list.concat(getFilesRecursively(path.join(folder, file), filetype));
     } else if (file.includes(filetype)) {
-      console.log('found:', path.join(folder, file));
-      list.push(path.join(folder, file));
+      console.log('found:', path.join(folder, file)); 
+      list.push(path.join(folder, file)); 
     }
   });
 
@@ -424,10 +408,10 @@ function getFilesRecursively(folder, filetype) {
 
 // MAIN FUNCTIONS
 
-function addType(inputSchemaFile, options, mode) {
+function addType(inputSchemaFile, options) {
   // generates a new data type with all its files and <type> references
   console.log(chalk.bold.blue('Running add-type'));
-  const fileUpdateList = getFileUpdateList(inputSchemaFile, mode);
+  const fileUpdateList = getFileUpdateList(inputSchemaFile, 'add');
   checkForFileChanges(fileUpdateList, options['force-update']);
   createTypeFiles(fileUpdateList);
   addPatternToFiles(fileUpdateList);
@@ -471,18 +455,15 @@ if (commands[0] === 'init') {
   if (!inputSchemaFile) {
     usage();
   }
-  if (
-    fs.existsSync(inputSchemaFile) &&
-    fs.lstatSync(inputSchemaFile).isDirectory()
-  ) {
-    // directory name entered
+  if (fs.existsSync(inputSchemaFile) && fs.lstatSync(inputSchemaFile).isDirectory()) {
+    //directory name entered
     const files = getFilesRecursively(inputSchemaFile, '.graphql');
-    files.forEach((file) => {
-      addType(file, argv, commands[0]);
+    files.forEach(file => {
+      addType(file, argv);
     });
   } else {
     // single file entered
-    addType(inputSchemaFile, argv, commands[0]);
+    addType(inputSchemaFile, argv);
   }
   process.exit(0);
 } else if (commands[0] === 'remove-type') {
@@ -490,35 +471,15 @@ if (commands[0] === 'init') {
   if (!inputSchemaFile) {
     usage();
   }
-  if (
-    fs.existsSync(inputSchemaFile) &&
-    fs.lstatSync(inputSchemaFile).isDirectory()
-  ) {
+  if (fs.existsSync(inputSchemaFile) && fs.lstatSync(inputSchemaFile).isDirectory()) {
     // directory name entered
     const files = getFilesRecursively(inputSchemaFile, '.graphql');
-    files.forEach((file) => {
+    files.forEach(file => {
       removeType(file, argv);
     });
   } else {
     // single file or type
     removeType(inputSchemaFile, argv);
-  }
-  process.exit(0);
-} else if (commands[0] === 'add-user') {
-  const inputSchemaFile = commands[1];
-  if (!inputSchemaFile) {
-    usage();
-  }
-  if (
-    fs.existsSync(inputSchemaFile) &&
-    fs.lstatSync(inputSchemaFile).isDirectory()
-  ) {
-    // directory name entered
-    console.error('Please enter a User Type instead of a directory.');
-    process.exit(0);
-  } else {
-    // single file entered
-    addType(inputSchemaFile, argv, commands[0]);
   }
   process.exit(0);
 } else {

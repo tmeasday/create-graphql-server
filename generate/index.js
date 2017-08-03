@@ -6,20 +6,18 @@ import { parse, print } from 'graphql';
 import generateSchema from './schema';
 import generateResolvers from './resolvers';
 import generateModel from './model';
-import generateAuthorization from './authorization';
 import { lcFirst } from './util/capitalization';
 
-export default function generate(inputSchemaStr, mode) {
+export default function generate(inputSchemaStr) {
   const inputSchema = parse(inputSchemaStr);
 
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
 
-  const outputSchema = generateSchema(inputSchema, mode);
+  const outputSchema = generateSchema(inputSchema);
   const outputSchemaStr = print(outputSchema);
-  const resolversStr = generateResolvers(inputSchema, mode);
-  const modelStr = generateModel(inputSchema, mode);
-  const authorizationStr = generateAuthorization(inputSchema, mode);
+  const resolversStr = generateResolvers(inputSchema);
+  const modelStr = generateModel(inputSchema);
 
   return {
     typeName: lcFirst(TypeName),
@@ -27,6 +25,5 @@ export default function generate(inputSchemaStr, mode) {
     outputSchemaStr,
     resolversStr,
     modelStr,
-    authorizationStr,
   };
 }

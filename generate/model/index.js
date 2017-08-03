@@ -11,15 +11,17 @@ function read(name) {
 
 const templates = {
   base: read('base'),
-  user: read('user'),
   singularAssociation: read('singularAssociation'),
   paginatedAssociation: read('paginatedAssociation'),
 };
 
-function buildAst(
-  template,
-  { typeName, fieldName, argsStr, ReturnTypeName, query }
-) {
+function buildAst(template, {
+  typeName,
+  fieldName,
+  argsStr,
+  ReturnTypeName,
+  query,
+}) {
   const argsWithDefaultsStr = argsStr
     .replace('lastCreatedAt', 'lastCreatedAt = 0')
     .replace('limit', 'limit = 10');
@@ -32,11 +34,9 @@ function buildAst(
   });
 }
 
+
 const generators = {
-  base({ typeName, TypeName }, mode) {
-    if (mode === 'add-user') {
-      return templateToAst(templates.user, { typeName, TypeName });
-    }
+  base({ typeName, TypeName }) {
     return templateToAst(templates.base, { typeName, TypeName });
   },
   belongsTo(replacements) {
@@ -73,29 +73,26 @@ const generators = {
   },
 };
 
-export function generateModelAst(inputSchema, mode) {
+export function generateModelAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
 
-  const ast = generators.base({ TypeName, typeName }, mode);
-
-  let startWith = 2;
-  if (mode === 'add-user') {
-    startWith = 4;
-  }
+  const ast = generators.base({ TypeName, typeName });
 
   // XXX: rather than hardcoding in array indices it would be less brittle to
   // walk the tree using https://github.com/benjamn/ast-types
-  const classMethodsAst =
-    ast.program.body[startWith].declaration.body.body; // export // class declaration
+  const classMethodsAst = ast.program.body[2] // export
+    .declaration // class declaration
+    .body.body;
 
   const findOneMethod = classMethodsAst.find(m => m.key.name === 'all');
   let nextIndex = classMethodsAst.indexOf(findOneMethod) + 1;
 
+
   generatePerField(type, generators).forEach((resolverFunctionAst) => {
-    const classMethodAst =
-      resolverFunctionAst.program.body[0].body.body[0]; // class declaration // classMethod
+    const classMethodAst = resolverFunctionAst.program.body[0] // class declaration
+      .body.body[0]; // classMethod
 
     classMethodsAst.splice(nextIndex, 0, classMethodAst);
     nextIndex += 1;
@@ -104,7 +101,7 @@ export function generateModelAst(inputSchema, mode) {
   return ast;
 }
 
-export default function generateModel(inputSchema, mode) {
-  const ast = generateModelAst(inputSchema, mode);
+export default function generateModel(inputSchema) {
+  const ast = generateModelAst(inputSchema);
   return print(ast, { trailingComma: true }).code;
 }
