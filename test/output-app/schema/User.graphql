@@ -1,5 +1,6 @@
 type User {
   id: ObjID!
+  role: String
   username: String!
   bio: String
   notify: Boolean
@@ -8,7 +9,9 @@ type User {
   following(lastCreatedAt: Float, limit: Int): [User!]
   followers(lastCreatedAt: Float, limit: Int): [User!]
   createdAt: Float!
+  createdBy: User
   updatedAt: Float!
+  updatedBy: User
 }
 
 extend type Query {
@@ -18,12 +21,14 @@ extend type Query {
 
 input CreateUserInput {
   username: String!
+  role: String!
   bio: String
   notify: Boolean
 }
 
 input UpdateUserInput {
-  username: String!
+  username: String
+  role: String
   bio: String
   notify: Boolean
 }
