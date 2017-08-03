@@ -1,6 +1,6 @@
 import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, authlog, checkAuthDoc } from '../server/authorize';
+import { findByIds, queryForRoles, authlog, checkAuthDoc, protectFields } from '../server/authorize';
 
 export default class User {
   constructor(context) {
@@ -65,20 +65,6 @@ export default class User {
     return this.context.User.findOneById(user.updatedById, me, resolver);
   }
 
-  // Begin of user inserted method
-  protectFields(me, authorizedUserRoles, protectedFields, inputObject){
-    const result = Object.assign({}, inputObject);
-    const role = this.context.User.authRole(me);
-    // if user is not allowed to access specific fields...
-    if (!authorizedUserRoles.includes(role)){
-      protectedFields.every(protectedField => {
-        if (result[protectedField]) delete result[protectedField];
-      });
-    }
-    return result;
-  }
-  // End of user inserted method
-
   async insert(doc, me, resolver) {
     try {
       let docToInsert = Object.assign({}, doc, {
@@ -87,10 +73,8 @@ export default class User {
         createdById: (me && me._id) ? me._id : 'unknown',
         updatedById: (me && me._id) ? me._id : 'unknown',
       });
-      // const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));
       checkAuthDoc(docToInsert, me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));
-      // User inserted line:
-      docToInsert = this.protectFields(me, ['admin'], ['role'], docToInsert);
+      docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, { User: this.context.User });
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
         throw new Error(`insert user not possible.`);
@@ -111,8 +95,7 @@ export default class User {
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};
-      // User inserted line:
-      docToUpdate.$set = this.protectFields(me, ['admin'], ['role'], docToUpdate.$set);
+      docToUpdate.$set = protectFields(me, ['admin'], ['role'], docToUpdate.$set, { User: this.context.User });
       const result = await this.collection.updateOne(finalQuery, docToUpdate);
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`update user not possible for ${id}.`);
