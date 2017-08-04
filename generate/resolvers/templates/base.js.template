@@ -1,3 +1,5 @@
+import { pubsub } from '.';
+
 const resolvers = {
   TypeName: {
     id(typeName) {
@@ -29,9 +31,18 @@ const resolvers = {
     },
   },
   Subscription: {
-    typeNameCreated: typeName => typeName,
-    typeNameUpdated: typeName => typeName,
-    typeNameRemoved: id => id,
+    typeNameCreated: {
+        resolve: typeName => typeName,
+        subscribe: () => pubsub.asyncIterator('typeNameInserted')
+    },
+    typeNameUpdated: {
+        resolve: typeName => typeName,
+        subscribe: () => pubsub.asyncIterator('typeNameUpdated')
+    },
+    typeNameRemoved: {
+        resolve: id => id,
+        subscribe: () => pubsub.asyncIterator('typeNameRemoved')
+    },
   },
 };
 

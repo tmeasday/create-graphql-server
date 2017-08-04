@@ -1,11 +1,20 @@
 import fs from 'fs';
 
+/* requireGraphQL for Webpack
+
+const req = require.context('./', true, /\.graphql$/);
 function requireGraphQL(name) {
-  const filename = require.resolve(name);
-  return fs.readFileSync(filename, 'utf8');
+	return req(name);
+}
+*/
+
+function requireGraphQL(name) {
+	const filename = require.resolve(name);
+	return fs.readFileSync(filename, 'utf8');
 }
 
-const typeDefs = [`
+const typeDefs = [
+	`
   scalar ObjID
   type Query {
     # A placeholder, please ignore
@@ -19,6 +28,7 @@ const typeDefs = [`
     # A placeholder, please ignore
     __placeholder: Int
   }
-`];
+`
+];
 
 export default typeDefs;
