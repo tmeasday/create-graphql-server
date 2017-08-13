@@ -1,4 +1,4 @@
 node_modules
 /db
 /input
-server/logs/all-logs.log
+log/all-logs-readable.log

@@ -1,6 +1,6 @@
-import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, authlog, checkAuthDoc, protectFields } from '../server/authorize';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {

@@ -151,7 +151,107 @@ class User {
 }
 ```
 
-### Client side code
+## Authorization
+
+create-graphql-server can also handle authorizations. There are two ways to control authorizations:
+* Authorization by User-Roles
+* Authorization by Document-Roles
+
+**User-Roles** are stored in the User type. They group a number of users together, having all the same authorizations, defined with their role they play. Use it to define a user as a "super-administrator", "administrator", "publisher", "editor" or a "default-user". You are free to define your own names and numbers of User-Roles.
+
+**Document-Roles** are stored in document fields which are referencing a User._id. They are there, to define fine grained authorizations for individual documents based on single user level. Use it to define an "owner", "creator", author" or "coauthor" of a document. Define the authorization they are allowed to do with this specific document. Here, the userId will be stored in the corresponding document field instead. If a user wants the specific authorization, it is tested, if this userId is stored in the document, if so, he gains access, if not, it is not allowed.
+
+You can combine both models to define your authorization logic.
+
+Add authorization logic by using a simple @authorize directive within your type definition. Use the following syntax:
+```javascript
+type ...
+@authorize(
+  <role1>: [<list of authorizations>]
+  <role2>: [<list of authorizations>]
+  <role3>: [<list of authorizations>]
+)
+...
+<fieldname1>: String @authRole("<role1>")   // User-Role: Stores the Role name in the User type
+<fieldname2>: User @authRole("<role2>")     // Document-Role: Stores Single UserId
+<fieldname3>: [User] @authRole("<role3>")   // Document-Role: Stores Multiple UserIds
+...
+```
+
+A \<role\> can be any name, you want to use for, to describe the authorizations of a group of users. A user can be assigned this \<role\> in a user type of any \<fieldname\>. You have to mark the relevant field name with the directive @authRole("\<role\>").
+
+A list of authorizations can be:
+* create: role is authorized to create a record of this type.
+* read: role is authorized to readOne and readMany of this type.
+	* readOne: role is authorized to only readOne of this type.
+	* readMany: role is authorized to readMany of this type.
+* update: role is authorized to update a record of this type.
+* delete: role is authorized to delete a record of this type.
+
+You can add any number of roles within a @authorize directive.
+
+There is one pre-defined User-Role called "world". The world role includes all users, signed-in and not signed-in anonymous users. Use this role to define an authorization-list valid for all users.
+
+#### Example on type User
+```javascript
+type User
+
+@authorize(
+  admin: ["create", "read", "update", "delete"]  // User-Role
+  this: ["read", "update", "delete"]             // Document-Role
+)
+
+{
+  role: String @authRole("admin") 
+  username: String!
+
+  bio: String
+  notify: Boolean
+
+  tweets(minLikes: Int): [Tweet!] @hasMany(as: "author")
+  liked: [Tweet!] @belongsToMany
+
+  following: [User!] @belongsToMany
+  followers: [User!] @hasAndBelongsToMany(as: "following")
+}
+```
+
+#### Example on type Tweet
+
+```javascript
+type Tweet 
+
+@authorize(
+  admin: ["create", "read", "update", "delete"],   // User-Role
+  world: ["read"]                                  // User-Role
+  author: ["create", "read", "update", "delete"],  // Document-Role
+  coauthors: ["read", "update"],                   // Document-Role
+)
+
+{
+  author: User! @unmodifiable @belongsTo @authRole("author")
+  coauthors: [User] @belongsTo @authRole("coauthors")
+  body: String!
+
+  likers: [User!] @hasAndBelongsToMany(as: "liked")
+}
+```
+
+If you add these types with the create-graphql-server command-line-interface:
+```bash
+create-graphql-server add-type path/to/input.graphql 
+```
+
+It will add automatically the authorization code in the model/\<type\>.js files. Have a look into the generated code or in the test application: "test/output-app/model/User.js".
+
+You can manually change the code to protect also single fields of a type. Do it by the usage of this function:
+```javascript
+//                              userRole secretField document
+docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, { User: this.context.User });
+```
+By this, only a User (me) with role "admin" is allowed to access the field "docToInsert.role". For any other user, this field is removed from the docToInsert during the protectFields run.
+
+## Client side code
 
 To create users, simply call your generated `createUser` mutation (you may want to add authorization to the resolver, feel free to modify it).
 
