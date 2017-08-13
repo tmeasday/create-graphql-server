@@ -7,13 +7,13 @@ This is a generated create-graphql-server app.
 ## Implementing Authentication
 The authentication is performed in those locations:
 * ./server/index.js
-* ./model/index.js
 * ./server/authenticate.js
+* ./model/index.js
 
 ### ./server/index.js
-In the server, the database is started, and the UserCollection is defined. That's who the server accesses the user documents in the database.
+In the server, the database is started, and the UserCollection is defined. That's where the server accesses the user documents in the database.
 
-In ```js authenticate(app, UserCollection)``` the authentication is prepared and processed. Later if a user sends a 'graphql' request, the user is determined with ```js passport.authenticate(...)```. After that, the user is  whether an anonymous user or an authenticated user. You find the identified user in the object "me". Then the type models have to be initialized with the user "me" authorizations: ```js req.context = addModelsToContext({... me ...})```.
+In ```js authenticate(app, UserCollection)``` the authentication is prepared and processed. Later, if a user sends a 'graphql' request, the user is determined with ```js passport.authenticate(...)```. After that, the user is whether an anonymous user or an authenticated user. You find the identified user in the object "me". Then the type models have to be initialized with the user "me" authorizations: ```js req.context = addModelsToContext({... me ...})```.
 
 ```javascript
 ...
@@ -52,8 +52,8 @@ async function startServer() {
           context: Object.assign({ me }, req.context),
           debug: true,
           formatError(e) { 
-          	console.log(e);
-          	return e;
+            console.log(e);
+            return e;
           },
         };
       })(req, res, next);
@@ -63,8 +63,17 @@ async function startServer() {
 }
 ```
 
+By-the-way: The server/index.js is able to access the User collection directly by the following two lines. This is used in the server/authenticate.js during authenticate.
+```js
+... 
+const UserCollection = db.collection('user');
+...
+authenticate(app, UserCollection);
+...
+```
+
 ### ./model/index.js
-If there is a User model generated, then we load it as the first model. It defines the model, which will be used in the other models as well, to perform the authorization checks.
+If there is a User model generated, then we load it as the first model. It defines the model, which will be used in the other models as well, to perform the authorization checks. 
 
 ```javascript
 const models = {};
@@ -91,7 +100,7 @@ models.User = User;
 ```
 
 ### ./server/authenticate.js
-Here the real identification of an user is performed. After a user requested a '/login' with user and password. The user's email is searched in the database. If it is there, it checks if the user's encrypted hash is equal to the encrypted password, if so, a user is identified and a JWT token is generated and transfered back to the requesting user. With all the next requests of that user, he sends an header like...
+Here, the real identification of an user is performed. After a user requested a '/login' url with user and password. The user's email is searched in the database. If it is there, it checks if the user's encrypted hash is equal to the encrypted password. If so, a user is identified and a JWT token is generated and transfered back to the requesting user. This JWT token is usually stored in the client's browsers local storage and added to the next call in the Authorization header. With all the next requests of that user, he sends an header like...
 ```javacript
 authorization JWT calculated.JWT.token
 ```
@@ -105,7 +114,7 @@ import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
 import DataLoader from 'dataloader';
-import { findByIds } from './authorize';
+import { findByIds } from 'create-graphql-server-authorization';
 
 const KEY = 'test-key';
 let Loader;
@@ -162,9 +171,6 @@ Use the @authorize directive in a \<type\>.graphql input file, to define which a
 * user-roles: e.g. User.role = "admin", all admins are allowed to do create, read, update, delete,...
 * document-roles: e.g. Tweet.authorId = User._id, only authors are allowed to create, update, delete a document
 
-On field level you can control access also by the @authorize directive
-e.g. updating the User with set role = "admin", shouldn't be allowed by for all users. So we need a way to restrict the create, read, update, delete operations also on field level if required.
-
 Use the following syntax for the Tweet.graphql input file::
 ```javascript
 type Tweet 
@@ -184,16 +190,16 @@ type Tweet
   likers: [User!] @hasAndBelongsToMany(as: "liked")
 }
 ```
+
 This has the following meaning:
-* user-roles: "admin", "world" are created (user roles don't have own fields of type User or [User] in the document)
-  This will check, if the logged in user has a role "admin". Or if there is a special role "world", which just means every known or unknown user, for "world" you don't have to be logged in.
+* user-roles: "admin", "world" are created. (user-roles don't have own fields of type User or [User] in the document).
+  Thus it will check, if the logged in user has a role "admin". Or if there is a special role "world", which just means every known or unknown user is allowed. For "world" authorization you don't have to be logged in.
   So each "admin" user will be able to create, read, update or delete the Tweet document.
   Everyone ("world") will be allowed to read all Tweets.
-* document-roles: "author", "coauthors" are created (document roles have fields in the document)
+* document-roles: "author", "coauthors" are created. (Document-roles have a corresponding field in the document.)
   Look for the fields with the directive @authRole("...")
   Only the author of a Tweet is allowed to create, read, update, delete its single Tweet.
   Only a coauthor of a Tweet is allowed to read and update a Tweet, but he is not allowed to create a Tweet for a different author, and also not to delete a tweet of a different user.
-
 
 and for the User.graphql input file:
 ```javascript
@@ -220,60 +226,62 @@ type User
 ```
 
 This has the following meaning:
-* user-role: "admin", is created (user roles don't have own fields of type User or [User] in the document)
+* user-role: "admin", is created. (user roles don't have own fields of type User or [User] in the document)
   It is a String field with: **role: String! @authRole("admin")**
   This will check, if the logged in user has a role "admin".
   So each "admin" user will be able to create, read, update or delete any User document.
 * document-role: "this", is created (document roles have own fields in the document, but this is a special case for the field _id, which is not shown in the input type, but will be generated in the later schema file.)
   Only the user id of "this" meaning _id is allowed  to readOne, update, delete its single User document.
 
-Use create-graphql-server cli to generate the according schema, resolver, model files with the create-graphql-server command line interface. After its generation, you will find the generated files in the sub folders: schema, resolvers, model folders. The generated model files will use the following functions to implement the authorization logic.
+Use create-graphql-server command to generate the according schema, resolver, model files with the create-graphql-server command line interface. After its generation, you will find the generated files in the sub folders: schema, resolvers, model. The generated model files will use the following functions to implement the authorization logic.
 
 ### <type> model.js
 This is an example of a database model of type <type>.
 
 ```javascript
 import DataLoader from 'dataloader';
-import { queryForRoles, findByIds } from '../server/authorize';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class <Type> {
-	constructor(context) {
-      ...
-	  let authQuery;
-	  try {
-	    const { me, User } = context;
-	    authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('tweet findOneById', 'readOne', me));
-	  } catch (err) { 
-	    log.error(err.message);
-	    authQuery = {_id: false}; // otherwise admin access
-	  }
-	  this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
-	}
-...
-async findOneById(id, me, resolver) {
-  try {
-    return await this.authorizedLoader.load(id);
-  } catch (err) { log.error(err.message); }
-}
+  constructor(context) {
+    this.context = context;
+    this.collection = context.db.collection('<type>');
+    this.pubsub = context.pubsub;
+    let authQuery;
+    try {
+      const { me, User } = context;
+      authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('<type> findOneById', 'readOne', me));
+    } catch (err) { 
+      log.error(err.message);
+      authQuery = {_id: false}; // otherwise admin access
+    }
+    this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+  }
 
-find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
-  try {
-    const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-    const finalQuery = {...baseQuery, ...authQuery};
-    return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
-  } catch (err){ log.error(err.message); }
-}
+  async findOneById(id, me, resolver) {
+    try {
+      return await this.authorizedLoader.load(id);
+    } catch (err) { log.error(err.message); }
+  }
+
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
+    try {
+      const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
+      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt }};
+      return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
+    } catch (err){ log.error(err.message); }
+  }
 ...
 }
 ```
 
 ### ./model/Tweet.js
-generated model file for the above input type Tweet.graphql:
-this.auth is generated by the @authorize directive. You can see, the directive argument "read" is used to express "readOne" and "readMany" at the same time. Instead you can use "readOne" and "readMany" for fine grained control on read operations, to allow access to just one record or many records.
+generated model file for the above input type Tweet.graphql considering the @authorize directive. You can see, the directive argument "read" is used to express "readOne" and "readMany" at the same time. Instead you can use "readOne" and "readMany" for fine grained control on read operations, to allow access to just one record or many records.
 ```javascript
-import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, authlog, checkAuthDoc } from '../server/authorize';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class Tweet {
   constructor(context) {
@@ -297,10 +305,10 @@ export default class Tweet {
     } catch (err) { log.error(err.message); }
   }
 
-  find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
     try {
       const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
+      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt }};
       return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
     } catch (err){ log.error(err.message); }
   }
@@ -318,7 +326,7 @@ export default class Tweet {
   }
 
   coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = {_id: { $in: tweet.coauthorsIds }, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = {_id: { $in: tweet.coauthorsIds } };
     return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
@@ -329,6 +337,7 @@ export default class Tweet {
 
   async insert(doc, me, resolver) {
     try {
+
       let docToInsert = Object.assign({}, doc, {
           createdAt: Date.now(),
           updatedAt: Date.now(),
@@ -336,25 +345,29 @@ export default class Tweet {
           updatedById: (me && me._id) ? me._id : 'unknown',
       });
       log.debug(JSON.stringify(docToInsert, null, 2));
-      // const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
+
       checkAuthDoc(docToInsert, me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
         throw new Error(`insert tweet not possible.`);
       }
+
       log.debug(`inserted tweet ${id}.`);
       const insertedDoc = this.findOneById(id, me, 'pubsub tweetInserted');
       this.pubsub.publish('tweetInserted', insertedDoc);
       return insertedDoc;
+
     } catch (err){ log.error(err.message); }
   }
 
   async updateById(id, doc, me, resolver) {
     try {
+
       let docToUpdate = {$set: Object.assign({}, doc, {
             updatedAt: Date.now(),
             updatedById: (me && me._id) ? me._id : 'unknown',
       })};
+
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};
@@ -362,16 +375,19 @@ export default class Tweet {
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`update tweet not possible for ${id}.`);
       }
+
       log.debug(`updated tweet ${id}.`);
       this.authorizedLoader.clear(id);
       const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
       this.pubsub.publish('tweetUpdated', updatedDoc);
       return updatedDoc;
+
     } catch (err){ log.error(err.message); }
   }
 
   async removeById(id, me, resolver) {
     try {
+
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'delete', me));
       const finalQuery = {...baseQuery, ...authQuery};
@@ -379,24 +395,23 @@ export default class Tweet {
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`remove tweet not possible for ${id}.`);
       }
+
       log.debug(`removed tweet ${id}.`);
       this.authorizedLoader.clear(id);
       this.pubsub.publish('tweetRemoved', id);
       return result;
+      
     } catch (err){ log.error(err.message); }
   }
 }
-
 ```
 
 ### ./model/User.js
-generated model file for the above input type User.graphql:
-this.auth is generated by the @authorize directive. Here also with field authorizations.
-
+generated model file for the above input type User.graphql considering the @authorize directive.
 ```javascript
-import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, authlog, checkAuthDoc, protectFields } from '../server/authorize';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class User {
   constructor(context) {
@@ -470,7 +485,7 @@ export default class User {
         updatedById: (me && me._id) ? me._id : 'unknown',
       });
       checkAuthDoc(docToInsert, me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'create', me));
-      docToInsert = this.protectFields(me, ['admin'], ['role'], docToInsert, { User: this.context.User });
+      docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, { User: this.context.User });
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
         throw new Error(`insert user not possible.`);
@@ -491,7 +506,7 @@ export default class User {
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};
-      docToUpdate.$set = this.protectFields(me, ['admin'], ['role'], docToUpdate.$set, { User: this.context.User });
+      docToUpdate.$set = protectFields(me, ['admin'], ['role'], docToUpdate.$set, { User: this.context.User });
       const result = await this.collection.updateOne(finalQuery, docToUpdate);
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`update user not possible for ${id}.`);
@@ -522,16 +537,51 @@ export default class User {
 }
 ```
 
+As you can see in both model header lines, we are using a specialized npm package "create-graphql-server-authorization". 
+
+## create-graphql-server-authorization
+Install it with:
+```bash
+npm install create-graphql-server-authorization
+```
+[Github: create-graphql-server-authorization](https://github.com/tobkle/create-graphql-server-authorization)
+
+This uses the following functions from that module:
+
 ### function authlog
 A logging function that understands "resolvers", "modes" and "users". Simple wrapper around whatever logging function we use.
 
 ```javascript
-// central logger for authorization checks
-export function authlog(resolver = '', mode = '', me = {}) {
-  const makeMessage = (message) => `Authorize ${mode} "${resolver}" with user "${me.username ? me.username : '<no-user>'}" ${message}`;
+/*
+ * Central logger for authorization checks
+ * @param {string} resolver
+ * @param {string} mode
+ * @param {object} me
+ * @return {
+ *    debug {function},
+ *    error {function} 
+ * }
+ */
+function authlog(resolver = "", mode = "", me = {}) {
+  const logFilename = getLogFilename();
+  const log = logger(logFilename);
+
+  const makeMessage = message =>
+    `Authorize ${mode} "${resolver}" with user "${me.username
+      ? me.username
+      : "<no-user>"}" ${message}`;
+
   return {
-    debug: (message) => log.debug(makeMessage(message)),
-    error: (message) => {throw new Error(makeMessage(message))},
+    debug: message => {
+      const resultMessage = makeMessage(message);
+      log.debug(resultMessage);
+      return resultMessage;
+    },
+    error: message => {
+      const resultMessage = makeMessage(message);
+      log.error(resultMessage);
+      throw new Error(makeMessage(message));
+    }
   };
 }
 ```
@@ -540,33 +590,62 @@ export function authlog(resolver = '', mode = '', me = {}) {
 This is an extended version of [mongo-find-by-ids](https://github.com/tmeasday/mongo-find-by-ids).
 The enhancement is only to provide an additional authQuery object, to extend the query to meet additional authorizations.
 ```javascript
-// returns the record, cached if already read, checks authorization if set
-// enhancement of tmeasday'findByIds
-export function findByIds(collection, ids = [], authQuery) {
- const baseQuery = { _id: { $in: ids } };
- const finalQuery = {...baseQuery, ...authQuery};
- return collection.find(finalQuery).toArray().then(docs => {
-   const idMap = {};
-   docs.forEach(d => { idMap[d._id] = d; });
-   return ids.map(id => idMap[id]);
- });
+/*
+ * find a record by id (cached with dataloader)
+ * returns the record, cached if already read, checks authorization if set
+ * enhancement of tmeasday'findByIds
+ * @param {string, array} docRoleField
+ * @param {object} userId
+ * @return {boolean} foundUserId
+ */
+function findByIds(collection, ids = [], authQuery) {
+  const baseQuery = { _id: { $in: ids } };
+  const finalQuery = { ...baseQuery, ...authQuery };
+  return collection.find(finalQuery).toArray().then(docs => {
+    const idMap = {};
+    docs.forEach(d => {
+      idMap[d._id] = d;
+    });
+    return ids.map(id => idMap[id]);
+  });
 }
+
+module.exports = findByIds;
 ```
 
 ### function protectFields
 Use function protectFields to protect single fields from access. Provide signed in user in "me", the authorized User roles for the protected field(s) - meaning the user who is allowed to access the field -, provide an array with protected fields, and the current document object, which is to be checked for protected fields and the User model context.
 
 ```javascript
-// returns whether the authorized record, or the record without not authorized field(s)
-export function protectFields(me, authorizedUserRoles, protectedFields, inputObject, { User }){
+/*
+ * Protects a field based on authorizations
+ * @param {object} me
+ * @param {array} authorizedUserRoles
+ * @param {array} protectedFields
+ * @param {object} inputObject
+ * @param {object} User
+ * @return {object} result
+ */
+function protectFields(
+  me = {},
+  authorizedUserRoles = [],
+  protectedFields = [],
+  inputObject = {},
+  { User } = { User: dummyUserContext }
+) {
+  // pure function
   const result = Object.assign({}, inputObject);
+
+  // getting role of current User
   const role = User.authRole(me);
+
   // if user is not allowed to access specific fields, remove field from object...
-  if (!authorizedUserRoles.includes(role)){
-    protectedFields.every(protectedField => {
+  if (!authorizedUserRoles.includes(role)) {
+    protectedFields.forEach(protectedField => {
       if (result[protectedField]) delete result[protectedField];
     });
   }
+
   return result;
 }
 ```
@@ -575,28 +654,53 @@ export function protectFields(me, authorizedUserRoles, protectedFields, inputObj
 Use function checkAuthDoc to check and get back the document. Especially used in insert operations, to figure out, if the toBeInsertedDoc is valid to be added by this userRole, docRole and action.
 
 ```javascript
-export function checkAuthDoc(doc, me, userRoles, docRoles, { User }, logger){
+/*
+ * Returns an authorized document
+ * @param {object} doc
+ * @param {object} me
+ * @param {array} userRoles
+ * @param {array} docRoles
+ * @param {object} User
+ * @param {function} logger
+ * @return {object} doc
+ */
+
+function checkAuthDoc(
+  doc = {},
+  me = {},
+  userRoles = [],
+  docRoles = [],
+  { User },
+  logger = defaultLogger
+) {
+  let resultDoc = Object.assign({}, doc);
+
+  // get the User's role
   const role = User.authRole(me);
 
   // check if userRole entitles current user for this action
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
     logger.debug(`and role: "${role}" is authorized by userRole.`);
-    return doc;
+    return resultDoc;
   }
 
   // check if docRole entitles current user for this document and action
   let authorized = false;
   docRoles.every(field => {
-    if (fieldContainsUserId(doc[field], me._id)){
+    if (
+      resultDoc[field] &&
+      me._id &&
+      fieldContainsUserId(resultDoc[field], me._id)
+    ) {
       authorized = true;
     }
-  })
+  });
   if (authorized) {
     logger.debug(`and role: "${role}" is authorized by docRole.`);
-    return doc;
+    return resultDoc;
   }
 
-  // Not Authorized
+  // Not Authorized, throw exception in logger.error
   logger.error(`and role: "${role}" is not authorized.`);
 }
 ```
@@ -606,9 +710,14 @@ export function checkAuthDoc(doc, me, userRoles, docRoles, { User }, logger){
 Use function loggedIn, to check if a user is logged in.
 
 ```javascript
-// returns true, if user is logged in
-export function loggedIn(me) {
-  if(me && me._id && me._id.toString() !== '') {
+/*
+ * Checks if an user is logged in
+ * @param {object} me
+ * @return {boolean} loggedIn
+ */
+
+function loggedIn(me) {
+  if (me && me._id && me._id.toString() !== "") {
     return true;
   }
   return false;
@@ -620,35 +729,77 @@ Use function queryForRoles to generate an authQuery object.
 
 It expects the following arguments:
 ```javascript
-// creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access
-export function queryForRoles(me = {}, userRoles = [], docRoles = [], { User }, logger) {
+/*
+ * Prepare a query object for mongodb operations with authorization queries
+ * creates an authQuery object with additional query arguments, to implement authorization restrictions for mongodb access
+ * @param {object} me
+ * @param {array} userRoles
+ * @param {array} docRoles
+ * @param {object} inputObject
+ * @param {object} User
+ * @param {object} logger
+ * @return {object, exception} queryObject
+ *
+ * @example: const authQuery = queryForRoles(me, userRoles, docRoles, { User }, authlog(resolver, mode, me ) ); 
+ */
+function queryForRoles(
+  me = {},
+  userRoles = [],
+  docRoles = [],
+  { User } = { User: dummyUserContext },
+  logger = defaultLogger
+) {
+  // on insufficient authorization data, it cannot be authorized, throws exception
+  if (!User || !User.authRole || !me || (!userRoles && !docRoles))
+    logger.error(` is not authorized, due to authorization data.`);
+
+  // get current User's role
   const role = User.authRole(me);
 
   // Build query for the case: The logged in user's role is authorized
   if (userRoleAuthorized(me, userRoles, { User }, logger)) {
-    return {};  // empty authQuery means, do operation with no access restrictions
+    return {}; // empty authQuery means, do operation with no access restrictions
   }
 
   // Build query for the case: The user is listed in any document field
   const query = { $or: [] };
-  if (loggedIn(me)){
-    docRoles.forEach(docRole => query.$or.push( { [docRole]: me._id } ) );
-    logger.debug(`and role: "${role ? role : '<no-role>'}" with \nauthQuery: ${JSON.stringify(query, null, 2)}`);
-    if (query.$or.length > 0) return query;
+  // makes only sense, if user is logged in - otherwise no userId
+  if (loggedIn(me)) {
+    // prepare selection criterias as "authQuery" object
+    // for later mongodb "find(...baseQuery,  ...authQuery)"
+    //                               ...  AND ...{ field1 OR field2}
+    // which will be also considered during the database access
+    // as an "$or: [ { field1: userId}, { field2: userId} ]"
+    // with all document roles as fields for the later selection.
+    // At least one of those fields must match the userId,
+    // otherwise, whether no data found or not authorized to access data
+    docRoles.forEach(docRole => query.$or.push({ [docRole]: me._id }));
+    // return this authQuery only, if there was at least 1 field added
+    // otherwise it will result in an unlimited access
+    if (query.$or.length > 0) {
+      // for easier debugging write into the authorzation logs
+      logger.debug(
+        `and role: "${role ? role : "<no-role>"}" with 
+        authQuery: ${JSON.stringify(query, null, 2)}`
+      );
+      // return the query as authQuery for later selection
+      return query;
+    }
   }
 
-  // Not Authorized
+  // Not Authorized - throw exception in logger.error
   const message = `and role: "${role}" is not authorized.`;
   logger.error(message);
 }
 ```
 
 It expects the following arguments with the meanings:
-* **user:** this is the logged in user object out of the resolver's context
+* **me:** this is the logged in user object out of the resolver's context
 * **userRoles:** an array with userRoles, which was generated by the @authorize directives in the <type>.graphql file
 * **docRoles:** an array with docRoles, which was generated by the @authorize directives in the <type>.graphql file
 * **User:** User context to access the User model 
-* **logger:** logging function e.g. authlog(resolver, mode, me)
+* **logger:** logging function e.g. ```js authlog(resolver, mode, me) ```
+	* **resolver:** this is a string with the resolver's name, optional, only for easier debugging
 	* **mode:** this is the current mode of operation:
 		* **create:** insert a record to the database
 		* **read:** read a record or many records from the database
@@ -656,22 +807,48 @@ It expects the following arguments with the meanings:
 			* **readMany:** read many records from the the database
 		* **update:** update a record in the database
 		* **delete:** remove a record from the database
-	* **resolver:** this is a string with the resolver's name, optional, only for easier debugging
 	* **me:** the user object, who is executing the request, and who is checked for authorization
 
 ### function userRoleAuthorized
 This helper function is used by queryForRoles, and decides, if a user gains the authorization by its role.
 For example: If a user has a field "role" in his user document and it contains the value "admin". So it checks if a user's role is admin, and allows all operations for admins.
 ```javascript
+/*
+ * Is a user's role authorized for a document
+ * @param {object} me
+ * @param {array} userRoles
+ * @param {object} User
+ * @param {object} logger
+ * @return {boolean} authorized
+ */
+
 // returns true, if the user's role is authorized for a document
-export function userRoleAuthorized(me = {}, userRoles = [], { User }, logger){
+function userRoleAuthorized(
+  me = {},
+  userRoles = [],
+  { User } = { User: dummyUserContext },
+  logger = defaultLogger
+) {
+  // on insufficient authorization data, it cannot be authorized
+  if (!User || !User.authRole || !me || !userRoles) return false;
+
+  // get current User's role
   const role = User.authRole(me);
 
-  if ( userRoles.includes('world') || role && userRoles.length > 0 && userRoles.includes(role) ) {
-    logger.debug(`and role "${role ? role : '<no-role>'}" is authorized`);
+  // determine, if the given userRoles authorize the current User by its role
+  if (
+    // userRole: "world" should authorize everyone - known and unknown users
+    userRoles.includes("world") ||
+    // or there must be a userRole given, and current user must have a role
+    // and the current user's role must be in the given userRoles
+    (role && role !== "" && userRoles.length > 0 && userRoles.includes(role))
+  ) {
+    // => authorized
+    logger.debug(`and role "${role ? role : "<no-role>"}" is authorized`);
     return true;
   }
 
+  // => not authorized
   return false;
 }
 ```
@@ -679,65 +856,66 @@ export function userRoleAuthorized(me = {}, userRoles = [], { User }, logger){
 ### function fieldContainsUserId
 This helper function is used in the models and checks, if the provided field of types: array, object or string contains the userId.
 ```javascript
-// returns true, if a field of type array/object/string contains the userId
-export function fieldContainsUserId(docRoleField, userId) {
+/*
+ * checks, if a field contains a user's id
+ * returns true, if a field of type array/object/string contains the userId
+ * @param {string, object, array} docRoleField
+ * @param {string, object} userId
+ * @return {boolean} foundUserId
+ */
+function fieldContainsUserId(docRoleField, compressedUserId) {
   let found = false;
 
-  // empty userId is not a valid userId
-  if (userId.toString() === '') return false;
+  // empty docRoleField is not a valid docRoleField
+  if (!docRoleField || docRoleField === "" || docRoleField.length === 0)
+    return false;
 
-  // handle a simple id field
-  if (docRoleField.toString() === userId.toString()){
+  // empty (compressed) userId is not a valid userId
+  if (
+    !compressedUserId ||
+    compressedUserId === "" ||
+    compressedUserId.toString() === ""
+  )
+    return false;
+
+  // extract userId, if it is a mongoID field
+  const userId = extractUserId(compressedUserId);
+
+  // empty (uncompressed) userId is not a valid userId
+  if (!userId || userId === "") return false;
+
+  // docRoleField of type Array
+  if (_.isArray(docRoleField)) {
+    docRoleField.forEach(field => {
+      if (fieldContainsUserId(field, userId)) {
+        found = true;
+      }
+    });
+    if (found) return true;
+    return false;
+  }
+
+  // docRoleField of type Object
+  if (_.isObject(docRoleField)) {
+    // For each field in the object
+    Object.keys(docRoleField).forEach(field => {
+      if (
+        fieldContainsUserId(docRoleField[field], userId) ||
+        fieldContainsUserId(field, userId)
+      ) {
+        found = true;
+      }
+    });
+    if (found) return true;
+    return false;
+  }
+
+  // docRoleField of type field
+  if (docRoleField.toString() === userId.toString()) {
     return true;
   }
 
-  // handle an array
-  if (_.isArray(docRoleField)){
-    docRoleField.every(field => {
-       if (fieldContainsUserId(field, userId)) {
-        found = true;
-        return true;
-       }
-    });
-    if (found) return true;
-  }
-
-  // handle an object
-  if (_.isObject(docRoleField)){
-    Object.keys(docRoleField).every(field => {
-
-      // handle a field
-      if (docRoleField[field] && docRoleField[field].toString() === userId.toString()){
-        found = true;
-        return true;
-      }
-
-      // handle an array
-      if (_.isArray(docRoleField[field])){
-        docRoleField[field].every(innerField  => {
-           if (fieldContainsUserId(innerField, userId)) {
-            found = true;
-            return true;
-           }
-        })
-        if (found) return true;
-      }
-
-      // handle an object 
-      if (_.isObject(docRoleField[field])){
-        Object.keys(docRoleField[field]).every(innerField => {
-           if (fieldContainsUserId(docRoleField[field][innerField], userId)) {
-            found = true;
-            return true;
-           }
-        });
-        if (found) return true;
-      }
-
-    });
-
-  }
-  return found;
+  return false;
 }
 ```
 
@@ -750,66 +928,66 @@ In the resolver interfaces, there are different objects:
 * the last argument in the resolver function is the resolver's name, which is optional and only to enhance the logging in debugging mode by additional information. If you have to analyze authorization outcomes, this helps a lot to figure out, which resolvers authorization rule fired.
 
 ```javascript
-   const resolvers = {
-    User: {
-      id(user) {
-        return user._id;
-      },
+    const resolvers = {
+     User: {
+       id(user) {
+         return user._id;
+       },
 
-      createdBy(user, args, { User, me }) {
-        return User.createdBy(user, me, 'user createdBy');
-      },
+       createdBy(user, args, { User, me }) {
+         return User.createdBy(user, me, 'user createdBy');
+       },
 
-      updatedBy(user, args, { User, me }) {
-        return User.updatedBy(user, me, 'user updatedBy');
-      },
+       updatedBy(user, args, { User, me }) {
+         return User.updatedBy(user, me, 'user updatedBy');
+       },
 
-      tweets(user, { minLikes, lastCreatedAt, limit }, { User, me }) {
-        return User.tweets(user, { minLikes, lastCreatedAt, limit }, me, 'user tweets');
-      },
+       tweets(user, { minLikes, lastCreatedAt, limit }, { User, me }) {
+         return User.tweets(user, { minLikes, lastCreatedAt, limit }, me, 'user tweets');
+       },
 
-      liked(user, { lastCreatedAt, limit }, { User, me }) {
-        return User.liked(user, { lastCreatedAt, limit }, me, 'user liked');
-      },
+       liked(user, { lastCreatedAt, limit }, { User, me }) {
+         return User.liked(user, { lastCreatedAt, limit }, me, 'user liked');
+       },
 
-      following(user, { lastCreatedAt, limit }, { User, me }) {
-        return User.following(user, { lastCreatedAt, limit }, me, 'user following');
-      },
+       following(user, { lastCreatedAt, limit }, { User, me }) {
+         return User.following(user, { lastCreatedAt, limit }, me, 'user following');
+       },
 
-      followers(user, { lastCreatedAt, limit }, { User, me }) {
-        return User.followers(user, { lastCreatedAt, limit }, me, 'user followers');
-      },
-    },
-    Query: {
-      users(root, { lastCreatedAt, limit }, { User, me }) {
-        return User.find({ lastCreatedAt, limit }, me, 'users');
-      },
+       followers(user, { lastCreatedAt, limit }, { User, me }) {
+         return User.followers(user, { lastCreatedAt, limit }, me, 'user followers');
+       },
+     },
+     Query: {
+       users(root, { lastCreatedAt, limit }, { User, me }) {
+         return User.find({ lastCreatedAt, limit }, me, 'users');
+       },
 
-      user(root, { id }, { User, me }) {
-        return User.findOneById(id, me, 'user');
-      },
-    },
-    Mutation: {
-      async createUser(root, { input }, { User, me }) {
-        return await User.insert(input, me, 'createUser');
-      },
+       user(root, { id }, { User, me }) {
+         return User.findOneById(id, me, 'user');
+       },
+     },
+     Mutation: {
+       async createUser(root, { input }, { User, me }) {
+         return await User.insert(input, me, 'createUser');
+       },
 
-      async updateUser(root, { id, input }, { User, me }) {
-        return await User.updateById(id, input, me, 'updateUser');
-      },
+       async updateUser(root, { id, input }, { User, me }) {
+         return await User.updateById(id, input, me, 'updateUser');
+       },
 
-      async removeUser(root, { id }, { User, me }) {
-        return await User.removeById(id, me, 'removeUser');
-      },
-    },
-    Subscription: {
-      userCreated: user => user,
-      userUpdated: user => user,
-      userRemoved: id => id,
-    },
-  };
+       async removeUser(root, { id }, { User, me }) {
+         return await User.removeById(id, me, 'removeUser');
+       },
+     },
+     Subscription: {
+       userCreated: user => user,
+       userUpdated: user => user,
+       userRemoved: id => id,
+     },
+   };
 
-  export default resolvers;
+   export default resolvers;
 ```
 
 ### ./resolver/Tweet.js

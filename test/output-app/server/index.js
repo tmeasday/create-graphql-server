@@ -8,16 +8,20 @@ import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import passport from 'passport';
 import morgan from 'morgan';
-import log, { stream } from './logger';
-
+import { getLogFilename, logger } from 'create-graphql-server-authorization';
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
 import authenticate from './authenticate';
 import { parse, print } from 'graphql';
-
 import { pubsub, subscriptionManager } from './subscriptions';
 
+const log = logger(getLogFilename());
+const stream = {
+    write: function(message, encoding) {
+      // log.debug(message);
+    }
+};
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const {

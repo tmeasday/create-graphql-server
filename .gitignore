@@ -6,3 +6,4 @@ dev.sqlite3
 db
 ./output
 dist
+log/all-logs-readable.log

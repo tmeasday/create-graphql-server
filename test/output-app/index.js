@@ -102,8 +102,7 @@ if (!MONGO_URL) {
 nodemon({
   script: path.join('server', 'index.js'),
   ext: 'js graphql',
-  exec: 'babel-node --inspect', // with debugger
-  // exec: 'babel-node', // without debugger
+  exec: 'babel-node',
 }).on('restart', () => console.log('Restarting server due to file change\n'));
 
 

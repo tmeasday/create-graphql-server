@@ -1,6 +1,6 @@
-import log from '../server/logger';
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, authlog, checkAuthDoc } from '../server/authorize';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class Tweet {
   constructor(context) {
@@ -24,10 +24,10 @@ export default class Tweet {
     } catch (err) { log.error(err.message); }
   }
 
-  find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
     try {
       const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
+      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt }};
       return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
     } catch (err){ log.error(err.message); }
   }
@@ -45,7 +45,7 @@ export default class Tweet {
   }
 
   coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = {_id: { $in: tweet.coauthorsIds }, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = {_id: { $in: tweet.coauthorsIds } };
     return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
@@ -56,6 +56,7 @@ export default class Tweet {
 
   async insert(doc, me, resolver) {
     try {
+
       let docToInsert = Object.assign({}, doc, {
           createdAt: Date.now(),
           updatedAt: Date.now(),
@@ -63,25 +64,29 @@ export default class Tweet {
           updatedById: (me && me._id) ? me._id : 'unknown',
       });
       log.debug(JSON.stringify(docToInsert, null, 2));
-      // const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
+
       checkAuthDoc(docToInsert, me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'create', me));
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {
         throw new Error(`insert tweet not possible.`);
       }
+
       log.debug(`inserted tweet ${id}.`);
       const insertedDoc = this.findOneById(id, me, 'pubsub tweetInserted');
       this.pubsub.publish('tweetInserted', insertedDoc);
       return insertedDoc;
+
     } catch (err){ log.error(err.message); }
   }
 
   async updateById(id, doc, me, resolver) {
     try {
+
       let docToUpdate = {$set: Object.assign({}, doc, {
             updatedAt: Date.now(),
             updatedById: (me && me._id) ? me._id : 'unknown',
       })};
+
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId', 'coauthorsIds'], { User: this.context.User }, authlog(resolver, 'update', me));
       const finalQuery = {...baseQuery, ...authQuery};
@@ -89,16 +94,19 @@ export default class Tweet {
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`update tweet not possible for ${id}.`);
       }
+
       log.debug(`updated tweet ${id}.`);
       this.authorizedLoader.clear(id);
       const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
       this.pubsub.publish('tweetUpdated', updatedDoc);
       return updatedDoc;
+
     } catch (err){ log.error(err.message); }
   }
 
   async removeById(id, me, resolver) {
     try {
+
       const baseQuery = {_id: id};
       const authQuery = queryForRoles(me, ['admin'], ['authorId'], { User: this.context.User }, authlog(resolver, 'delete', me));
       const finalQuery = {...baseQuery, ...authQuery};
@@ -106,10 +114,12 @@ export default class Tweet {
       if (result.result.ok !== 1 || result.result.n !== 1){
         throw new Error(`remove tweet not possible for ${id}.`);
       }
+
       log.debug(`removed tweet ${id}.`);
       this.authorizedLoader.clear(id);
       this.pubsub.publish('tweetRemoved', id);
       return result;
+      
     } catch (err){ log.error(err.message); }
   }
 }
