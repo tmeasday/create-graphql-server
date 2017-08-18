@@ -7,3 +7,5 @@ db
 ./output
 dist
 log/all-logs-readable.log
+yarn-error.log
+

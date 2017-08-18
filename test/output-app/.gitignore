@@ -4,3 +4,4 @@ node_modules
 log/all-logs-readable.log
 .DS_Store
 log/
+yarn-error.log
