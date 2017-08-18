@@ -8,10 +8,11 @@ export default class User {
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
     this.authRole = User.authRole;
+    const that = this;
     try {
       const { me } = context;
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User }, authlog('user findOneById', 'readOne', me));
-      this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
     } catch (err) { log.error(err.message); }
   }
 

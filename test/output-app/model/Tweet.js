@@ -7,10 +7,11 @@ export default class Tweet {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
+    const that = this;
     try {
       const { me, User } = context;
       const authQuery = queryForRoles(me, ['admin', 'world'], ['authorId', 'coauthorsIds'], { User }, authlog('tweet findOneById', 'readOne', me));
-      this.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
+      that.authorizedLoader = new DataLoader(ids => findByIds(this.collection, ids, authQuery));
     } catch (err) { log.error(err.message); }
   }
 
