@@ -1,4 +1,4 @@
- const resolvers = {
+const resolvers = {
   User: {
     id(user) {
       return user._id;

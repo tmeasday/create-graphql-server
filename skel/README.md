@@ -183,8 +183,8 @@ type Tweet
 )
 
 {
-  author: User! @unmodifiable @belongsTo @authRole(for: ["author"])
-  coauthors: [User] @belongsTo @authRole(for: ["coauthors"])
+  author: User! @unmodifiable @belongsTo @authRole("author")
+  coauthors: [User] @belongsTo @authRole("coauthors")
   body: String!
 
   likers: [User!] @hasAndBelongsToMany(as: "liked")
@@ -211,7 +211,7 @@ type User
 )
 
 {
-  role: String @authRole(for: ["admin"]) 
+  role: String @authRole("admin") 
   username: String!
 
   bio: String
@@ -232,6 +232,19 @@ This has the following meaning:
   So each "admin" user will be able to create, read, update or delete any User document.
 * document-role: "this", is created (document roles have own fields in the document, but this is a special case for the field _id, which is not shown in the input type, but will be generated in the later schema file.)
   Only the user id of "this" meaning _id is allowed  to readOne, update, delete its single User document.
+
+** Caution **
+A default security rule is applied to the User's role field: Not every user should be allowed, to upgrade himself to a super user. So we added an additional opinionated security rule: The first userRole in the User's @authorize directive, is assumed to be the most important userRole with highest authorizations. So as a suggestion, it protects the User authRole field. Only the first mentioned userRole is allowed, to create and to update this authRole field. (Have a look in the generated model/User.js in the create/update mutation. There you will see a protectField function, which receives two arguments: The first mentioned userRole, and the authRole field. Feel free to adjust the generated userRoles in the code to your specific needs. This is only a suggestion.)
+
+** Caution **
+To keep authorization easy, there is only one authRole field allowed, to store all the different userRoles in the User type. But you are free to add as many userRoles you require to this authRole field:
+
+Example:
+```javascript
+role: String @authRole(for: ["super-admin", "admin"])
+```
+
+You are free to add as many docRoles and docRoles authRole directives as you require.
 
 Use create-graphql-server command to generate the according schema, resolver, model files with the create-graphql-server command line interface. After its generation, you will find the generated files in the sub folders: schema, resolvers, model. The generated model files will use the following functions to implement the authorization logic.
 

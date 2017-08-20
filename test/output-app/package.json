@@ -49,7 +49,6 @@
     "graphql-tools": "^0.8.2",
     "jwt-simple": "^0.5.1",
     "lodash": "4.16.4",
-    "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
     "morgan": "^1.8.2",
     "nodeify": "^1.0.1",

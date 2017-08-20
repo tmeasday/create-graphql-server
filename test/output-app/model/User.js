@@ -22,35 +22,36 @@ export default class User {
 
   async findOneById(id, me, resolver) {
     try {
+      if (!this.authorizedLoader) return null;
       return await this.authorizedLoader.load(id);
     } catch (err) { log.error(err.message); }
   }
 
-  find({ lastCreatedAt = 0, limit = 10, baseQuery = { createdAt: { $gt: lastCreatedAt } } }, me, resolver) {
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
     try {
       const authQuery = queryForRoles(me, ['admin'], ['_id'], { User: this.context.User }, authlog(resolver, 'readMany', me));
-      const finalQuery = {...baseQuery, ...authQuery};
+      const finalQuery = {...baseQuery, ...authQuery, createdAt: { $gt: lastCreatedAt } };
       return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
     } catch (err) { log.error(err.message); }
   }
 
   tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = { authorId: user._id, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = { authorId: user._id };
     return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
   liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = { _id: { $in: user.likedIds || [] }, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = { _id: { $in: user.likedIds || [] } };
     return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
   following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = { _id: { $in: user.followingIds || [] }, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = { _id: { $in: user.followingIds || [] } };
     return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
   followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
-    const baseQuery = { followingIds: user._id, createdAt: { $gt: lastCreatedAt } };
+    const baseQuery = { followingIds: user._id };
     return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
 
@@ -99,7 +100,7 @@ export default class User {
       }
       log.debug(`updated user ${id}.`);
       this.authorizedLoader.clear(id);
-      const updatedDoc = this.findOneById(id, me, 'pubsub userUpdated')
+      const updatedDoc = this.findOneById(id, me, 'pubsub userUpdated');
       this.pubsub.publish('userUpdated', updatedDoc);
       return updatedDoc;
     } catch (err) { log.error(err.message); }

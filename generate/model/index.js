@@ -4,6 +4,7 @@ import { print } from 'recast';
 import { templateToAst } from '../read';
 import { lcFirst } from '../util/capitalization';
 import generatePerField from '../util/generatePerField';
+import { generateAuthorizationCode } from '../authorize';
 
 function read(name) {
   return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
@@ -34,10 +35,9 @@ function buildAst(template, {
   });
 }
 
-
 const generators = {
-  base({ typeName, TypeName }) {
-    return templateToAst(templates.base, { typeName, TypeName });
+  base(replacements) {
+    return templateToAst(templates.base, replacements)
   },
   belongsTo(replacements) {
     return buildAst(templates.singularAssociation, replacements);
@@ -78,15 +78,21 @@ export function generateModelAst(inputSchema) {
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
 
-  const ast = generators.base({ TypeName, typeName });
+  const ast = generators.base({ 
+    TypeName,
+    typeName,
+    ...generateAuthorizationCode( typeName, inputSchema )
+  });
 
   // XXX: rather than hardcoding in array indices it would be less brittle to
   // walk the tree using https://github.com/benjamn/ast-types
-  const classMethodsAst = ast.program.body[2] // export
-    .declaration // class declaration
+  // find: 'ExportDefaultDeclaration'
+  const classMethodsAst = ast.program.body[3]
+    // find class declaration
+    .declaration 
     .body.body;
 
-  const findOneMethod = classMethodsAst.find(m => m.key.name === 'all');
+  const findOneMethod = classMethodsAst.find(m => m.key.name === 'find');
   let nextIndex = classMethodsAst.indexOf(findOneMethod) + 1;
 
 

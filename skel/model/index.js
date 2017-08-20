@@ -2,8 +2,14 @@ const models = {};
 
 export default function addModelsToContext(context) {
   const newContext = Object.assign({}, context);
+  
+  // User model has to be first, to initialize the other models with correct authorizations
+  if (models['User']){
+    newContext['User'] = new models['User'](newContext);
+  }
+
   Object.keys(models).forEach((key) => {
-    newContext[key] = new models[key](newContext);
+    if (key !== 'User') newContext[key] = new models[key](newContext);
   });
   return newContext;
 }

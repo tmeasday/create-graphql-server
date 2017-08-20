@@ -2,19 +2,19 @@ type User
 
 @authorize(
   admin: ["create", "read", "update", "delete"]
-  this: ["read", "update", "delete"]
+  this: ["create", "read", "update", "delete"]
 )
 
 {
-  role: String @authRole("admin") 
+  role: String @authRole(for: ["admin"]) 
   username: String!
 
   bio: String
   notify: Boolean
 
-  tweets(minLikes: Int): [Tweet!] @hasMany(as: "author")
-  liked: [Tweet!] @belongsToMany
+  tweets(minLikes: Int): [Tweet] @hasMany(as: "author")
+  liked: [Tweet] @belongsToMany
 
-  following: [User!] @belongsToMany
-  followers: [User!] @hasAndBelongsToMany(as: "following")
+  following: [User] @belongsToMany
+  followers: [User] @hasAndBelongsToMany(as: "following")
 }

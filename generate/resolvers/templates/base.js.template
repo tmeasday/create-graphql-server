@@ -3,29 +3,35 @@ const resolvers = {
     id(typeName) {
       return typeName._id;
     },
-  },
-  Query: {
-    typeNames(root, { lastCreatedAt, limit }, { TypeName }) {
-      return TypeName.all({ lastCreatedAt, limit });
+    
+    createdBy(typeName, args, { TypeName, me }) {
+      return TypeName.createdBy(typeName, me, 'typeName createdBy');
     },
 
-    typeName(root, { id }, { TypeName }) {
-      return TypeName.findOneById(id);
+    updatedBy(typeName, args, { TypeName, me }) {
+      return TypeName.updatedBy(typeName, me, 'typeName updatedBy');
+    },
+  },
+  Query: {
+    typeNames(root, { lastCreatedAt, limit }, { TypeName, me }) {
+      return TypeName.find({ lastCreatedAt, limit }, me, 'typeNames');
+    },
+
+    typeName(root, { id }, { TypeName, me }) {
+      return TypeName.findOneById(id, me, 'typeName');
     },
   },
   Mutation: {
-    async createTypeName(root, { input }, { TypeName }) {
-      const id = await TypeName.insert(input);
-      return TypeName.findOneById(id);
+    async createTypeName(root, { input }, { TypeName, me }) {
+      return await TypeName.insert(input, me, 'createTypeName');
     },
 
-    async updateTypeName(root, { id, input }, { TypeName }) {
-      await TypeName.updateById(id, input);
-      return TypeName.findOneById(id);
+    async updateTypeName(root, { id, input }, { TypeName, me }) {
+      return await TypeName.updateById(id, input, me, 'updateTypeName');
     },
 
-    removeTypeName(root, { id }, { TypeName }) {
-      return TypeName.removeById(id);
+    async removeTypeName(root, { id }, { TypeName, me }) {
+      return await TypeName.removeById(id, me, 'removeTypeName');
     },
   },
   Subscription: {

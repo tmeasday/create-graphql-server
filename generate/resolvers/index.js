@@ -4,6 +4,7 @@ import { print } from 'recast';
 import { templateToAst } from '../read';
 import generatePerField from '../util/generatePerField';
 import { lcFirst } from '../util/capitalization';
+import { isAuthorizeDirectiveDefined } from '../authorize';
 
 function read(name) {
   return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');

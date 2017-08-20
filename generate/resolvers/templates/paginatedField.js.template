@@ -1,5 +1,5 @@
 const paginatedField = {
-  fieldName(typeName, argsStr, { TypeName }) {
-    return TypeName.fieldName(typeName, argsStr);
+  fieldName(typeName, argsStr, { TypeName, me }) {
+    return TypeName.fieldName(typeName, argsStr, me, 'typeName fieldName');
   },
 };

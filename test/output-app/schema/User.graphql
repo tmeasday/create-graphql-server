@@ -1,16 +1,16 @@
-type User {
+type User @authorize(admin: ["create", "read", "update", "delete"], this: ["create", "read", "update", "delete"]) {
   id: ObjID!
   role: String
   username: String!
   bio: String
   notify: Boolean
-  tweets(minLikes: Int, lastCreatedAt: Float, limit: Int): [Tweet!]
-  liked(lastCreatedAt: Float, limit: Int): [Tweet!]
-  following(lastCreatedAt: Float, limit: Int): [User!]
-  followers(lastCreatedAt: Float, limit: Int): [User!]
+  tweets(minLikes: Int, lastCreatedAt: Float, limit: Int): [Tweet]
+  liked(lastCreatedAt: Float, limit: Int): [Tweet]
+  following(lastCreatedAt: Float, limit: Int): [User]
+  followers(lastCreatedAt: Float, limit: Int): [User]
   createdAt: Float!
-  createdBy: User
   updatedAt: Float!
+  createdBy: User
   updatedBy: User
 }
 
@@ -20,17 +20,25 @@ extend type Query {
 }
 
 input CreateUserInput {
+  role: String
   username: String!
-  role: String!
   bio: String
   notify: Boolean
+  tweetsIds: [ObjID]
+  likedIds: [ObjID]
+  followingIds: [ObjID]
+  followersIds: [ObjID]
 }
 
 input UpdateUserInput {
-  username: String
   role: String
+  username: String!
   bio: String
   notify: Boolean
+  tweetsIds: [ObjID]
+  likedIds: [ObjID]
+  followingIds: [ObjID]
+  followersIds: [ObjID]
 }
 
 extend type Mutation {

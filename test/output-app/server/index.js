@@ -8,6 +8,7 @@ import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import passport from 'passport';
 import morgan from 'morgan';
+
 import { getLogFilename, logger } from 'create-graphql-server-authorization';
 import typeDefs from '../schema';
 import resolvers from '../resolvers';

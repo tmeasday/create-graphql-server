@@ -1,3 +1,7 @@
 node_modules
 /db
 /input
+log/all-logs-readable.log
+.DS_Store
+log/
+yarn-error.log

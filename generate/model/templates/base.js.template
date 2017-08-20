@@ -1,49 +1,89 @@
 import DataLoader from 'dataloader';
-import findByIds from 'mongo-find-by-ids';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
+const log = logger(getLogFilename());
 
 export default class TypeName {
   constructor(context) {
     this.context = context;
     this.collection = context.db.collection('typeName');
-    this.pubsub = context.pubsub;
-    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
+    this.pubsub = context.pubsub;generateAuthRoleDefinition
+    const that = this;
+    try {
+      generateAuthCodeModeReadOne
+    } catch (err) { log.error(err.message); }
+  }
+  generateAuthRoleMethod
+  async findOneById(id, me, resolver) {
+    try {
+      if (!this.authorizedLoader) return null;
+      return await this.authorizedLoader.load(id);
+    } catch (err) { log.error(err.message); }
   }
 
-  findOneById(id) {
-    return this.loader.load(id);
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
+    try {
+      generateAuthCodeModeReadMany
+      return this.collection.find(finalQuery).sort({ createdAt: 1 }).limit(limit).toArray();
+    } catch (err) { log.error(err.message); }
   }
 
-  all({ lastCreatedAt = 0, limit = 10 }) {
-    return this.collection.find({
-      createdAt: { $gt: lastCreatedAt },
-    }).sort({ createdAt: 1 }).limit(limit).toArray();
-  }
+  generateCreatedBy
 
-  async insert(doc) {
-    const docToInsert = Object.assign({}, doc, {
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    });
-    const id = (await this.collection.insertOne(docToInsert)).insertedId;
-    this.pubsub.publish('typeNameInserted', await this.findOneById(id));
-    return id;
-  }
+  generateUpdatedBy
 
-  async updateById(id, doc) {
-    const ret = await this.collection.update({ _id: id }, {
-      $set: Object.assign({}, doc, {
+  async insert(doc, me, resolver) {
+    try {
+      let docToInsert = Object.assign({}, doc, {
+        createdAt: Date.now(),
         updatedAt: Date.now(),
-      }),
-    });
-    this.loader.clear(id);
-    this.pubsub.publish('typeNameUpdated', await this.findOneById(id));
-    return ret;
+        createdById: (me && me._id) ? me._id : 'unknown',
+        updatedById: (me && me._id) ? me._id : 'unknown',
+      });
+      generateAuthCodeModeCreate
+      const id = (await this.collection.insertOne(docToInsert)).insertedId;
+      if (!id) {
+        throw new Error(`insert typeName not possible.`);
+      }
+      log.debug(`inserted typeName ${id}.`);
+      const insertedDoc = this.findOneById(id, me, 'pubsub typeNameInserted');
+      this.pubsub.publish('typeNameInserted', insertedDoc);
+      return insertedDoc;
+    } catch (err) { log.error(err.message); }
   }
 
-  async removeById(id) {
-    const ret = this.collection.remove({ _id: id });
-    this.loader.clear(id);
-    this.pubsub.publish('typeNameRemoved', id);
-    return ret;
+  async updateById(id, doc, me, resolver) {
+    try {
+      let docToUpdate = {$set: Object.assign({}, doc, {
+            updatedAt: Date.now(),
+            updatedById: (me && me._id) ? me._id : 'unknown',
+      })};
+      const baseQuery = {_id: id};
+      generateAuthCodeModeUpdate
+      const result = await this.collection.updateOne(finalQuery, docToUpdate);
+      if (result.result.ok !== 1 || result.result.n !== 1){
+        throw new Error(`update typeName not possible for ${id}.`);
+      }
+      log.debug(`updated typeName ${id}.`);
+      this.authorizedLoader.clear(id);
+      const updatedDoc = this.findOneById(id, me, 'pubsub typeNameUpdated');
+      this.pubsub.publish('typeNameUpdated', updatedDoc);
+      return updatedDoc;
+    } catch (err) { log.error(err.message); }
   }
+
+  async removeById(id, me, resolver) {
+    try {
+      const baseQuery = {_id: id};
+      generateAuthCodeModeDelete
+      const result = await this.collection.remove(finalQuery);
+      if (result.result.ok !== 1 || result.result.n !== 1){
+        throw new Error(`remove typeName not possible for ${id}.`);
+      }
+      log.debug(`removed typeName ${id}.`);
+      this.authorizedLoader.clear(id);
+      this.pubsub.publish('typeNameRemoved', id);
+      return result;
+    } catch (err) { log.error(err.message); }
+  }
+
 }

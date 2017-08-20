@@ -9,7 +9,12 @@ export default function readInput(path) {
 
 const babylonParser = {
   parse(code) {
-    return babylon.parse(code, { sourceType: 'module' });
+    return babylon.parse(code, { 
+      sourceType: 'module',
+        plugins: [
+          'objectRestSpread'
+        ]
+    });
   },
 };
 

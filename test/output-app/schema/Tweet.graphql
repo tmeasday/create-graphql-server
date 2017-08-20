@@ -1,12 +1,12 @@
-type Tweet {
+type Tweet @authorize(admin: ["create", "read", "update", "delete"], author: ["create", "read", "update", "delete"], coauthors: ["read", "update"], world: ["read"]) {
   id: ObjID!
   author: User
-  coauthors: [User]
-  body: String!
-  likers(lastCreatedAt: Float, limit: Int): [User!]
+  coauthors(lastCreatedAt: Float, limit: Int): [User]
+  body: String
+  likers(lastCreatedAt: Float, limit: Int): [User]
   createdAt: Float!
-  createdBy: User
   updatedAt: Float!
+  createdBy: User
   updatedBy: User
 }
 
@@ -16,14 +16,16 @@ extend type Query {
 }
 
 input CreateTweetInput {
-  authorId: ObjID!
-  body: String!
+  authorId: ObjID
   coauthorsIds: [ObjID]
+  body: String
+  likersIds: [ObjID]
 }
 
 input UpdateTweetInput {
-  body: String
   coauthorsIds: [ObjID]
+  body: String
+  likersIds: [ObjID]
 }
 
 extend type Mutation {

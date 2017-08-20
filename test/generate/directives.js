@@ -47,7 +47,7 @@ describe('directives', () => {
     it('does not generate a model function', () => {
       const ast = generateModelAst(input);
 
-      const TestClass = ast.program.body[2].declaration.body;
+      const TestClass = ast.program.body[3].declaration.body;
       const keys = TestClass.body.map(p => p.key.name);
 
       expect(keys).to.not.include('status');

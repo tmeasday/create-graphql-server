@@ -1,9 +1,7 @@
 class PaginatedAssociation {
-  fieldName(typeName, argsStr) {
-    return this.context.ReturnTypeName.collection.find({
-      query,
-      createdAt: { $gt: lastCreatedAt },
-    }).sort({ createdAt: 1 }).limit(limit).toArray();
+  fieldName(typeName, argsStr, me, resolver) {
+    const baseQuery = { query };
+    return this.context.ReturnTypeName.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
   }
-
+  
 }

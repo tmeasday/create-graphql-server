@@ -4,16 +4,16 @@ const resolvers = {
       return tweet._id;
     },
 
-    author(tweet, args, { Tweet, me }) {
-      return Tweet.author(tweet, me, 'tweet author');
-    },
-
     createdBy(tweet, args, { Tweet, me }) {
       return Tweet.createdBy(tweet, me, 'tweet createdBy');
     },
 
     updatedBy(tweet, args, { Tweet, me }) {
       return Tweet.updatedBy(tweet, me, 'tweet updatedBy');
+    },
+
+    author(tweet, args, { Tweet, me }) {
+      return Tweet.author(tweet, me, 'tweet author');
     },
 
     coauthors(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
@@ -30,7 +30,7 @@ const resolvers = {
     },
 
     tweet(root, { id }, { Tweet, me }) {
-      return Tweet.findOneById(id, me, 'tweet');  
+      return Tweet.findOneById(id, me, 'tweet');
     },
   },
   Mutation: {
