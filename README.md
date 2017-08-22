@@ -1,31 +1,53 @@
 # Create GraphQL Server
 
-This is a simple scaffolding tool for GraphQL apps, built on MongoDB.
+*Create-graphql-server* is a scaffolding tool that lets you generate a new Mongo/Express/Node.js GraphQL server project from the command line. After generating the project you can also generate code to support your GraphQL schema directly from the schema files. Basic authentication support is included via Passport Local with JWTs. 
 
-It consists of different commands:
+## Getting Started
 
+### Installation
+
+Install it once globally:
 ```bash
-create-graphql-server init project-dir 
+npm install -g create-graphql-server
 ```
 
-Create the basic skeleton of a GraphQL server project. If you `yarn install` inside `project-dir`, you should be able to `npm start` it, and then browse to http://localhost:3010/graphiql to start running queries.
+### Creating a Server
+To create a new server in the *my-new-server-dir* folder use the *init* command:
+```bash
+create-graphql-server init my-new-server-dir
+cd my-new-server-dir
+yarn install
+```
 
-There isn't anything to query yet however!
-
-To add some types, simply run one of the following alternatives:
+### Starting the Server
+In most development environments you can now fire up your new server using the packaged [prebuilt Mongo server](https://github.com/winfinit/mongodb-prebuilt):
 
 ```bash
-create-graphql-server add-type path/to/input.graphql
-OR:
+yarn start
+```
+
+If [mongo-prebuilt](https://github.com/winfinit/mongodb-prebuilt) fails to start, or you'd rather use another [MongoDB installation](https://docs.mongodb.com/manual/installation/) for development, simply set the MONGO_URL environment variable when you start the server, as follows:
+```bash
+SET MONGO_URL=mongodb://localhost:27017&&yarn start
+```
+If you set up a username, password or a different port for Mongo, or are accessing Mongo through a service such as [mLab](https://mlab.com/), correct the MONGO_URL above to reflect that.
+
+## Running Queries
+
+Your server is now up and running. To query it, point your browser at [http://localhost:3010/graphiql](http://localhost:3010/graphiql). There isn't anything to query yet however. 
+
+## Adding Types: Overview
+To add types, you can define them in GraphQL schema files, then generate code for them using the *add-type* command, as follows:
+```bash
+create-graphql-server add-type path/to/my-new-type.graphql
+```
+If you have a folder full of schema files, you can add them all at once by pointing *add-type* to a folder instead of an individual schema file:
+```bash
 create-graphql-server add-type path
 ```
+Sample schema files are included in [`test/input`](https://github.com/tmeasday/create-graphql-server/tree/master/test/input). To see what a complete generated server looks like using them, check out [`test/output-app`](https://github.com/tmeasday/create-graphql-server/tree/master/test/output-app).
 
-Where `path/to/input.graphql` is an input GraphQL schema (see below). Or:
-Where `path` will add all `type.graphql` files in the given directory path recursively.
-
-To see what a complete generated server looks like, see the `test/output-app` folder. It has been generated from the `test/input` schema inputs.
-
-## Creating types
+## Schemas
 
 You create a GraphQL type for your schema by specifying the type as input, with some special code-generation controlling directives.
 
