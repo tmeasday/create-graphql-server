@@ -55,7 +55,10 @@ async function startServer() {
           schema,
           context: Object.assign({ user }, req.context),
           debug: true,
-          formatError(e) { console.log(e) },
+          formatError(e) {
+            console.log(e);
+            return e;
+          },
         };
       })(req, res, next);
     })(req, res, next);
