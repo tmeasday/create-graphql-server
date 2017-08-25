@@ -127,7 +127,8 @@ function getRoles ( authorize, inputSchema ) {
           // check, if there is already another userRole field
           if (roleFieldNamesFound.length > 0 && 
               role.roleFieldName !== '' &&
-              !roleFieldNamesFound.includes(role.roleFieldName)) {
+              !roleFieldNamesFound.indexOf(role.roleFieldName) >= 0 ) {
+            //!roleFieldNamesFound.includes(role.roleFieldName)) {
 
             // We allow only one field which keeps all userRoles
             throw new Error(`Please adjust type definition, that there is only ONE field, 
@@ -217,7 +218,8 @@ function getAllRoles ( allRolesArguments = [], inputSchema ) {
           if (mode.kind &&
               mode.kind === STRING_VALUE &&
               mode.value &&
-              MODES.includes(mode.value) ){
+              MODES.indexOf(mode.value) >= 0){
+            //MODES.includes(mode.value) ){
 
               // it is a valid authorization mode:
               // e.g.   { 
@@ -246,7 +248,8 @@ function getAllRoles ( allRolesArguments = [], inputSchema ) {
       } else if (roleArgument.name.value.kind &&
           roleArgument.name.value.kind === STRING_VALUE &&
           roleArgument.name.value &&
-          MODES.includes(roleArgument.name.value) ) {
+          MODES.indexOf(roleArgument.name.value) >= 0 ) {
+        //MODES.includes(roleArgument.name.value) ) {
 
         //                         'create' = 'admin'
         // special case 'read' means both, 'readOne' and 'readMany'
