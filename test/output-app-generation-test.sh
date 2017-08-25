@@ -26,7 +26,7 @@ cd output-app
 $CGS add-type "$INPUT_DIR/Tweet.graphql"
 $CGS add-type "$INPUT_DIR/User.graphql"
 
-diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules" -x "nohup.out" -x ".create-graphql-server.checksums"
+diff -rb . "$EXPECTED_OUTPUT_DIR" -x "db" -x "node_modules" -x "nohup.out" -x ".create-graphql-server.checksums" -x "yarn.lock"
 set +e
 
 trap - EXIT
