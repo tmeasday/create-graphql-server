@@ -8,4 +8,5 @@ db
 dist
 log/all-logs-readable.log
 yarn-error.log
+bin/test-model-generator.js
 

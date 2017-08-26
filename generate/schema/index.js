@@ -14,7 +14,7 @@ import {
   SCALAR_TYPE_NAMES,
 } from '../util/graphql';
 
-import { isAuthorizeDirectiveDefined } from '../authorize';
+import { isAuthorizeDirectiveDefined } from 'create-graphql-server-authorization';
 
 /* eslint-disable no-param-reassign */
 

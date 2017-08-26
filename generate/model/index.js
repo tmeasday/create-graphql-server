@@ -4,7 +4,7 @@ import { print } from 'recast';
 import { templateToAst } from '../read';
 import { lcFirst } from '../util/capitalization';
 import generatePerField from '../util/generatePerField';
-import { generateAuthorizationCode } from '../authorize';
+import { generateAuthorizationCode } from 'create-graphql-server-authorization';
 
 function read(name) {
   return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
