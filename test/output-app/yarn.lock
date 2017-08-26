@@ -1224,9 +1224,9 @@ crc@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.4.0.tgz#4258e351613a74ef1153dfcb05e820c3e9715d7f"
 
-create-graphql-server-authorization@^0.0.32:
-  version "0.0.32"
-  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.32.tgz#2fd5edab9c97e8686080e6b74e74291bcdebc231"
+create-graphql-server-authorization@^0.0.33:
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.33.tgz#17c36eb43533a81a03617cb1055a29a588a60d10"
   dependencies:
     global "^4.3.2"
     iterall "^1.1.0"
