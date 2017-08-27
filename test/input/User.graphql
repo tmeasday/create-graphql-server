@@ -6,8 +6,9 @@ type User
 )
 
 {
-  role: String @authRole(for: ["admin"]) 
-  username: String!
+  role: String @authRole(for: ["admin"])
+  email: String!
+  username: String
 
   bio: String
   notify: Boolean

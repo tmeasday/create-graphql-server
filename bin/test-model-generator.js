@@ -10,8 +10,10 @@ import generateResolvers from '../generate/resolvers';
 import generateModel from '../generate/model';
 
 const input = readInput(`${__dirname}/../test/input/User.graphql`);
+// const input = readInput(`${__dirname}/../test/input/Tweet.graphql`);
 const schema = generateSchema(input);
 const resolverOutput = generateResolvers(input, schema); 
 const modelOutput = generateModel(input, schema);
 
 console.log(print(schema));
+// console.log(modelOutput);

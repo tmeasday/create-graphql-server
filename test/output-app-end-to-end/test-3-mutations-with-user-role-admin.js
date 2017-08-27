@@ -9,17 +9,14 @@ let tweetId2;
 let tweetIdOthers;
 
 function makeUserInput(user) {
-  if (user.role) 
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}",
-      role: "${user.role}"
-    }`;
-  else
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}"
-    }`;
+  let query = `{`;
+  Object.keys(user).forEach(field => {
+    query = query + `
+    ${field}: "${user[field]}"`;
+  });
+  query = query + `
+  }`;
+  return query;
 }
 
 function makeTweetInput(tweet, userId) {
@@ -39,6 +36,8 @@ describe('test-3: user with role "admin"', () => {
 
   before(function(done) {
       const expectedUser = {
+        email: 'tobias@gmail.com',
+        password: 'password',
         username: 'tobkle',
         bio: 'someone',
         role: 'admin'
@@ -78,6 +77,8 @@ describe('test-3: user with role "admin"', () => {
 
     it('admin user created new "other" user with role "editor"', () => {
       const expectedUser = {
+        email: 'zol@gmail.com',
+        password: 'password',
         username: 'zol',
         bio: 'Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead',
         role: 'editor'
@@ -125,7 +126,7 @@ describe('test-3: user with role "admin"', () => {
     });
 
     it('can update other users', () => {
-        const modifiedUser = {
+        const modifiedUser = {          
           username: 'zoltan',
           bio: 'Maker of things, I guess',
           role: 'editor'

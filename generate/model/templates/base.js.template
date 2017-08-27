@@ -1,5 +1,5 @@
 import DataLoader from 'dataloader';
-import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
+import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';generateBcryptDefinition
 const log = logger(getLogFilename());
 
 export default class TypeName {
@@ -33,12 +33,6 @@ export default class TypeName {
 
   async insert(doc, me, resolver) {
     try {
-      let docToInsert = Object.assign({}, doc, {
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-        createdById: (me && me._id) ? me._id : 'unknown',
-        updatedById: (me && me._id) ? me._id : 'unknown',
-      });
       generateAuthCodeModeCreate
       const id = (await this.collection.insertOne(docToInsert)).insertedId;
       if (!id) {

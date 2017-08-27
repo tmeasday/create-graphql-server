@@ -73,6 +73,45 @@ const generators = {
   },
 };
 
+function getClassMethods(program){
+  let classMethodsAst;
+  if (program && program.body.length > 0){
+    program.body.forEach(Node => {
+      if (Node.type && 
+          Node.type === 'ExportDefaultDeclaration' &&
+          Node.declaration &&
+          Node.declaration.type &&
+          Node.declaration.type === 'ClassDeclaration' &&
+          Node.declaration.body &&
+          Node.declaration.body.type &&
+          Node.declaration.body.type === 'ClassBody' &&
+          Node.declaration.body.body){
+        classMethodsAst = Node.declaration.body.body;
+      }
+    });
+  }
+  return classMethodsAst;
+}
+
+function getResolverClassMethod(program){
+  let classMethodsAst;
+  if (program && program.body.length > 0){
+    program.body.forEach(Node => {
+      if (Node.type && 
+          Node.type === 'ClassDeclaration' &&
+          Node.body &&
+          Node.body.type &&
+          Node.body.type === 'ClassBody' &&
+          Node.body.body &&
+          Node.body.body.length > 0 &&
+          Node.body.body[0].type === 'ClassMethod'){
+        classMethodsAst = Node.body.body[0];
+      }
+    });
+  }
+  return classMethodsAst;
+}
+
 export function generateModelAst(inputSchema) {
   const type = inputSchema.definitions[0];
   const TypeName = type.name.value;
@@ -87,19 +126,13 @@ export function generateModelAst(inputSchema) {
   // XXX: rather than hardcoding in array indices it would be less brittle to
   // walk the tree using https://github.com/benjamn/ast-types
   // find: 'ExportDefaultDeclaration'
-  const classMethodsAst = ast.program.body[3]
-    // find class declaration
-    .declaration 
-    .body.body;
+  const classMethodsAst = getClassMethods(ast.program);
 
   const findOneMethod = classMethodsAst.find(m => m.key.name === 'find');
   let nextIndex = classMethodsAst.indexOf(findOneMethod) + 1;
 
-
   generatePerField(type, generators).forEach((resolverFunctionAst) => {
-    const classMethodAst = resolverFunctionAst.program.body[0] // class declaration
-      .body.body[0]; // classMethod
-
+    const classMethodAst = getResolverClassMethod(resolverFunctionAst.program);
     classMethodsAst.splice(nextIndex, 0, classMethodAst);
     nextIndex += 1;
   });

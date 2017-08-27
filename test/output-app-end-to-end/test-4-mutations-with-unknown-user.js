@@ -7,17 +7,14 @@ let tweetId;
 const tweetIdOthers = '583676d3618530145474e352';
 
 function makeUserInput(user) {
-  if (user.role) 
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}",
-      role: "${user.role}"
-    }`;
-  else
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}"
-    }`;
+  let query = `{`;
+  Object.keys(user).forEach(field => {
+    query = query + `
+    ${field}: "${user[field]}"`;
+  });
+  query = query + `
+  }`;
+  return query;
 }
 
 function makeTweetInput(tweet, userId) {
@@ -39,9 +36,11 @@ describe('test-4: unkown user (e.g. not signed in, or expired token)', () => {
 
     it('can not create users', () => {
       const expectedUser = {
-        username: 'zol',
-        bio: 'Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead',
-        role: 'user'
+        email: 'tobias@gmail.com',
+        password: 'password',
+        username: 'tobkle',
+        bio: 'someone',
+        role: 'admin'
       };
       return sendQuery({query: `
         mutation {

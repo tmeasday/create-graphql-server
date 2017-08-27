@@ -1,5 +1,7 @@
 import DataLoader from 'dataloader';
 import { findByIds, queryForRoles, getLogFilename, logger, authlog, checkAuthDoc, protectFields } from 'create-graphql-server-authorization';
+import bcrypt from 'bcrypt';
+const SALT_ROUNDS = 10;
 const log = logger(getLogFilename());
 
 export default class User {
@@ -65,7 +67,11 @@ export default class User {
 
   async insert(doc, me, resolver) {
     try {
-      let docToInsert = Object.assign({}, doc, {
+      // We don't want to store passwords plaintext!
+      const { password, ...rest } = doc;
+      const hash = await bcrypt.hash(password, SALT_ROUNDS);
+      let docToInsert = Object.assign({}, rest, {
+        hash,
         createdAt: Date.now(),
         updatedAt: Date.now(),
         createdById: (me && me._id) ? me._id : 'unknown',

@@ -1091,9 +1091,9 @@ cpr@^2.0.0:
     mkdirp "~0.5.1"
     rimraf "^2.5.4"
 
-create-graphql-server-authorization@^0.0.33:
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.33.tgz#17c36eb43533a81a03617cb1055a29a588a60d10"
+create-graphql-server-authorization@^0.0.35:
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.35.tgz#86f102e339bef86a009879c51c25dfcb91175778"
   dependencies:
     global "^4.3.2"
     iterall "^1.1.0"

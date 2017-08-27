@@ -7,17 +7,14 @@ let tweetId;
 const tweetIdOthers = '583676d3618530145474e352';
 
 function makeUserInput(user) {
-  if (user.role) 
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}",
-      role: "${user.role}"
-    }`;
-  else
-    return `{
-      username: "${user.username}",
-      bio: "${user.bio}"
-    }`;
+  let query = `{`;
+  Object.keys(user).forEach(field => {
+    query = query + `
+    ${field}: "${user[field]}"`;
+  });
+  query = query + `
+  }`;
+  return query;
 }
 
 function makeTweetInput(tweet, userId) {
@@ -36,11 +33,13 @@ function makeTweetInput(tweet, userId) {
 describe('test-6: user with role "editor"', () => {
 
   before(function(done) {
-      const expectedUser = {
-        username: 'tobkle',
-        bio: 'someone',
-        role: 'editor'
-      };
+    const expectedUser = {
+      email: 'tobias@gmail.com',
+      password: 'password',
+      username: 'tobkle',
+      bio: 'someone',
+      role: 'editor'
+    };
       sendQuery({query: `
               mutation {
                 createUser(input: ${makeUserInput(expectedUser)}) {
@@ -73,6 +72,8 @@ describe('test-6: user with role "editor"', () => {
 
     it('can not create users', () => {
       const expectedUser = {
+        email: 'zol@gmail.com',
+        password: 'password',
         username: 'zol',
         bio: 'Maker of apps, product and engineering. Climber. Cyclist. Enthusiast. Product lead',
         role: 'editor'

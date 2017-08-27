@@ -1,17 +1,18 @@
 type User @authorize(admin: ["create", "read", "update", "delete"], this: ["create", "read", "update", "delete"]) {
   id: ObjID!
   role: String
-  username: String!
+  email: String!
+  username: String
   bio: String
   notify: Boolean
   tweets(minLikes: Int, lastCreatedAt: Float, limit: Int): [Tweet]
   liked(lastCreatedAt: Float, limit: Int): [Tweet]
   following(lastCreatedAt: Float, limit: Int): [User]
   followers(lastCreatedAt: Float, limit: Int): [User]
-  createdAt: Float!
-  updatedAt: Float!
   createdBy: User
   updatedBy: User
+  createdAt: Float!
+  updatedAt: Float!
 }
 
 extend type Query {
@@ -21,18 +22,21 @@ extend type Query {
 
 input CreateUserInput {
   role: String
-  username: String!
+  email: String!
+  username: String
   bio: String
   notify: Boolean
   tweetsIds: [ObjID]
   likedIds: [ObjID]
   followingIds: [ObjID]
   followersIds: [ObjID]
+  password: String!
 }
 
 input UpdateUserInput {
   role: String
-  username: String!
+  email: String
+  username: String
   bio: String
   notify: Boolean
   tweetsIds: [ObjID]
