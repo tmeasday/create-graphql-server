@@ -1,0 +1,5 @@
+{{#if authorize }}
+{{>   auth_default }}
+{{else }}
+{{>   default_default }}
+{{/if }}

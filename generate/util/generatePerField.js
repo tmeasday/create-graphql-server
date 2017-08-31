@@ -6,6 +6,7 @@ import {
   isScalarField,
   applyCustomDirectives,
 } from './graphql';
+
 import { lcFirst } from './capitalization';
 
 export default function generatePerField(type, generators) {

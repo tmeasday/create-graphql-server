@@ -75,40 +75,33 @@ const generators = {
 
 function getClassMethods(program){
   let classMethodsAst;
-  if (program && program.body.length > 0){
-    program.body.forEach(Node => {
-      if (Node.type && 
-          Node.type === 'ExportDefaultDeclaration' &&
-          Node.declaration &&
-          Node.declaration.type &&
-          Node.declaration.type === 'ClassDeclaration' &&
-          Node.declaration.body &&
-          Node.declaration.body.type &&
-          Node.declaration.body.type === 'ClassBody' &&
-          Node.declaration.body.body){
-        classMethodsAst = Node.declaration.body.body;
-      }
-    });
-  }
+
+  program.body.forEach(Node => {
+
+    if (Node.type === 'ExportDefaultDeclaration' &&
+        Node.declaration.type === 'ClassDeclaration' &&
+        Node.declaration.body.type === 'ClassBody'){
+      classMethodsAst = Node.declaration.body.body;
+    }
+
+  });
+
   return classMethodsAst;
 }
 
 function getResolverClassMethod(program){
   let classMethodsAst;
-  if (program && program.body.length > 0){
-    program.body.forEach(Node => {
-      if (Node.type && 
-          Node.type === 'ClassDeclaration' &&
-          Node.body &&
-          Node.body.type &&
-          Node.body.type === 'ClassBody' &&
-          Node.body.body &&
-          Node.body.body.length > 0 &&
-          Node.body.body[0].type === 'ClassMethod'){
-        classMethodsAst = Node.body.body[0];
-      }
-    });
-  }
+
+  program.body.forEach(Node => {
+
+    if (Node.type === 'ClassDeclaration' &&
+        Node.body.type === 'ClassBody' &&
+        Node.body.body[0].type === 'ClassMethod'){
+      classMethodsAst = Node.body.body[0];
+    }
+
+  });
+
   return classMethodsAst;
 }
 

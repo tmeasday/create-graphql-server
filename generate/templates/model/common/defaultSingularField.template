@@ -1,0 +1,8 @@
+
+  {{fieldName}}({{typeName}}, me, resolver) {
+    return this.context.{{ReturnTypeName}}.findOneById(
+      {{typeName}}.{{fieldName}}Id,
+      me,
+      resolver
+    );
+  }

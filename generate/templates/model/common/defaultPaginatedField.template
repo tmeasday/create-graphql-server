@@ -1,0 +1,9 @@
+
+  {{fieldName}}({{typeName}}, {{{argsString}}}, me, resolver) {
+    const baseQuery = { {{query}} };
+    return this.context.{{ReturnTypeName}}.find(
+      {{argsFields}},
+      me,
+      resolver
+    );
+  }

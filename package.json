@@ -20,7 +20,8 @@
     "test-add-update-remove": "./test/test-add-update-remove.sh",
     "clean": "rm -rf dist/*",
     "build": "npm run clean && babel bin --out-dir dist/bin && babel generate -D --out-dir dist/generate && cp -r skel dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "gentest": "babel-node --inspect bin/gentest.js -- "
   },
   "config": {
     "logfile": "log/all-logs-readable.log",
@@ -53,11 +54,13 @@
     "babylon": "^6.14.1",
     "chalk": "^1.1.3",
     "cpr": "^2.0.0",
-    "create-graphql-server-authorization": "^0.0.35",
+    "create-graphql-server-authorization": "^0.0.40",
+    "dataloader": "^1.3.0",
     "denodeify": "^1.2.1",
     "escape-string-regexp": "^1.0.5",
     "global": "^4.3.2",
     "graphql": "0.7.2",
+    "handlebars": "^4.0.10",
     "lodash": "^4.17.4",
     "lodash.clonedeep": "^4.5.0",
     "lodash.includes": "^4.3.0",

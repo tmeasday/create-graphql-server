@@ -20,26 +20,17 @@ import { adjustSchemaForAuthorization } from 'create-graphql-server-authorizatio
 /* eslint-disable no-param-reassign */
 
 function getType(field){
-  if (field && 
-      field.type && 
-      field.type.kind &&
-      (field.type.kind === 'Name' ||
-       field.type.kind === 'NamedType') &&
-      field.type.name &&
-      field.type.name.value)
+
+  if (field.type.kind === 'Name' || 
+      field.type.kind === 'NamedType')
     return field.type.name.value;
-  else if (field && 
-      field.type && 
-      field.type.kind &&
-      field.type.kind === 'NonNullType' &&
-      field.type.type &&
-      field.type.type.kind &&
+
+  else if (field.type.kind === 'NonNullType' &&
       (field.type.type.kind === 'Name' ||
-      field.type.type.kind === 'NamedType') &&
-      field.type.type.name &&
-      field.type.type.name.value
+      field.type.type.kind === 'NamedType')
   )
     return field.type.type.name.value;
+  
   return '';
 }
 
