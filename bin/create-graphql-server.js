@@ -93,7 +93,6 @@ function getFileUpdateList(inputSchemaFile, mode) {
     inputSchemaStr = `type ${adjustTypeName(inputSchemaFile)} {}`;
   }
   // generate code therefore in memory first
-  debugger;
   const {
     typeName,
     TypeName,

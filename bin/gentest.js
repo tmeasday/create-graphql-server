@@ -11,7 +11,6 @@ const argv = minimist(process.argv.slice(2));
 const commands = argv._;
 const file = commands[0] || path.join('test', 'input', 'User.graphql');
 const targetDir = commands[1] || os.tmpdir();
-debugger;
 const inputSchemaStr = fs.readFileSync(file, 'utf8');
 const {
   typeName,
