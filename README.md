@@ -115,7 +115,8 @@ type User {
 }
 ```
 
-You could update the generated `CreateUserInput` input object to take a `password` field:
+The generator automatically adjusts your schema and code in the following way:
+It adjusts the generated `CreateUserInput` input object to take a `password` field:
 
 ```graphql
 input CreateUserInput {
@@ -125,7 +126,7 @@ input CreateUserInput {
 }
 ```
 
-And then update the generated `User` model to hash that password and store it:
+And in updates the generated `User` model to hash that password and store it:
 
 ```js
 import bcrypt from 'bcrypt';
@@ -150,6 +151,8 @@ class User {
   }
 }
 ```
+
+So the "User" type is treated differently as any other default type.
 
 ## Authorization
 
@@ -250,6 +253,9 @@ You can manually change the code to protect also single fields of a type. Do it 
 docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, { User: this.context.User });
 ```
 By this, only a User (me) with role "admin" is allowed to access the field "docToInsert.role". For any other user, this field is removed from the docToInsert during the protectFields run.
+
+## Example Implementation
+[Please have a look at the example implementation.](https://github.com/tmeasday/create-graphql-server/tree/master/test/output-app)
 
 ## Client side code
 

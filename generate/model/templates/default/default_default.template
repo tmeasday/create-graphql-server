@@ -38,7 +38,7 @@ export default class {{TypeName}} {
 {{#each paginatedFields }}
 {{> defaultPaginatedField }}
 {{/each}}
-  
+
   async insert(doc) {
     const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),

@@ -1,4 +1,4 @@
-type User @authorize(admin: ["create", "read", "update", "delete"], this: ["create", "read", "update", "delete"]) {
+type User {
   id: ObjID!
   role: String
   email: String!

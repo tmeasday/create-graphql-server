@@ -1,4 +1,4 @@
-type Tweet @authorize(admin: ["create", "read", "update", "delete"], author: ["create", "read", "update", "delete"], coauthors: ["read", "update"], world: ["read"]) {
+type Tweet {
   id: ObjID!
   author: User
   coauthors(lastCreatedAt: Float, limit: Int): [User]

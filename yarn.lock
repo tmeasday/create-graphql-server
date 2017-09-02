@@ -974,6 +974,10 @@ chai-diff@^1.0.1:
   dependencies:
     diff "^2.2.1"
 
+chai-string@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/chai-string/-/chai-string-1.4.0.tgz#359140c051d36a4e4b1a5fc6b910152f438a8d49"
+
 chai@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/chai/-/chai-3.5.0.tgz#4d02637b067fe958bdbfdd3a40ec56fef7373247"
@@ -1130,11 +1134,12 @@ cpr@^2.0.0:
     mkdirp "~0.5.1"
     rimraf "^2.5.4"
 
-create-graphql-server-authorization@^0.0.40:
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.40.tgz#134e13e23274c44ad606dd3f7aca32455c238a96"
+create-graphql-server-authorization@^0.0.42:
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/create-graphql-server-authorization/-/create-graphql-server-authorization-0.0.42.tgz#441afd10a12434ab96d84e42a4e867cc56845f88"
   dependencies:
     babylon "^6.18.0"
+    chai-string "^1.4.0"
     global "^4.3.2"
     graphql "^0.11.1"
     handlebars "^4.0.10"

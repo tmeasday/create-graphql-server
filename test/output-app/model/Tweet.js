@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -14,14 +15,15 @@ export default class Tweet {
     const { me, User } = context;
     queryForRoles(
       me,
-      ['admin','world'],
-      ['authorId','coauthorsIds'],
+      ['admin', 'world'],
+      ['authorId', 'coauthorsIds'],
       { User },
-      onAuthRegisterLoader('tweet findOneById', 'readOne', me, this));
+      onAuthRegisterLoader('tweet findOneById', 'readOne', me, this)
+    );
   }
 
   async findOneById(id, me, resolver) {
-    const log = authlog('tweet findOneById', resolver, me);
+    const log = authlog(resolver, 'readOne', me);
     if (!this.authorizedLoader) {
       log.error('not authorized');
       return null;
@@ -32,8 +34,8 @@ export default class Tweet {
   find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
     const authQuery = queryForRoles(
       me,
-      ['admin','world'],
-      ['authorId','coauthorsIds'],
+      ['admin', 'world'],
+      ['authorId', 'coauthorsIds'],
       { User: this.context.User },
       authlog(resolver, 'readMany', me)
     );
@@ -50,17 +52,29 @@ export default class Tweet {
   }
 
   author(tweet, me, resolver) {
-    return this.context.User.findOneById(tweet.authorId, me, resolver);
+    return this.context.User.findOneById(
+      tweet.authorId,
+      me,
+      resolver
+    );
   }
 
   coauthors(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { _id: { $in: tweet.coauthorsIds || [] } };
-    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   likers(tweet, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { likedIds: tweet._id };
-    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   createdBy(tweet, me, resolver) {
@@ -72,7 +86,7 @@ export default class Tweet {
   }
 
   async insert(doc, me, resolver) {
-    let docToInsert = Object.assign({}, doc, {
+    const docToInsert = Object.assign({}, doc, {
       createdAt: Date.now(),
       updatedAt: Date.now(),
       createdById: (me && me._id) ? me._id : 'unknown',
@@ -82,7 +96,7 @@ export default class Tweet {
       docToInsert,
       me,
       ['admin'],
-      ['authorId'], 
+      ['authorId'],
       { User: this.context.User },
       authlog(resolver, 'create', me)
     );
@@ -97,22 +111,23 @@ export default class Tweet {
   }
 
   async updateById(id, doc, me, resolver) {
-    let docToUpdate = {
+    const docToUpdate = {
       $set: Object.assign({}, doc, {
-          updatedAt: Date.now(),
-          updatedById: (me && me._id) ? me._id : 'unknown'
-    })};
-    const baseQuery = {_id: id};
+        updatedAt: Date.now(),
+        updatedById: me && me._id ? me._id : 'unknown'
+      })
+    };
+    const baseQuery = { _id: id };
     const authQuery = queryForRoles(
       me,
       ['admin'],
-      ['authorId','coauthorsIds'],
+      ['authorId', 'coauthorsIds'],
       { User: this.context.User },
       authlog(resolver, 'update', me)
     );
-    const finalQuery = {...baseQuery, ...authQuery};
+    const finalQuery = { ...baseQuery, ...authQuery };
     const result = await this.collection.updateOne(finalQuery, docToUpdate);
-    if (result.result.ok !== 1 || result.result.n !== 1){
+    if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update tweet not possible for ${id}.`);
     }
     this.log.debug(`updated tweet ${id}.`);
@@ -123,7 +138,7 @@ export default class Tweet {
   }
 
   async removeById(id, me, resolver) {
-    const baseQuery = {_id: id};
+    const baseQuery = { _id: id };
     const authQuery = queryForRoles(
       me,
       ['admin'],
@@ -131,9 +146,9 @@ export default class Tweet {
       { User: this.context.User },
       authlog(resolver, 'delete', me)
     );
-    const finalQuery = {...baseQuery, ...authQuery};
+    const finalQuery = { ...baseQuery, ...authQuery };
     const result = await this.collection.remove(finalQuery);
-    if (result.result.ok !== 1 || result.result.n !== 1){
+    if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove tweet not possible for ${id}.`);
     }
     this.log.debug(`removed tweet ${id}.`);

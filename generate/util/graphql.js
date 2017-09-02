@@ -105,3 +105,18 @@ export function applyCustomDirectives(field) {
 export function idArgument() {
   return buildArgument('id', 'ObjID!');
 }
+
+
+export function getType(field) {
+  if (field.type.kind === 'Name' || 
+      field.type.kind === 'NamedType')
+    return field.type.name.value;
+
+  else if (field.type.kind === 'NonNullType' &&
+      (field.type.type.kind === 'Name' ||
+      field.type.type.kind === 'NamedType')
+  )
+    return field.type.type.name.value;
+  
+  return '';
+}

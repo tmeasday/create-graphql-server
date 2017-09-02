@@ -1,5 +1,0 @@
-const paginatedField = {
-  fieldName(typeName, argsStr, { TypeName, me }) {
-    return TypeName.fieldName(typeName, argsStr, me, 'typeName fieldName');
-  },
-};

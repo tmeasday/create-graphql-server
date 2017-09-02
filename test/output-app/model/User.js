@@ -1,3 +1,4 @@
+/* eslint-disable prettier */
 import {
   queryForRoles,
   onAuthRegisterLoader,
@@ -18,14 +19,15 @@ export default class User {
     const { me } = context;
     queryForRoles(
       me,
-      ['admin'], ['_id'],
+      ['admin'],
+      ['_id'],
       { User },
       onAuthRegisterLoader('user findOneById', 'readOne', me, this)
     );
   }
 
-  static authRole(user){
-    return (user && user.role) ? user.role : null;
+  static authRole(user) {
+    return user && user.role ? user.role : null;
   }
 
   async findOneById(id, me, resolver) {
@@ -40,7 +42,8 @@ export default class User {
   find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }, me, resolver) {
     const authQuery = queryForRoles(
       me,
-      ['admin'], ['_id'],
+      ['admin'],
+      ['_id'],
       { User: this.context.User },
       authlog(resolver, 'readMany', me)
     );
@@ -58,22 +61,38 @@ export default class User {
 
   tweets(user, { minLikes, lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { authorId: user._id };
-    return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.Tweet.find(
+      { baseQuery, minLikes, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   liked(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { _id: { $in: user.likedIds || [] } };
-    return this.context.Tweet.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.Tweet.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   following(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { _id: { $in: user.followingIds || [] } };
-    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   followers(user, { lastCreatedAt = 0, limit = 10 }, me, resolver) {
     const baseQuery = { followingIds: user._id };
-    return this.context.User.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
+    return this.context.User.find(
+      { baseQuery, lastCreatedAt, limit },
+      me,
+      resolver
+    );
   }
 
   createdBy(user, me, resolver) {
@@ -92,8 +111,8 @@ export default class User {
       hash,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      createdById: (me && me._id) ? me._id : 'unknown',
-      updatedById: (me && me._id) ? me._id : 'unknown',
+      createdById: me && me._id ? me._id : 'unknown',
+      updatedById: me && me._id ? me._id : 'unknown'
     });
     checkAuthDoc(
       docToInsert,
@@ -103,7 +122,7 @@ export default class User {
       { User: this.context.User },
       authlog(resolver, 'create', me)
     );
-    docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, { 
+    docToInsert = protectFields(me, ['admin'], ['role'], docToInsert, {
       User: this.context.User
     });
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
@@ -117,13 +136,13 @@ export default class User {
   }
 
   async updateById(id, doc, me, resolver) {
-    let docToUpdate = {
+    const docToUpdate = {
       $set: Object.assign({}, doc, {
-          updatedAt: Date.now(),
-          updatedById: (me && me._id) ? me._id : 'unknown'
+        updatedAt: Date.now(),
+        updatedById: me && me._id ? me._id : 'unknown'
       })
     };
-    const baseQuery = {_id: id};
+    const baseQuery = { _id: id };
     const authQuery = queryForRoles(
       me,
       ['admin'],
@@ -138,9 +157,9 @@ export default class User {
       docToUpdate.$set,
       { User: this.context.User }
     );
-    const finalQuery = {...baseQuery, ...authQuery};
+    const finalQuery = { ...baseQuery, ...authQuery };
     const result = await this.collection.updateOne(finalQuery, docToUpdate);
-    if (result.result.ok !== 1 || result.result.n !== 1){
+    if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
     this.log.debug(`updated user ${id}.`);
@@ -151,7 +170,7 @@ export default class User {
   }
 
   async removeById(id, me, resolver) {
-    const baseQuery = {_id: id};
+    const baseQuery = { _id: id };
     const authQuery = queryForRoles(
       me,
       ['admin'],
@@ -159,9 +178,9 @@ export default class User {
       { User: this.context.User },
       authlog(resolver, 'delete', me)
     );
-    const finalQuery = {...baseQuery, ...authQuery};
+    const finalQuery = { ...baseQuery, ...authQuery };
     const result = await this.collection.remove(finalQuery);
-    if (result.result.ok !== 1 || result.result.n !== 1){
+    if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
     this.log.debug(`removed user ${id}.`);

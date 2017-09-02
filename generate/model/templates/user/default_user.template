@@ -40,7 +40,7 @@ export default class {{TypeName}} {
 {{#each paginatedFields}}
 {{> defaultPaginatedField }}
 {{/each}}
-  
+
   async insert(doc) {
     // We don't want to store passwords in plaintext
     const { password, ...rest } = doc;

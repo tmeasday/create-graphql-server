@@ -1,62 +1,19 @@
-import fs from 'fs';
-import { print } from 'recast';
+ import { print } from 'recast';
+ import getCode from '../util/getCode';
+ import { templateToAst } from '../util/read';
+ import { RESOLVER } from '../util/constants';
+ import { modulePath } from 'create-graphql-server-authorization';
 
-import { templateToAst } from '../read';
-import generatePerField from '../util/generatePerField';
-import { lcFirst } from '../util/capitalization';
+export default function generateResolver(inputSchema) {
 
-function read(name) {
-  return fs.readFileSync(`${__dirname}/templates/${name}.js.template`, 'utf8');
-}
-
-const templates = {
-  base: read('base'),
-  fieldOfType: read('fieldOfType'),
-  paginatedField: read('paginatedField'),
-};
-
-function generateResolver(template) {
-  return ({ TypeName, typeName, fieldName, argsStr }) => {
-    return templateToAst(template, { typeName, TypeName, fieldName, argsStr });
-  };
-}
-
-const generators = {
-  base({ typeName, TypeName }) {
-    return templateToAst(templates.base, { typeName, TypeName });
-  },
-  belongsTo: generateResolver(templates.fieldOfType),
-  belongsToMany: generateResolver(templates.paginatedField),
-  hasOne: generateResolver(templates.fieldOfType),
-  hasMany: generateResolver(templates.paginatedField),
-  hasAndBelongsToMany: generateResolver(templates.paginatedField),
-};
-
-export function generateResolversAst(inputSchema) {
-  const type = inputSchema.definitions[0];
-  const TypeName = type.name.value;
-  const typeName = lcFirst(TypeName);
-
-  const ast = generators.base({ TypeName, typeName });
-
-  // XXX: rather than hardcoding in array indices it would be less brittle to
-  // walk the tree using https://github.com/benjamn/ast-types
-  const typeResolversAst = ast.program.body[0] // const
-    .declarations[0].init // object expression
-    .properties[0].value; // object value
-
-  generatePerField(type, generators).forEach((resolverFunctionAst) => {
-    const resolverProperty = resolverFunctionAst.program.body[0] // variable declaration
-      .declarations[0].init // object expression
-      .properties[0];
-
-    typeResolversAst.properties.push(resolverProperty);
+  const templateCode = getCode(RESOLVER, {
+    inputSchema,
+    basePath: [__dirname, 'templates'],
+    authPath: [modulePath, 'templates','resolver', 'auth']
   });
 
-  return ast;
-}
-
-export default function generateResolvers(inputSchema) {
-  const ast = generateResolversAst(inputSchema);
+  // validate syntax of generated template code
+  const replacements = {};
+  const ast = templateToAst(templateCode, replacements);
   return print(ast, { trailingComma: true }).code;
 }

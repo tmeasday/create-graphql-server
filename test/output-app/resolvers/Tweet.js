@@ -1,7 +1,21 @@
+/* eslint-disable prettier */
+/* eslint comma-dangle: [2, "only-multiline"] */
 const resolvers = {
   Tweet: {
     id(tweet) {
       return tweet._id;
+    },
+
+    author(tweet, args, { Tweet, me }) {
+      return Tweet.author(tweet, me, 'tweet author');
+    },
+
+    coauthors(tweet, args, { Tweet, me }) {
+      return Tweet.coauthors(tweet, args, me, 'tweet coauthors');
+    },
+
+    likers(tweet, args, { Tweet, me }) {
+      return Tweet.likers(tweet, args, me, 'tweet likers');
     },
 
     createdBy(tweet, args, { Tweet, me }) {
@@ -10,19 +24,7 @@ const resolvers = {
 
     updatedBy(tweet, args, { Tweet, me }) {
       return Tweet.updatedBy(tweet, me, 'tweet updatedBy');
-    },
-
-    author(tweet, args, { Tweet, me }) {
-      return Tweet.author(tweet, me, 'tweet author');
-    },
-
-    coauthors(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
-      return Tweet.coauthors(tweet, { lastCreatedAt, limit }, me, 'tweet coauthors');
-    },
-
-    likers(tweet, { lastCreatedAt, limit }, { Tweet, me }) {
-      return Tweet.likers(tweet, { lastCreatedAt, limit }, me, 'tweet likers');
-    },
+    }
   },
   Query: {
     tweets(root, { lastCreatedAt, limit }, { Tweet, me }) {
@@ -31,7 +33,7 @@ const resolvers = {
 
     tweet(root, { id }, { Tweet, me }) {
       return Tweet.findOneById(id, me, 'tweet');
-    },
+    }
   },
   Mutation: {
     async createTweet(root, { input }, { Tweet, me }) {
@@ -44,13 +46,13 @@ const resolvers = {
 
     async removeTweet(root, { id }, { Tweet, me }) {
       return await Tweet.removeById(id, me, 'removeTweet');
-    },
+    }
   },
   Subscription: {
     tweetCreated: tweet => tweet,
     tweetUpdated: tweet => tweet,
-    tweetRemoved: id => id,
-  },
+    tweetRemoved: id => id
+  }
 };
 
 export default resolvers;

@@ -48,7 +48,7 @@ async function startServer() {
 
   app.use('/graphql', (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, me) => {
-      req.context = addModelsToContext({ db, pubsub, me, UserCollection });
+      req.context = addModelsToContext({ db, pubsub, me, UserCollection, log });
       graphqlExpress(() => {
         // Get the query, the same way express-graphql does it
         // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257

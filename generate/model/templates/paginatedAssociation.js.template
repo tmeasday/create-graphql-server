@@ -1,7 +1,0 @@
-class PaginatedAssociation {
-  fieldName(typeName, argsStr, me, resolver) {
-    const baseQuery = { query };
-    return this.context.ReturnTypeName.find({ lastCreatedAt, limit, baseQuery }, me, resolver);
-  }
-  
-}

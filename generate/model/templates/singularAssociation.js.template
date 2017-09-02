@@ -1,6 +1,0 @@
-class SingularAssociation {
-  fieldName(typeName, me, resolver) {
-    return this.context.ReturnTypeName.findOneById(typeName.fieldNameId, me, resolver);
-  }
-
-}

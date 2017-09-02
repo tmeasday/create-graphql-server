@@ -1,6 +1,8 @@
 import assert from 'assert';
 import cloneDeep from 'lodash.clonedeep';
 import includes from 'lodash.includes';
+import { lcFirst } from '../util/capitalization';
+import { adjustSchemaForAuthorization } from 'create-graphql-server-authorization';
 
 import {
   buildField,
@@ -12,27 +14,10 @@ import {
   idArgument,
   isScalarField,
   SCALAR_TYPE_NAMES,
+  getType
 } from '../util/graphql';
 
-import { lcFirst } from '../util/capitalization';
-import { adjustSchemaForAuthorization } from 'create-graphql-server-authorization';
-
 /* eslint-disable no-param-reassign */
-
-function getType(field){
-
-  if (field.type.kind === 'Name' || 
-      field.type.kind === 'NamedType')
-    return field.type.name.value;
-
-  else if (field.type.kind === 'NonNullType' &&
-      (field.type.type.kind === 'Name' ||
-      field.type.type.kind === 'NamedType')
-  )
-    return field.type.type.name.value;
-  
-  return '';
-}
 
 export default function generateSchema(inputSchema) {
   // Check that the input looks like we expect -- a single ObjectType definition
@@ -44,6 +29,9 @@ export default function generateSchema(inputSchema) {
   const type = outputSchema.definitions[0];
   const TypeName = type.name.value;
   const typeName = lcFirst(TypeName);
+
+  // remove @authorize directive from header directives
+  type.directives = type.directives.filter(directive => directive.name.value !== 'authorize');
 
   const createInputFields = [];
   const updateInputFields = [];
@@ -150,7 +138,6 @@ export default function generateSchema(inputSchema) {
   );
 
   // Create update input type if readonly fields
-
   outputSchema.definitions.push(buildTypeExtension(
     buildTypeDefinition('Mutation', [
       buildField(`create${TypeName}`, [

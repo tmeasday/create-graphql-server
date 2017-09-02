@@ -27,24 +27,13 @@ export const TEMPLATES_AUTH_DIR = 'auth';
 export const TEMPLATES_COMMON_DIR = 'common';
 export const TEMPLATES_DEFAULT_DIR = 'default';
 export const TEMPLATES_DEFAULT_TEMPLATE = 'default';
+export const MODEL = 'model';
+export const RESOLVER = 'resolver';
+export const SCHEMA = 'schema';
 
+// for field associations
 export const SINGULAR = 'singular';
 export const PAGINATED = 'paginated';
-
-// test directories
-export const SRC_DIR = 'src';
-export const TEST_DIR = '__tests__';
-export const TEST_GQL_DATA = 'data';
-export const TEST_CODE = 'code';
-export const TEST_MODEL = 'model';
-export const TEST_RESOLVER = 'resolver';
-export const TEST_GQL_EXTENSION = '.graphql';
-export const TEST_EXPECTED_CODE = 'expected';
-export const TEST_GENERATED_CODE = 'generated';
-export const TEST_MODEL_EXTENSION = '.js';
-export const TEST_MODEL_EXTENSION2 = 'model';
-export const TEST_RESOLVER_EXTENSION = '.js';
-export const TEST_RESOLVER_EXTENSION2 = 'resolver';
 
 // name of the @authorize directive, which triggers authorization logic
 export const AUTHORIZE_DIRECTIVE = 'authorize';
@@ -90,3 +79,18 @@ export const NO_USER = '<no-user>';
 export const LOG_LEVEL = 'debug';
 export const LOG_MAX_FILES = 5;
 export const LOG_MAX_SIZE = 5;
+
+// test directories (in npm module create-graphql-create-server-authorization)
+export const SRC_DIR = 'src';
+export const TEST_DIR = '__tests__';
+export const TEST_GQL_DATA = 'data';
+export const TEST_CODE = 'code';
+export const TEST_MODEL = 'model';
+export const TEST_RESOLVER = 'resolver';
+export const TEST_GQL_EXTENSION = '.graphql';
+export const TEST_EXPECTED_CODE = 'expected';
+export const TEST_GENERATED_CODE = 'generated';
+export const TEST_MODEL_EXTENSION = '.js';
+export const TEST_MODEL_EXTENSION2 = 'model';
+export const TEST_RESOLVER_EXTENSION = '.js';
+export const TEST_RESOLVER_EXTENSION2 = 'resolver';
