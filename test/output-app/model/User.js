@@ -14,7 +14,6 @@ export default class User {
     this.context = context;
     this.collection = context.db.collection('user');
     this.pubsub = context.pubsub;
-    this.log = context.log;
     this.authRole = User.authRole;
     const { me } = context;
     queryForRoles(
@@ -129,7 +128,7 @@ export default class User {
     if (!id) {
       throw new Error(`insert user not possible.`);
     }
-    this.log.debug(`inserted user ${id}.`);
+    this.context.log.debug(`inserted user ${id}.`);
     const insertedDoc = this.findOneById(id, me, 'pubsub userInserted');
     this.pubsub.publish('userInserted', insertedDoc);
     return insertedDoc;
@@ -162,7 +161,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update user not possible for ${id}.`);
     }
-    this.log.debug(`updated user ${id}.`);
+    this.context.log.debug(`updated user ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id, me, 'pubsub userUpdated');
     this.pubsub.publish('userUpdated', updatedDoc);
@@ -183,7 +182,7 @@ export default class User {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove user not possible for ${id}.`);
     }
-    this.log.debug(`removed user ${id}.`);
+    this.context.log.debug(`removed user ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('userRemoved', id);
     return result;

@@ -8,8 +8,8 @@ import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import passport from 'passport';
 import morgan from 'morgan';
-
-import { getLogFilename, logger } from 'create-graphql-server-authorization';
+import { findByIds } from 'create-graphql-server-find-by-ids';
+import { getLogFilename, logger } from 'create-graphql-server-logging';
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
@@ -48,7 +48,9 @@ async function startServer() {
 
   app.use('/graphql', (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, me) => {
-      req.context = addModelsToContext({ db, pubsub, me, UserCollection, log });
+      req.context = addModelsToContext({ 
+        db, pubsub, me, UserCollection, findByIds, log 
+      });
       graphqlExpress(() => {
         // Get the query, the same way express-graphql does it
         // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257

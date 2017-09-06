@@ -11,7 +11,7 @@ describe('directives', () => {
     const input = parse(`type Test {
       status: TestStatus @enum
     }`);
-
+    
     it('leaves the typename unchanged in the schema', () => {
       const schema = generateSchema(input);
 
@@ -36,20 +36,42 @@ describe('directives', () => {
 
     it('does not generate a resolver', () => {
       const ast = generateResolversAst(input);
+      let keys = [];
+      // less offensive, otherwise, we have to change it after each
+      // change in the templates
+      ast.program.body.forEach(body => {
+        if (body.declarations &&
+            body.declarations.length > 0) {
 
-      const resolvers = ast.program.body[0].declarations[0];
-      const Test = resolvers.init.properties.find(p => p.key.name === 'Test');
-      const keys = Test.value.properties.map(p => p.key.name);
+            body.declarations.forEach(declaration => {
+              if (declaration.init &&
+                  declaration.init.properties &&
+                  declaration.init.properties.length > 0){
 
+                const Test = declaration.init.properties.find(p => p.key.name === 'Test');
+                if (Test && Test.value && Test.value.properties && Test.value.properties.length > 0) {
+                  keys = keys.concat(Test.value.properties.map(p => p.key.name));
+                }
+              }
+            });
+        }
+      });
       expect(keys).to.not.include('status');
     });
 
     it('does not generate a model function', () => {
       const ast = generateModelAst(input);
-
-      const TestClass = ast.program.body[3].declaration.body;
-      const keys = TestClass.body.map(p => p.key.name);
-
+      let keys = [];
+      // less offensive, otherwise, we have to change it after each
+      // change in the templates
+      ast.program.body.forEach(body =>{
+        if (body.declaration &&
+           body.declaration.body &&
+           body.declaration.body.body &&
+           body.declaration.body.body.length > 0) {
+        keys = keys.concat(body.declaration.body.body.map(p => p.key.name));
+        }
+      });
       expect(keys).to.not.include('status');
     });
   });

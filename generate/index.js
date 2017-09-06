@@ -3,7 +3,7 @@
 import { parse, print } from 'graphql';
 import { lcFirst } from './util/capitalization';
 import generateModel from './model';
-import generateResolver from './resolvers';
+import generateResolvers from './resolvers';
 import generateSchema from './schema';
 
 export default function generate(inputSchemaStr) {
@@ -13,7 +13,7 @@ export default function generate(inputSchemaStr) {
   const typeName = lcFirst(TypeName);
   const outputSchema = generateSchema(inputSchema);
   const outputSchemaStr = print(outputSchema);
-  const resolversStr = generateResolver(inputSchema);
+  const resolversStr = generateResolvers(inputSchema);
   const modelStr = generateModel(inputSchema);
   
   return {

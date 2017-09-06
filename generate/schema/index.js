@@ -1,8 +1,10 @@
 import assert from 'assert';
 import cloneDeep from 'lodash.clonedeep';
 import includes from 'lodash.includes';
-import { lcFirst } from '../util/capitalization';
-import { adjustSchemaForAuthorization } from 'create-graphql-server-authorization';
+
+import {
+  enhanceSchemaForAuthorization
+} from 'create-graphql-server-authorization';
 
 import {
   buildField,
@@ -12,9 +14,8 @@ import {
   addPaginationArguments,
   applyCustomDirectives,
   idArgument,
-  isScalarField,
   SCALAR_TYPE_NAMES,
-  getType
+  getBaseType
 } from '../util/graphql';
 
 /* eslint-disable no-param-reassign */
@@ -27,15 +28,10 @@ export default function generateSchema(inputSchema) {
   const outputSchema = cloneDeep(inputSchema);
 
   const type = outputSchema.definitions[0];
-  const TypeName = type.name.value;
-  const typeName = lcFirst(TypeName);
-
-  // remove @authorize directive from header directives
-  type.directives = type.directives.filter(directive => directive.name.value !== 'authorize');
+  const typeName = type.name.value;
 
   const createInputFields = [];
   const updateInputFields = [];
-
   type.fields.forEach((field) => {
     const directivesByName = {};
     field.directives.forEach((directive) => {
@@ -52,24 +48,29 @@ export default function generateSchema(inputSchema) {
       inputTypeModifier = '!';
     }
 
+    // Simple Fields
     if (possibleInputType.kind === 'NamedType') {
       const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
-      let inputFieldCreate = '';
-      let inputFieldUpdate = '';
+      let CreateInputField = '';
+      let UpdateInputField = '';
       if (isScalarField || !!directivesByName.enum) {
-        inputFieldCreate = field;
-        inputFieldUpdate = buildField(`${field.name.value}`, [], `${getType(field)}`);
+        // take field as it was entered
+        CreateInputField = field;
+        // on updates, on NonNullable entered fields, the user should be able to decide, if he wants to update
+        UpdateInputField = buildField(`${field.name.value}`, [], `${getBaseType(field.type).name.value}`);
       } else {
-        inputFieldCreate = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
-        inputFieldUpdate = buildField(`${field.name.value}Id`, [], `ObjID`);
+        CreateInputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
+        // same here, otherwise we always have to update fields, even if we don't want to update them
+        UpdateInputField = buildField(`${field.name.value}Id`, [], `ObjID`);
       }
 
-      createInputFields.push(inputFieldCreate);
+      createInputFields.push(CreateInputField);
       if (!directivesByName.unmodifiable) {
-        updateInputFields.push(inputFieldUpdate);
+        updateInputFields.push(UpdateInputField);
       }
     }
 
+    // Fields containing List of values
     if (possibleInputType.kind === 'ListType') {
 
       if (possibleInputType.type.kind === 'NonNullType') {
@@ -82,19 +83,19 @@ export default function generateSchema(inputSchema) {
       }
 
       const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
-      let inputFieldCreate = '';
-      let inputFieldUpdate = '';
+      let CreateInputField = '';
+      let UpdateInputField = '';
       if (isScalarField || !!directivesByName.enum) {
-        inputFieldCreate = `[${field}]`;
-        inputFieldUpdate = `[${field}]`;
+        CreateInputField = `[${field}]`;
+        UpdateInputField = `[${field}]`;
       } else {
-        inputFieldCreate = buildField(`${field.name.value}Ids`, [], `[ObjID${inputTypeModifier}]`);
-        inputFieldUpdate = buildField(`${field.name.value}Ids`, [], `[ObjID]`);
+        CreateInputField = buildField(`${field.name.value}Ids`, [], `[ObjID${inputTypeModifier}]`);
+        UpdateInputField = buildField(`${field.name.value}Ids`, [], `[ObjID]`);
       }
 
-      createInputFields.push(inputFieldCreate);
+      createInputFields.push(CreateInputField);
       if (!directivesByName.unmodifiable) {
-        updateInputFields.push(inputFieldUpdate);
+        updateInputFields.push(UpdateInputField);
       }
     }
 
@@ -102,64 +103,53 @@ export default function generateSchema(inputSchema) {
   });
 
   type.fields.unshift(buildField('id', [], 'ObjID!'));
+  type.fields.push(buildField('createdAt', [], 'Float!'));
+  type.fields.push(buildField('updatedAt', [], 'Float!'));
 
-  // adjustments to types from authorization
-  const adjustments = adjustSchemaForAuthorization(typeName, inputSchema);
-  adjustments && adjustments.forEach(field => {
-    const fieldSetup = buildField(field.name, [], field.type);
-    switch (field.mode){
-      case 'create':
-        createInputFields.push(fieldSetup);
-        break;
-      case 'update':
-        updateInputFields.push(fieldSetup);
-        break;
-      case 'read':
-        type.fields.push(fieldSetup);
-        break;
-    }
-  });
-
-  const queryOneField = buildField(TypeName.toLowerCase(), [idArgument()], TypeName);
-  const queryAllField = buildField(`${TypeName.toLowerCase()}s`, [], `[${TypeName}!]`);
+  const queryOneField = buildField(typeName.toLowerCase(), [idArgument()], typeName);
+  const queryAllField = buildField(`${typeName.toLowerCase()}s`, [], `[${typeName}!]`);
   addPaginationArguments(queryAllField);
   outputSchema.definitions.push(
     buildTypeExtension(buildTypeDefinition('Query', [queryAllField, queryOneField]))
   );
 
-  const createInputTypeName = `Create${TypeName}Input`;
+  const createInputTypeName = `Create${typeName}Input`;
   outputSchema.definitions.push(
     buildTypeDefinition(createInputTypeName, createInputFields, 'InputObjectTypeDefinition')
   );
 
-  const updateInputTypeName = `Update${TypeName}Input`;
+  const updateInputTypeName = `Update${typeName}Input`;
   outputSchema.definitions.push(
     buildTypeDefinition(updateInputTypeName, updateInputFields, 'InputObjectTypeDefinition')
   );
 
   // Create update input type if readonly fields
+
   outputSchema.definitions.push(buildTypeExtension(
     buildTypeDefinition('Mutation', [
-      buildField(`create${TypeName}`, [
+      buildField(`create${typeName}`, [
         buildArgument('input', `${createInputTypeName}!`),
-      ], TypeName),
+      ], typeName),
 
-      buildField(`update${TypeName}`, [
+      buildField(`update${typeName}`, [
         idArgument(),
         buildArgument('input', `${updateInputTypeName}!`),
-      ], TypeName),
+      ], typeName),
 
-      buildField(`remove${TypeName}`, [idArgument()], 'Boolean'),
+      buildField(`remove${typeName}`, [idArgument()], 'Boolean'),
     ])
   ));
 
   outputSchema.definitions.push(buildTypeExtension(
     buildTypeDefinition('Subscription', [
-      buildField(`${TypeName.toLowerCase()}Created`, [], TypeName),
-      buildField(`${TypeName.toLowerCase()}Updated`, [], TypeName),
-      buildField(`${TypeName.toLowerCase()}Removed`, [], 'ObjID'),
+      buildField(`${typeName.toLowerCase()}Created`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Updated`, [], typeName),
+      buildField(`${typeName.toLowerCase()}Removed`, [], 'ObjID'),
     ])
   ));
 
-  return outputSchema;
+  // enhance with Authorization
+  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);
+
+  return outputSchemaWithAuth;
 }

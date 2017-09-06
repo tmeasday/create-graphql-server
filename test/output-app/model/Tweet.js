@@ -11,7 +11,6 @@ export default class Tweet {
     this.context = context;
     this.collection = context.db.collection('tweet');
     this.pubsub = context.pubsub;
-    this.log = context.log;
     const { me, User } = context;
     queryForRoles(
       me,
@@ -104,7 +103,7 @@ export default class Tweet {
     if (!id) {
       throw new Error(`insert tweet not possible.`);
     }
-    this.log.debug(`inserted tweet ${id}.`);
+    this.context.log.debug(`inserted tweet ${id}.`);
     const insertedDoc = this.findOneById(id, me, 'pubsub tweetInserted');
     this.pubsub.publish('tweetInserted', insertedDoc);
     return insertedDoc;
@@ -130,7 +129,7 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`update tweet not possible for ${id}.`);
     }
-    this.log.debug(`updated tweet ${id}.`);
+    this.context.log.debug(`updated tweet ${id}.`);
     this.authorizedLoader.clear(id);
     const updatedDoc = this.findOneById(id, me, 'pubsub tweetUpdated');
     this.pubsub.publish('tweetUpdated', updatedDoc);
@@ -151,7 +150,7 @@ export default class Tweet {
     if (result.result.ok !== 1 || result.result.n !== 1) {
       throw new Error(`remove tweet not possible for ${id}.`);
     }
-    this.log.debug(`removed tweet ${id}.`);
+    this.context.log.debug(`removed tweet ${id}.`);
     this.authorizedLoader.clear(id);
     this.pubsub.publish('tweetRemoved', id);
     return result;

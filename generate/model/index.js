@@ -5,6 +5,11 @@ import { MODEL } from '../util/constants';
 import { modulePath } from 'create-graphql-server-authorization';
 
 export default function generateModel(inputSchema) {
+  const ast = generateModelAst(inputSchema);
+  return print(ast, { trailingComma: true }).code;
+}
+
+export function generateModelAst(inputSchema) {
 
   const templateCode = getCode(MODEL, {
     inputSchema,
@@ -15,5 +20,6 @@ export default function generateModel(inputSchema) {
   // validate syntax of generated template code
   const replacements = {};
   const ast = templateToAst(templateCode, replacements);
-  return print(ast, { trailingComma: true }).code;
+
+  return ast;
 }

@@ -4,7 +4,7 @@ import chaiDiff from 'chai-diff';
 import fs from 'fs';
 import { print } from 'graphql';
 
-import readInput from '../../generate/read';
+import readInput from '../../generate/util/read';
 import generateSchema from '../../generate/schema';
 
 describe('generateSchema', () => {

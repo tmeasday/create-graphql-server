@@ -4,8 +4,12 @@
  import { RESOLVER } from '../util/constants';
  import { modulePath } from 'create-graphql-server-authorization';
 
-export default function generateResolver(inputSchema) {
+export default function generateResolvers(inputSchema) {
+  const ast = generateResolversAst(inputSchema)
+  return print(ast, { trailingComma: true }).code;
+}
 
+export function generateResolversAst(inputSchema) {
   const templateCode = getCode(RESOLVER, {
     inputSchema,
     basePath: [__dirname, 'templates'],
@@ -15,5 +19,6 @@ export default function generateResolver(inputSchema) {
   // validate syntax of generated template code
   const replacements = {};
   const ast = templateToAst(templateCode, replacements);
-  return print(ast, { trailingComma: true }).code;
+
+  return ast;
 }

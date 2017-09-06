@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
 import DataLoader from 'dataloader';
-import { findByIds } from 'create-graphql-server-authorization';
+import { findByIds } from 'create-graphql-server-find-by-ids';
 
 const KEY = 'test-key';
 let Loader;

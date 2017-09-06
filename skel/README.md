@@ -66,7 +66,7 @@ import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
 import DataLoader from 'dataloader';
-import { findByIds } from 'create-graphql-server-authorization';
+import { findByIds } from 'create-graphql-server-find-by-ids';
 
 const KEY = 'test-key';
 let Loader;
@@ -201,7 +201,7 @@ This uses the following functions from that module:
 ### function authlog
 A logging function that understands "resolvers", "modes" and "users". Simple wrapper around whatever logging function we use.
 
-### function findByIds
+### function findByIds (create-graphql-server-find-by-ids)
 This is an extended version of [mongo-find-by-ids](https://github.com/tmeasday/mongo-find-by-ids).
 The enhancement is only to provide an additional authQuery object, to extend the query to meet additional authorizations.
 

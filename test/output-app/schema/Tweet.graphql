@@ -4,10 +4,10 @@ type Tweet {
   coauthors(lastCreatedAt: Float, limit: Int): [User]
   body: String
   likers(lastCreatedAt: Float, limit: Int): [User]
-  createdBy: User
-  updatedBy: User
   createdAt: Float!
   updatedAt: Float!
+  createdBy: User
+  updatedBy: User
 }
 
 extend type Query {
