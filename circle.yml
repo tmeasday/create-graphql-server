@@ -4,7 +4,6 @@ dependencies:
     - yarn:
         pwd: test/output-app
 
-
 test:
   pre:
     - npm start </dev/null &>/tmp/app-output:

@@ -1,11 +1,21 @@
-type User {
-  username: String!
+type User
+
+@authorize(
+  admin: ["create", "read", "update", "delete"]
+  this: ["create", "read", "update", "delete"]
+)
+
+{
+  role: String @authRole(for: ["admin"])
+  email: String!
+  username: String
+
   bio: String
   notify: Boolean
 
-  tweets(minLikes: Int): [Tweet!] @hasMany(as: "author")
-  liked: [Tweet!] @belongsToMany
+  tweets(minLikes: Int): [Tweet] @hasMany(as: "author")
+  liked: [Tweet] @belongsToMany
 
-  following: [User!] @belongsToMany
-  followers: [User!] @hasAndBelongsToMany(as: "following")
+  following: [User] @belongsToMany
+  followers: [User] @hasAndBelongsToMany(as: "following")
 }

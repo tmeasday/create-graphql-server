@@ -69,6 +69,7 @@ export function buildField(name, args, typeName) {
     kind: 'FieldDefinition',
     name: buildName(name),
     arguments: args,
+    directives: [],
     type: buildTypeReference(typeName),
   };
 }

@@ -4,15 +4,17 @@ import jwt from 'jwt-simple';
 import { ObjectId } from 'mongodb';
 import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
+import DataLoader from 'dataloader';
+import { findByIds } from 'create-graphql-server-find-by-ids';
 
-const KEY = '~key~';
+const KEY = 'test-key';
+let Loader;
 
 async function userFromPayload(request, jwtPayload) {
   if (!jwtPayload.userId) {
     throw new Error('No userId in JWT');
   }
-
-  return await request.context.User.findOneById(ObjectId(jwtPayload.userId));
+  return await Loader.load(ObjectId(jwtPayload.userId));
 }
 
 passport.use(new Strategy({
@@ -23,7 +25,9 @@ passport.use(new Strategy({
   nodeify(userFromPayload(request, jwtPayload), done);
 }));
 
-export default function addPassport(app) {
+export default function addPassport(app, User) {
+  Loader = new DataLoader(ids => findByIds(User, ids));
+  
   app.use(passport.initialize());
 
   app.post('/login', async (req, res, next) => {
@@ -34,7 +38,7 @@ export default function addPassport(app) {
         throw new Error('Username or password not set on request');
       }
 
-      const user = await req.context.User.collection.findOne({ email });
+      const user = await User.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.hash))) {
         throw new Error('User not found matching email/password combination');
       }

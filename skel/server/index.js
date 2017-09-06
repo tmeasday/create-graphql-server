@@ -7,14 +7,22 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import passport from 'passport';
-
+import morgan from 'morgan';
+import { findByIds } from 'create-graphql-server-find-by-ids';
+import { getLogFilename, logger } from 'create-graphql-server-logging';
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
 import authenticate from './authenticate';
-
+import { parse, print } from 'graphql';
 import { pubsub, subscriptionManager } from './subscriptions';
 
+const log = logger(getLogFilename());
+const stream = {
+    write: function(message, encoding) {
+      // log.debug(message);
+    }
+};
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const {
@@ -26,34 +34,40 @@ const {
 
 
 async function startServer() {
+  log.info('Logger started');
+
   const db = await MongoClient.connect(MONGO_URL);
+  const UserCollection = db.collection('user');
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  app.use(morgan("dev", { "stream": stream }));
 
-  app.use((req, res, next) => {
-    req.context = addModelsToContext({ db, pubsub });
-    next();
-  });
-
-  authenticate(app);
+  authenticate(app, UserCollection);
 
   app.use('/graphql', (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, (err, user) => {
+    passport.authenticate('jwt', { session: false }, (err, me) => {
+      req.context = addModelsToContext({ 
+        db, pubsub, me, UserCollection, findByIds, log 
+      });
       graphqlExpress(() => {
         // Get the query, the same way express-graphql does it
         // https://github.com/graphql/express-graphql/blob/3fa6e68582d6d933d37fa9e841da5d2aa39261cd/src/index.js#L257
+        const {variables, operationName} = req.body;
+        const {_id, username, role} = me;
         const query = req.query.query || req.body.query;
-        if (query && query.length > 2000) {
+        log.debug('-'.repeat(80));
+        log.debug(`Request:\nUser: "${(username) ? username: '<no-user>'}", role: "${(role) ? role : '<no-role>'}", id: "${(_id) ? _id : '<no-id>'}",\nOperation: "${operationName ? operationName : '<no-name>'}", variables: "${variables ? JSON.stringify(variables) : '<no-variables>'}",\nQuery:\n${print(parse(query))}`);
+        if (query && query.length > 4000) {
           // None of our app's queries are this long
           // Probably indicates someone trying to send an overly expensive query
+          log.error('Query too large.');
           throw new Error('Query too large.');
         }
-
         return {
           schema,
-          context: Object.assign({ user }, req.context),
+          context: Object.assign({ me }, req.context),
           debug: true,
           formatError(e) { 
             console.log(e);

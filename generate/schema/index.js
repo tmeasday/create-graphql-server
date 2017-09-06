@@ -3,6 +3,10 @@ import cloneDeep from 'lodash.clonedeep';
 import includes from 'lodash.includes';
 
 import {
+  enhanceSchemaForAuthorization
+} from 'create-graphql-server-authorization';
+
+import {
   buildField,
   buildTypeExtension,
   buildTypeDefinition,
@@ -11,6 +15,7 @@ import {
   applyCustomDirectives,
   idArgument,
   SCALAR_TYPE_NAMES,
+  getBaseType
 } from '../util/graphql';
 
 /* eslint-disable no-param-reassign */
@@ -31,8 +36,8 @@ export default function generateSchema(inputSchema) {
     const directivesByName = {};
     field.directives.forEach((directive) => {
       directivesByName[directive.name.value] = directive;
-      applyCustomDirectives(field);
     });
+    applyCustomDirectives(field);
 
     // XXX: Not sure if this the correct logic but it makes my tests pass
     // TODO: check for @unmodifiable
@@ -43,18 +48,54 @@ export default function generateSchema(inputSchema) {
       inputTypeModifier = '!';
     }
 
+    // Simple Fields
     if (possibleInputType.kind === 'NamedType') {
       const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
-      let inputField;
+      let CreateInputField = '';
+      let UpdateInputField = '';
       if (isScalarField || !!directivesByName.enum) {
-        inputField = field;
+        // take field as it was entered
+        CreateInputField = field;
+        // on updates, on NonNullable entered fields, the user should be able to decide, if he wants to update
+        UpdateInputField = buildField(`${field.name.value}`, [], `${getBaseType(field.type).name.value}`);
       } else {
-        inputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
+        CreateInputField = buildField(`${field.name.value}Id`, [], `ObjID${inputTypeModifier}`);
+        // same here, otherwise we always have to update fields, even if we don't want to update them
+        UpdateInputField = buildField(`${field.name.value}Id`, [], `ObjID`);
       }
 
-      createInputFields.push(inputField);
+      createInputFields.push(CreateInputField);
       if (!directivesByName.unmodifiable) {
-        updateInputFields.push(inputField);
+        updateInputFields.push(UpdateInputField);
+      }
+    }
+
+    // Fields containing List of values
+    if (possibleInputType.kind === 'ListType') {
+
+      if (possibleInputType.type.kind === 'NonNullType') {
+        possibleInputType = possibleInputType.type;
+        inputTypeModifier = '!';
+      }
+
+      if (possibleInputType.type.kind === 'NamedType') {
+        possibleInputType = possibleInputType.type;
+      }
+
+      const isScalarField = includes(SCALAR_TYPE_NAMES, possibleInputType.name.value);
+      let CreateInputField = '';
+      let UpdateInputField = '';
+      if (isScalarField || !!directivesByName.enum) {
+        CreateInputField = `[${field}]`;
+        UpdateInputField = `[${field}]`;
+      } else {
+        CreateInputField = buildField(`${field.name.value}Ids`, [], `[ObjID${inputTypeModifier}]`);
+        UpdateInputField = buildField(`${field.name.value}Ids`, [], `[ObjID]`);
+      }
+
+      createInputFields.push(CreateInputField);
+      if (!directivesByName.unmodifiable) {
+        updateInputFields.push(UpdateInputField);
       }
     }
 
@@ -107,5 +148,8 @@ export default function generateSchema(inputSchema) {
     ])
   ));
 
-  return outputSchema;
+  // enhance with Authorization
+  const outputSchemaWithAuth = enhanceSchemaForAuthorization(outputSchema);
+
+  return outputSchemaWithAuth;
 }

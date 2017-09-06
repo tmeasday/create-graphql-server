@@ -1,0 +1,4 @@
+
+    {{fieldName}}({{typeName}}, args, { {{TypeName}}, me }) {
+      return {{TypeName}}.{{fieldName}}({{typeName}}, me, '{{typeName}} {{fieldName}}');
+    },

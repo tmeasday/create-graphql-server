@@ -1,7 +1,6 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-
-import { sendQuery } from './sendQuery';
+import { sendQuery, adminUser } from './sendQuery';
 
 describe('environment', () => {
   it('graphql server should be available', () => {
@@ -11,7 +10,7 @@ describe('environment', () => {
       }
     }`;
 
-    return sendQuery({ query, operationName: 'foo' })
+    return sendQuery({ query, operationName: 'foo', userId: adminUser })
       .then((result) => {
         assert.isDefined(result.data);
       });

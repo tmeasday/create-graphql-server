@@ -3,36 +3,45 @@ import chai, { expect } from 'chai';
 import chaiDiff from 'chai-diff';
 import fs from 'fs';
 
-import readInput from '../../generate/read';
-import generateSchema from '../../generate/schema';
-import generateResolvers from '../../generate/resolvers';
+import { readString } from '../../generate/util/read';
+import generate from '../../generate';
 
 describe('generateResolvers', () => {
   chai.use(chaiDiff);
 
   describe('with user test file', () => {
-    const input = readInput(`${__dirname}/../input/User.graphql`);
+    const input = readString(`${__dirname}/../input/User.graphql`);
 
     it('generates correct JavaScript', () => {
-      const schema = generateSchema(input);
-      const output = generateResolvers(input, schema);
+      const {
+        typeName,
+        TypeName,
+        outputSchemaStr,
+        resolversStr,
+        modelStr,
+      } = generate(input);
 
       const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/User.js`, 'utf8');
 
-      expect(output).not.to.be.differentFrom(expected, { relaxedSpace: true });
+      expect(resolversStr).not.to.be.differentFrom(expected, { relaxedSpace: true });
     });
   });
 
   describe('with tweet test file', () => {
-    const input = readInput(`${__dirname}/../input/Tweet.graphql`);
+    const input = readString(`${__dirname}/../input/Tweet.graphql`);
 
     it('generates correct JavaScript', () => {
-      const schema = generateSchema(input);
-      const output = generateResolvers(input, schema);
+      const {
+        typeName,
+        TypeName,
+        outputSchemaStr,
+        resolversStr,
+        modelStr,
+      } = generate(input);
 
       const expected = fs.readFileSync(`${__dirname}/../output-app/resolvers/Tweet.js`, 'utf8');
 
-      expect(output).not.to.be.differentFrom(expected, { relaxedSpace: true });
+      expect(resolversStr).not.to.be.differentFrom(expected, { relaxedSpace: true });
     });
   });
 });

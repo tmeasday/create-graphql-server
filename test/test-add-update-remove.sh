@@ -105,7 +105,7 @@ if  exists "./model/User.js" &&
     exists "./schema/User.graphql" &&
     exists "./schema/Tweet.graphql" &&
     exists "./schema/Order.graphql" &&
-    hasRef "./model/index.js" "User" 4 &&
+    hasRef "./model/index.js" "User" 9 &&
     hasRef "./model/index.js" "Tweet" 4 &&
     hasRef "./model/index.js" "Order" 4 &&
     hasRef "./resolvers/index.js" "userResolvers" 2 &&
@@ -133,7 +133,7 @@ if  exists "./model/User.js" &&
     exists "./schema/User.graphql" &&
     exists "./schema/Tweet.graphql" &&
     exists "./schema/Order.graphql" &&
-    hasRef "./model/index.js" "User" 4 &&
+    hasRef "./model/index.js" "User" 9 &&
     hasRef "./model/index.js" "Tweet" 4 &&
     hasRef "./model/index.js" "Order" 4 &&
     hasRef "./resolvers/index.js" "userResolvers" 2 &&
@@ -215,7 +215,7 @@ if  exists "./model/User.js" &&
     exists "./schema/User.graphql" &&
     exists "./schema/Tweet.graphql" &&
     exists "./schema/Order.graphql" &&
-    hasRef "./model/index.js" "User" 4 &&
+    hasRef "./model/index.js" "User" 9 &&
     hasRef "./model/index.js" "Tweet" 4 &&
     hasRef "./model/index.js" "Order" 4 &&
     hasRef "./resolvers/index.js" "userResolvers" 2 &&

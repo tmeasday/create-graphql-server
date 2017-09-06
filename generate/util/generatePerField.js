@@ -6,6 +6,7 @@ import {
   isScalarField,
   applyCustomDirectives,
 } from './graphql';
+
 import { lcFirst } from './capitalization';
 
 export default function generatePerField(type, generators) {
@@ -16,16 +17,23 @@ export default function generatePerField(type, generators) {
   // We should probably find a way to use generatePerField for the schema too.
   const ignoreField = (field) => {
     const directivesByName = {};
-    field.directives.forEach((d) => { directivesByName[d.name.value] = d; });
+    if (field.directives) {
+      field.directives.forEach(d => { directivesByName[d.name.value] = d; });
+    }
     return !isScalarField(field) && !directivesByName.enum;
   };
 
   return type.fields.filter(ignoreField).map((originalField) => {
     const field = cloneDeep(originalField);
-    applyCustomDirectives(field);
+    if (field.directives) {
+      applyCustomDirectives(field);
+    }
 
     // find the first directive on the field that has a generator
-    const directive = field.directives.find(d => !!generators[d.name.value]);
+    let directive;
+    if (field.directives) {
+      directive = field.directives.find(d => !!generators[d.name.value]);
+    }
     const fieldName = field.name.value;
     const ReturnTypeName = getBaseType(field.type).name.value;
 

@@ -1,0 +1,12 @@
+{{!-- If authorization is switched on, the authorize variable is true  --}}
+{{!-- so it loads the template in the file "authorize_default", --}}
+{{!-- which you will find in the npm module: --}}
+{{!-- node_modules/create-graphql-server-authorization/templates --}}
+{{!-- If the type has no @authorize directive --}}
+{{!-- then the default generator is processed and --}}
+{{!-- the template default_default here is loaded --}}
+{{#if authorize }}
+{{>   authorize_default }}
+{{else }}
+{{>   default_default }}
+{{/if }}

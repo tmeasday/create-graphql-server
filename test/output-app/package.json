@@ -5,6 +5,12 @@
   "scripts": {
     "start": "babel-node index.js"
   },
+  "config": {
+    "logfile": "log/all-logs-readable.log",
+    "loglevel": "debug",
+    "maxsize": 5,
+    "maxfiles": 5
+  },
   "private": true,
   "author": "",
   "license": "MIT",
@@ -33,6 +39,9 @@
     "bcrypt": "^1.0.2",
     "body-parser": "1.15.2",
     "cors": "^2.8.1",
+    "create-graphql-server-authorization": "^0.0.45",
+    "create-graphql-server-find-by-ids": "^0.0.4",
+    "create-graphql-server-logging": "^0.0.3",
     "dataloader": "^1.2.0",
     "denodeify": "^1.2.1",
     "dotenv": "2.0.0",
@@ -45,11 +54,12 @@
     "graphql-tools": "^0.8.2",
     "jwt-simple": "^0.5.1",
     "lodash": "4.16.4",
-    "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.11",
+    "morgan": "^1.8.2",
     "nodeify": "^1.0.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "subscriptions-transport-ws": "0.2.6"
+    "subscriptions-transport-ws": "0.2.6",
+    "winston": "^2.3.1"
   }
 }

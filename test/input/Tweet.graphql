@@ -1,6 +1,16 @@
-type Tweet {
-  author: User! @unmodifiable
-  body: String!
+type Tweet 
 
-  likers: [User!] @hasAndBelongsToMany(as: "liked")
+@authorize(
+  admin: ["create", "read", "update", "delete"], 
+  author: ["create", "read", "update", "delete"], 
+  coauthors: ["read", "update"],
+  world: ["read"]
+)
+
+{
+  author: User @unmodifiable @belongsTo @authRole(for: ["author"])
+  coauthors: [User] @belongsToMany @authRole(for: ["coauthors"])
+  body: String
+
+  likers: [User] @hasAndBelongsToMany(as: "liked")
 }

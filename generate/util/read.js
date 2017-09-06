@@ -7,9 +7,18 @@ export default function readInput(path) {
   return parse(fs.readFileSync(path, 'utf8'));
 }
 
+export function readString(path) {
+  return fs.readFileSync(path, 'utf8');
+}
+
 const babylonParser = {
   parse(code) {
-    return babylon.parse(code, { sourceType: 'module' });
+    return babylon.parse(code, { 
+      sourceType: 'module',
+        plugins: [
+          'objectRestSpread'
+        ]
+    });
   },
 };
 

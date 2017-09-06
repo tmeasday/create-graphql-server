@@ -4,16 +4,16 @@ import chaiDiff from 'chai-diff';
 import fs from 'fs';
 import { print } from 'graphql';
 
-import readInput from '../../generate/read';
+import readInput from '../../generate/util/read';
 import generateSchema from '../../generate/schema';
 
-describe('generateResolvers', () => {
+describe('generateSchema', () => {
   chai.use(chaiDiff);
 
   describe('with user test file', () => {
     const input = readInput(`${__dirname}/../input/User.graphql`);
 
-    it('generates correct JavaScript', () => {
+    it('generates correct Schema', () => {
       const schema = generateSchema(input);
       const output = print(schema);
 
@@ -26,7 +26,7 @@ describe('generateResolvers', () => {
   describe('with tweet test file', () => {
     const input = readInput(`${__dirname}/../input/Tweet.graphql`);
 
-    it('generates correct JavaScript', () => {
+    it('generates correct Schema', () => {
       const schema = generateSchema(input);
       const output = print(schema);
 

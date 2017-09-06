@@ -1,0 +1,88 @@
+/* eslint-disable prettier */
+import DataLoader from 'dataloader';
+import bcrypt from 'bcrypt';
+const SALT_ROUNDS = 10;
+
+export default class {{TypeName}} {
+  constructor(context) {
+    this.context = context;
+    this.collection = context.db.collection('{{typeName}}');
+    this.pubsub = context.pubsub;
+    this.loader = new DataLoader(ids =>
+      this.context.findByIds(this.collection, ids)
+    );
+  }
+
+  async findOneById(id) {
+    if (!this.loader) {
+      return null;
+    }
+    return await this.loader.load(id);
+  }
+
+  find({ lastCreatedAt = 0, limit = 10, baseQuery = {} }{{#if authorize}}, me, resolver{{/if}}) {
+    const finalQuery = { ...baseQuery, createdAt: { $gt: lastCreatedAt } };
+    return this.collection
+      .find(finalQuery)
+      .sort({ createdAt: 1 })
+      .limit(limit)
+      .toArray();
+  }
+{{#each singularFields}}
+{{> defaultSingularField }}
+{{/each}}
+{{#each paginatedFields}}
+{{> defaultPaginatedField }}
+{{/each}}
+
+  async insert(doc) {
+    // We don't want to store passwords in plaintext
+    const { password, ...rest } = doc;
+    const hash = await bcrypt.hash(password, SALT_ROUNDS);
+    const docToInsert = Object.assign({}, rest, {
+      hash,
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+    const id = (await this.collection.insertOne(docToInsert)).insertedId;
+    if (!id) {
+      throw new Error(`insert {{typeName}} not possible.`);
+    }
+    this.context.log.debug(`inserted {{typeName}} ${id}.`);
+    const insertedDoc = this.findOneById(id);
+    this.pubsub.publish('{{typeName}}Inserted', insertedDoc);
+    return insertedDoc;
+  }
+
+  async updateById(id, doc) {
+    const docToUpdate = {
+      $set: Object.assign({}, doc, {
+        updatedAt: Date.now()
+      })
+    };
+    const baseQuery = { _id: id };
+    const finalQuery = { ...baseQuery };
+    const result = await this.collection.updateOne(finalQuery, docToUpdate);
+    if (result.result.ok !== 1 || result.result.n !== 1) {
+      throw new Error(`update {{typeName}} not possible for ${id}.`);
+    }
+    this.context.log.debug(`updated {{typeName}} ${id}.`);
+    this.loader.clear(id);
+    const updatedDoc = this.findOneById(id);
+    this.pubsub.publish('{{typeName}}Updated', updatedDoc);
+    return updatedDoc;
+  }
+
+  async removeById(id) {
+    const baseQuery = { _id: id };
+    const finalQuery = { ...baseQuery };
+    const result = await this.collection.remove(finalQuery);
+    if (result.result.ok !== 1 || result.result.n !== 1) {
+      throw new Error(`remove {{typeName}} not possible for ${id}.`);
+    }
+    this.context.log.debug(`removed {{typeName}} ${id}.`);
+    this.loader.clear(id);
+    this.pubsub.publish('{{typeName}}Removed', id);
+    return result;
+  }
+}
