@@ -26,12 +26,13 @@ In most development environments you can now fire up your new server using the p
 yarn start
 ```
 
-If [mongo-prebuilt](https://github.com/winfinit/mongodb-prebuilt) fails to start, or you'd rather use another [MongoDB installation](https://docs.mongodb.com/manual/installation/) for development, simply set the MONGO_URL environment variable when you start the server, as follows:
+If [mongo-prebuilt](https://github.com/winfinit/mongodb-prebuilt) fails to start, or you'd rather use another [MongoDB installation](https://docs.mongodb.com/manual/installation/) for development, simply set the `MONGO_URL` environment variable when you start the server, as follows:
+
 ```bash
+# On Windows:
 SET MONGO_URL=mongodb://localhost:27017&&yarn start
-```
-On macOS
-```bash
+
+# On Unix/OSX:
 MONGO_URL=mongodb://localhost:27017 yarn start
 ```
 
