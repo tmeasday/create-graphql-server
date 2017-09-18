@@ -30,6 +30,11 @@ If [mongo-prebuilt](https://github.com/winfinit/mongodb-prebuilt) fails to start
 ```bash
 SET MONGO_URL=mongodb://localhost:27017&&yarn start
 ```
+On macOS
+```bash
+MONGO_URL=mongodb://localhost:27017 yarn start
+```
+
 If you set up a username, password or a different port for Mongo, or are accessing Mongo through a service such as [mLab](https://mlab.com/), correct the MONGO_URL above to reflect that.
 
 ## Running Queries
