@@ -40,7 +40,7 @@ If you set up a username, password or a different port for Mongo, or are accessi
 
 ## Running Queries
 
-Your server is now up and running. To query it, point your browser at [http://localhost:3010/graphiql](http://localhost:3010/graphiql). There isn't anything to query yet however. 
+Your server is now up and running. To query it, point your browser at [http://localhost:3000/graphiql](http://localhost:3000/graphiql). There isn't anything to query yet however. 
 
 ## Adding Types: Overview
 To add types, you can define them in GraphQL schema files, then generate code for them using the *add-type* command, as follows:
