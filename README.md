@@ -2,6 +2,8 @@
 
 *Create-graphql-server* is a scaffolding tool that lets you generate a new Mongo/Express/Node.js GraphQL server project from the command line. After generating the project you can also generate code to support your GraphQL schema directly from the schema files. Basic authentication support is included via Passport Local with JWTs. 
 
+**NOTE**: this project is not actively maintained. As a scaffolding tool, this is not necessarily an issue (you can generate a project with it and then forget about the tool), but it is increasingly falling out of date. A spritiual successor is the [`graphql-cli`](https://github.com/graphql-cli/graphql-cli) project. Please take a look!
+
 ## Getting Started
 
 ### Installation
