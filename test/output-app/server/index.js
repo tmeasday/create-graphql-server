@@ -86,7 +86,7 @@ async function startServer() {
     {
       subscriptionManager,
 
-      // the obSubscribe function is called for every new subscription
+      // the onSubscribe function is called for every new subscription
       // and we use it to set the GraphQL context for this subscription
       onSubscribe: (msg, params) => {
         return Object.assign({}, params, {
